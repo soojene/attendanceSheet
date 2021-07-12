@@ -14,3 +14,5 @@ export const fakeDB = [
         earnedMoney: 10000
     }
 ];
+
+console.log("save");
