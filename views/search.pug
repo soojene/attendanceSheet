@@ -1,0 +1,12 @@
+extends ./layouts/main.pug
+
+block content 
+    form(method="" action="") 
+        input(type="text" placeholder="search by name" name="name")
+
+    .searchedBox
+        if(findpeople) 
+            ul     
+                li #{findpeople.name}
+        else 
+            h1 not found
