@@ -1,8 +1,11 @@
 //Global
 const HOME = "/";
-const JOIN = "/join";
+const ADD = "/addmember";
 const SEARCH = "/search";
 const SAVED = "/saved";
+const LOGIN = "/login";
+const LOGOUT = "/logout";
+const JOIN = "/join";
 
 //User
 const USER = "/user";
@@ -10,9 +13,12 @@ const USER = "/user";
 
 const routes = {
     home:HOME,
-    join:JOIN,
+    add:ADD,
     search:SEARCH,
-    saved:SAVED
+    saved:SAVED,
+    join:JOIN,
+    login:LOGIN,
+    logout:LOGOUT
 };
 
 export default routes;

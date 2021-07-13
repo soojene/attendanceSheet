@@ -1,6 +1,9 @@
 # attendence sheet
 
+-login and join
+
 - home
-- join
-- search to delete members
 - chart
+- add and delete members
+- logout
+

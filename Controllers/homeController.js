@@ -1,11 +1,36 @@
 import { fakeDB } from '../fakeData';
 
-export const home = (req, res) => {
+//LOGIN AND JOINm
+export const getLogin = (req, res) => {
+    res.render("login", {pageTitle: "LOGIN"});
+};
+export const postLogin = (req, res) => {
+    res.redirect("home");
+};
+
+export const getJoin = (req, res) => {
+    res.render("join", {pageTitle: "JOIN"});
+};
+
+export const postJoin = (req, res) => {
+    res.redirect("login");
+};
+
+//MAIN PAGES
+export const getHome = (req, res) => {
     res.render("home", {pageTitle: "Home" });
 };
 
-export const join = (req, res) => {
-    res.render("join", {pageTitle: "Join" });
+export const postHome = (req, res) => {
+    res.render("home", {pageTitle: "Home" });
+};
+
+export const addMember = (req, res) => {
+    res.render("addmember", {pageTitle: "AddMember" });
+};
+
+export const saved = (req, res) => {
+    res.render("saved", {pageTitle: "Saved" });
 };
 
 export const getSearch = async (req, res) => {
@@ -23,6 +48,7 @@ export const PostSearch = async (req, res) => {
     res.redirect("search");
 };
 
-export const saved = (req, res) => {
-    res.render("saved", {pageTitle: "Saved" });
+//LOGOUT
+export const logout = (req, res) => {
+    res.redirect("login");
 };

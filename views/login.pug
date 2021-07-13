@@ -1,0 +1,27 @@
+doctype html
+html
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title #{pageTitle} | NOODASIM
+        link(rel="stylesheet" href="https://unpkg.com/mvp.css")
+
+    body 
+        .welcomeBox     
+            h1  welcome to this website 
+            h4 login with your name 
+
+        .loginBox        
+            form(action="/", method="POST") 
+                input(type="text" name="name" placeholder="user name" required)
+                input(type="password" name="password" placeholder="password" required)
+                input(type="submit"  value="LOGIN")
+            .socialLogin 
+                a(href="")  
+                    button NAVER로 로그인
+        
+        .joinBox
+            h4 no account? it's OK 
+            a(href="/join")
+                button JOIN NOW  
