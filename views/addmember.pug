@@ -3,27 +3,31 @@ extends ./layouts/main.pug
 block content       
     h1 add a member
     .addMemberBox        
-            form(action="/", method="POST")
-                .box
-                    input(type="checkbox", name="dayOfWeek", class="oneOfdays", id="mon") 
-                    label(for="mon") 월
-                    input(type="checkbox", name="dayOfWeek", class="oneOfdays", id="tue") 
-                    label(for="tue") 화
-                    input(type="checkbox", name="dayOfWeek", class="oneOfdays", id="wed") 
-                    label(for="wed") 수
-                    input(type="checkbox", name="dayOfWeek", class="oneOfdays", id="thur") 
-                    label(for="thur") 목
-                    input(type="checkbox", name="dayOfWeek", class="oneOfdays", id="fri") 
-                    label(for="fri") 금
-                    input(type="checkbox", name="dayOfWeek", class="oneOfdays", id="sat") 
-                    label(for="sat") 토
-                    input(type="checkbox", name="dayOfWeek", class="oneOfdays", id="sun") 
-                    label(for="sun") 알
-                input(type="text" name="name" placeholder="member name" required)
-                input(type="mail" name="email" placeholder="email address")
-                input(type="number" id="inning" name="nthMeeting" scale=1 max=10 min=1 placeholder="inning" value=1 required)
-                input(type="number" name="startFee" min=0 value=50000 placeholder="entry fee" required)
-                input(type="submit"  value="ADD MEMBER")
+            form(action="/addmember" method="POST")
+                label(for="week") choose a day of meeting: 
+                select(name="dayOfWeek" id="week" required)
+                    option(value="") choose 
+                    option(value="MON") MON 
+                    option(value="TUE") TUE
+                    option(value="WED") WED
+                    option(value="THU") THU
+                    option(value="FRI") FRI
+                    option(value="SAT") SAT 
+                    option(value="SUN") SUN
+
+                label(for="memberName") Name:
+                input(type="text" name="name" placeholder="nickname" id="memberName" required)
+                
+                label(for="memberEmail") Email:
+                input(type="mail" name="email" id="memberEmail" placeholder="full email address")
+                
+                label(for="memberInning") start at:
+                input(type="number" id="memberInning" name="nthMeeting" scale=1 max=10 min=1 placeholder="inning" value=1 required)
+                
+                label(for="memberEntryFee") Entry fee:
+                input(type="number" name="startFee" min=0 value=50000 placeholder="entry fee" id="memberEntryFee" required)
+                
+                input(type="submit" value="ADD MEMBER" style={background: 'pink'})
 
 //- inning value를 함수처리 해주자
 //- 요일도required이고 하나만 선택할 수 있게 처리해야함

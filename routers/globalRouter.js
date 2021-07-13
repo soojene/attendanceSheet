@@ -1,5 +1,5 @@
 import express from "express";
-import { addMember, getHome, getJoin, getLogin, getSaved, getSearch, logout, postHome, postJoin, postLogin, PostSaved, PostSearch } from '../Controllers/homeController';
+import { deleteMember, getAddMember, getHome, getJoin, getLogin, getSaved, getSearch, logout, postAddMember, postHome, postJoin, postLogin, PostSaved, PostSearch } from '../Controllers/homeController';
 import routes from '../routes';
 
 export const globalRouter = express.Router();
@@ -8,10 +8,15 @@ export const globalRouter = express.Router();
 globalRouter.route(routes.login).get(getLogin).post(postLogin);
 globalRouter.route(routes.join).get(getJoin).post(postJoin);
 
+//social login
+
 //private
 globalRouter.route(routes.home).get(getHome).post(postHome);
-globalRouter.get(routes.add, addMember);
+globalRouter.route(routes.add).get(getAddMember).post(postAddMember);
 globalRouter.route(routes.search).get(getSearch).post(PostSearch);
 globalRouter.route(routes.saved).get(getSaved).post(PostSaved);
 
+//no template
 globalRouter.get(routes.logout, logout);
+globalRouter.get(routes.deleteMember, deleteMember);
+

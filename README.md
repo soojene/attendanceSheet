@@ -1,9 +1,19 @@
 # attendence sheet
 
--login and join
+public
+- login and join
+    - forgot account? using phone number or email
+    - social login available
 
+private
 - home
 - chart
-- add and delete members
+- add and edit/delete members
 - logout
 
+tools
+- nodeJS
+- express
+- mongoDB
+- pug
+- 

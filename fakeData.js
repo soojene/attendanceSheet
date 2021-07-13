@@ -1,9 +1,11 @@
 export const fakeDB = [
     {
         name: "Soo",
+        email: "email@email",
         phoneNumb: 1012341234,
         startFee: 50000,
         nthAttendence: 2,
+        numbOfAbsence:2,
         earnedMoney: 9000,
         dayOfweek:"SAT"
     },
@@ -12,6 +14,7 @@ export const fakeDB = [
         phoneNumb: 1056785678,
         startFee: 50000,
         nthAttendence: 2,
+        numbOfAbsence:2,
         earnedMoney: 10000,
         dayOfweek:"SAT"
     },
@@ -20,6 +23,7 @@ export const fakeDB = [
         phoneNumb: 1012341234,
         startFee: 50000,
         nthAttendence: 2,
+        numbOfAbsence:3,
         earnedMoney: 9000,
         dayOfweek:"MON"
     },
@@ -28,6 +32,7 @@ export const fakeDB = [
         phoneNumb: 1056785678,
         startFee: 50000,
         nthAttendence: 2,
+        numbOfAbsence:4,
         earnedMoney: 10000,
         dayOfweek:"MON"
     },
