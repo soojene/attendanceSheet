@@ -7,6 +7,11 @@ block content
     .searchedBox
         if(findpeople) 
             ul     
-                li #{findpeople.name}
+                li 
+                    form(action="")
+                        input(type="text" value=findpeople.name)
+                        button Delete
         else 
             h1 not found
+
+        //- 삭제랑 edit도 가능하게 search하면 form형태로 나오게 만들고 수정하거나 지우자. 

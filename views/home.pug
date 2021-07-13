@@ -1,4 +1,29 @@
 extends ./layouts/main.pug
 
-block content       
-    h1 home
+block content
+    form(method="" action="") 
+        input(type="checkbox" name="day" value="SAT" checked) 
+        input(type="checkbox" name="day" value="MON")
+        input(type="submit" value="검색")
+    //- 하나만 선택하게 처리 해주고, 이것도 fetch로?가능한가    
+    .startAttendanceBox
+        .nthAttendanceBOX nth
+        button START
+    .attendanceSheet 
+        each member in members
+            ul
+                li
+                    form(action="") 
+                        input(type="text" value=member.name)
+                        div=member.nthAttendence
+                        div=member.earnedMoney
+                        button checkIn 
+                        button(style={ background: 'red'}) Absence
+
+    .finishAttendanceBox 
+        a(href="/saved")  
+            button DONE 
+
+//- fetch로 페이지를 rendering하지 않고 각각 수정이 가능한가?
+//- START버튼이 누르면 알람뜨고, 현시간 저장되고(2시간이 지나면 저장된 값은 없어진다.), 버튼이 없어진다. START버튼이 눌리지 않았거나, 저장된 시간값이 없으면 체크인이나 결석버튼이 작동이 안되게 만든다. (요일마다 다른 START 시간값을 가지고 작동하게 한다.)
+//- DONE버튼 누르면 회차가 1올라가고 10차에서 다시 1로 변경, START버튼 다시 생성

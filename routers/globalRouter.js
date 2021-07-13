@@ -1,5 +1,5 @@
 import express from "express";
-import { addMember, getHome, getJoin, getLogin, getSearch, join, logout, postHome, postJoin, postLogin, PostSearch, saved } from '../Controllers/homeController';
+import { addMember, getHome, getJoin, getLogin, getSaved, getSearch, logout, postHome, postJoin, postLogin, PostSaved, PostSearch } from '../Controllers/homeController';
 import routes from '../routes';
 
 export const globalRouter = express.Router();
@@ -12,6 +12,6 @@ globalRouter.route(routes.join).get(getJoin).post(postJoin);
 globalRouter.route(routes.home).get(getHome).post(postHome);
 globalRouter.get(routes.add, addMember);
 globalRouter.route(routes.search).get(getSearch).post(PostSearch);
-globalRouter.get(routes.saved, saved);
+globalRouter.route(routes.saved).get(getSaved).post(PostSaved);
 
 globalRouter.get(routes.logout, logout);

@@ -17,19 +17,32 @@ export const postJoin = (req, res) => {
 };
 
 //MAIN PAGES
-export const getHome = (req, res) => {
-    res.render("home", {pageTitle: "Home" });
+export const getHome = async(req, res) => {
+    const {query: { day: dayOf }} = req;
+    console.log(dayOf);
+    if(dayOf){
+        const members = fakeDB.filter(member => member.dayOfweek === dayOf);
+        return res.render("home", {pageTitle: "Home", members });
+    } 
+    const members = fakeDB.filter(member => member.dayOfweek === "SAT");
+        res.render("home", {pageTitle: "Home", members });
+        console.log(members);
 };
 
 export const postHome = (req, res) => {
-    res.render("home", {pageTitle: "Home" });
+    const members = fakeDB.filter(member => member.dayOfweek === "SAT");
+    res.render("home", {pageTitle: "Home", members });
 };
 
 export const addMember = (req, res) => {
     res.render("addmember", {pageTitle: "AddMember" });
 };
 
-export const saved = (req, res) => {
+export const getSaved = (req, res) => {
+    res.render("saved", {pageTitle: "Saved" });
+};
+export const PostSaved = (req, res) => {
+    console.log("post save page");
     res.render("saved", {pageTitle: "Saved" });
 };
 
@@ -37,9 +50,7 @@ export const getSearch = async (req, res) => {
     const {
         query: { name:searchingPeople } 
     } = req;
-    let findpeople = await fakeDB.find((person) => person.name === searchingPeople);
-    
-    console.log(findpeople);
+    let findpeople = fakeDB.find((person) => person.name === searchingPeople);
     
     res.render("search", {pageTitle: "Search", findpeople });
     
