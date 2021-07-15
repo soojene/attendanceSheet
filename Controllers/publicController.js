@@ -22,7 +22,7 @@ export const postLogin = async (req, res) => {
     if (!ok){
         return res.status(400).render("login", {pageTitle:"LOGIN", ErrorMessage: "Wrong password"});
     }
-    // loginUser = true;
+    req.session.logIn = true;
     req.session.loggedInUser = findUser;
     return res.redirect(routes.home);
 };
@@ -64,7 +64,7 @@ export const postJoin = async (req, res) => {
 //NO TEMPLATE
 export const logout = (req, res) => {
     //세션을 destroy해야 함
+    req.session.logIn = false;
     req.session.destroy();
-    // loginUser = false;
     res.redirect("login");
 };
