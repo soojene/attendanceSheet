@@ -1,5 +1,7 @@
 /node_modules
 
-/fakeData.js
-packgae-lock.json
+fakeData.js
+
+package-lock.json
+
 .env
