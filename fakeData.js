@@ -44,3 +44,15 @@ export const fakeDB = [
         // name, email, password
     //-member{pulished by a user aka leader}
         //name, createdByWho, startFee, earnMoney, nthOfAttendence, dayOfWeek, #ofAbsence
+
+
+//요일별 필터링
+//     const {query: { day: dayOf }} = req;
+//     console.log(`getHome:${dayOf}`);
+//     if(dayOf){
+//         const members = fakeDB.filter(member => member.dayOfweek === dayOf);
+//         return res.render("home", {pageTitle: "Home", members });
+//     } 
+//     const members = fakeDB.filter(member => member.dayOfweek === "SAT");
+//         res.render("home", {pageTitle: "Home", members });
+// };

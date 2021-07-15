@@ -5,39 +5,35 @@ block content
         input(type="text" placeholder="search by name" name="name")
 
     .searchedBox
-        if(findpeople) 
-            ul     
-                li 
-                    form(method="POST" action="/search")
-                        input(type="text" name="memberName" value=findpeople.name)
+        if(findMember)
+            each member in findMember 
+                ul     
+                    li 
+                        form(method="POST")
+                            input(type="text" name="memberName" value=member.name)
+                            label(for="week") choose a day of meeting: 
+                            select(name="dayOfWeek" id="week" required)
+                                option(value=member.dayOfWeek)=member.dayOfWeek
+                                option(value="MON") MON 
+                                option(value="TUE") TUE
+                                option(value="WED") WED
+                                option(value="THU") THU
+                                option(value="FRI") FRI
+                                option(value="SAT") SAT 
+                                option(value="SUN") SUN
+                            label(for="memberEmail") Email:
+                            input(type="mail" name="email" id="memberEmail" value=member.email)
+                            label(for="memberInning") start at:
+                            input(type="number" id="memberInning" name="nthMeeting" scale=1 max=10 min=1 value=member.nthMeeting required)
+                            label(for="memberAbsence") number of Absence:
+                            input(type="number" id="memberAbsence" name="numberOfabsence" scale=1 max=10 min=1 value=member.numberOfAbsence required)
+                            label(for="memberEntryFee") Entry fee:
+                            input(type="number" name="startFee" min=0 value=member.entryFee placeholder="entry fee" id="memberEntryFee" required)
 
-                        label(for="week") choose a day of meeting: 
-                        select(name="dayOfWeek" id="week" required)
-                            option(value=findpeople.dayOfweek) #{findpeople.dayOfweek} 
-                            option(value="MON") MON 
-                            option(value="TUE") TUE
-                            option(value="WED") WED
-                            option(value="THU") THU
-                            option(value="FRI") FRI
-                            option(value="SAT") SAT 
-                            option(value="SUN") SUN
+                            input(type="submit" value="Edit") 
 
-                        label(for="memberEmail") Email:
-                        input(type="mail" name="email" id="memberEmail" placeholder="full email address" value=findpeople.email)
-                
-                        label(for="memberInning") start at:
-                        input(type="number" id="memberInning" name="nthMeeting" scale=1 max=10 min=1 placeholder="inning" value=1 required)
-
-                        label(for="memberAbsence") number of Absence:
-                        input(type="number" id="memberAbsence" name="numberOfabsence" scale=1 max=10 min=1 placeholder="number of absence" value=findpeople.numbOfAbsence required)
-                
-                        label(for="memberEntryFee") Entry fee:
-                        input(type="number" name="startFee" min=0 value=findpeople.startFee placeholder="entry fee" id="memberEntryFee" required)
-
-                        input(type="submit" value="Edit") 
-
-                    a(href=`/delete${findpeople.phoneNumb}`)  
-                        button Delete 
+                        a(href=`/delete${member.id}`)  
+                            button Delete 
         else 
             h1 not found
 

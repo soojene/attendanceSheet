@@ -1,4 +1,15 @@
 extends ./layouts/main.pug
 
 block content 
-    h1 saved
+    h1 chart page 
+    include partials/selectDay.pug
+    .chartBox 
+        each member in members
+            ul
+                li
+                    a(href="" value=member.name)=member.name
+                    div #{member.nthMeeting} 회차
+                    div #{member.numberOfAbsence} 결석
+                    div #{member.earnedMoney} 원
+                    div #{member.entryFee} 참가비
+                    div 다음 참가비 ₩
