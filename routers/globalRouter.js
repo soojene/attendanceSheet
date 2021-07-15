@@ -1,5 +1,6 @@
 import express from "express";
-import { deleteMember, getAddMember, getHome, getJoin, getLogin, getSaved, getSearch, logout, postAddMember, postHome, postJoin, postLogin, PostSaved, PostSearch } from '../Controllers/homeController';
+import { deleteMember, getAddMember, getHome, getSaved, getSearch, postAddMember, postHome, PostSaved, PostSearch } from '../Controllers/homeController';
+import { getJoin, getLogin, logout, postJoin, postLogin } from '../Controllers/publicController';
 import { onlyPrivate, onlyPublic } from '../middlewares';
 import routes from '../routes';
 
@@ -25,5 +26,5 @@ globalRouter.post(routes.saved, onlyPrivate, PostSaved);
 
 //no template
 globalRouter.get(routes.logout, onlyPrivate, logout);
-globalRouter.get(routes.deleteMember, onlyPrivate, deleteMember);
+globalRouter.get(routes.deleteMember(), onlyPrivate, deleteMember);
 

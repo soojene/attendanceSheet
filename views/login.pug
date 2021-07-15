@@ -10,11 +10,12 @@ html
     body 
         .welcomeBox     
             h1  welcome to this website 
-            h4 login with your name 
-
+            h4 login with your email 
+        if(ErrorMessage)
+            h4(style={color: "red"})=ErrorMessage
         .loginBox        
             form(action="/login", method="POST") 
-                input(type="text" name="name" placeholder="user name" required)
+                input(type="mail" name="email" placeholder="email" required)
                 input(type="password" name="password" placeholder="password" required)
                 input(type="submit"  value="LOGIN")
             .socialLogin 

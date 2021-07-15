@@ -11,9 +11,4 @@ private
 - add and edit/delete members
 - logout
 
-tools
-- nodeJS
-- express
-- mongoDB
-- pug
-- 
+

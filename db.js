@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 //.env로 주소 따로 저장해주기
 mongoose.connect(process.env.DB_URL,{
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex:true
 });
 
 const db = mongoose.connection;

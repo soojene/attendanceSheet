@@ -2,37 +2,8 @@ import { fakeDB } from '../fakeData';
 import routes from '../routes';
 import MemberDB from '../models/Member';
 
-//login 만들고 수정
-export let loginUser = false;
-
-//LOGIN AND JOIN 로그인되고 다른 루트로 접근 가능하게 해야함.
-export const getLogin = (req, res) => {
-    res.render("login", {pageTitle: "LOGIN"});
-};
-export const postLogin = (req, res) => {
-    //로그인하면 유저를 이메일로 찾고, 
-    //패스워드가 일치하면 로그인 시켜주고 
-    //세션을 주고, 유저를 세션이 담고 홈으로 access
-    loginUser = true;
-    res.redirect(routes.home);
-};
-
-export const getJoin = (req, res) => {
-    res.render("join", {pageTitle: "JOIN"});
-};
-
-export const postJoin = (req, res) => {
-    //패스워드 일치하는지 확인해주고,
-    //이메일이 정확한지 확인하고,
-    //폼을 가져와서 유저 생성해주고,
-    //브라우저가 join인식이 잘 안되었을때 statusCode400번때 주고
-    //join할때 기재한 이메일가져와서 로그인화면으로 redirect 해주면서 
-    // 로그인 인풋값에 넣어주어서 다시 타입하지 않게 해주고 
-    res.redirect(routes.login);
-};
-
-//MAIN PAGES
 let selectedDay = "SAT";
+
 export const getHome = async(req, res) => {
     //로그인이 안되어있으면 로그인으로 redirect해놓고 있으면 홈을 렌더링.
     const {query: { day: selectDay }} = req;
@@ -73,7 +44,7 @@ export const postAddMember = async (req, res) => {
             earnedMoney: 0,
             dayOfWeek
         });
-        console.log(member);
+        // console.log(member);
         res.redirect(routes.home);
     } catch (error) {
         console.log("add Error:", error);
@@ -106,17 +77,19 @@ export const getSearch = async (req, res) => {
     const {
         query: { name:searchingPeople } 
     } = req;
+    let noMember;
     if(searchingPeople == undefined){
-        return res.render("search", {pageTitle: "SEARCH" });
+        noMember = "";
+        return res.render("search", {pageTitle: "SEARCH", noMember });
     }
     try {
-        //name: {$reget: new RegExp(인풋값의이름, "i")},
-        let findMember = await MemberDB.find({ name: searchingPeople });
+        let findMember = await MemberDB.find({ name: {$regex: searchingPeople, $options: "i" } 
+        });
         if(findMember.length === 0){
-            console.log("empty");
-            return res.render("search", {pageTitle: "SEARCH" });
+            noMember = `There is no "${searchingPeople}" in ur group. search again with exact name of the member.`;
+            return res.render("search", {pageTitle: "SEARCH", noMember });
         } else {
-            console.log(findMember);
+            // console.log(findMember);
             return res.render("search", {pageTitle: "SEARCH", findMember });
         }
     } catch(error){
@@ -132,15 +105,14 @@ export const PostSearch = async (req, res) => {
     res.redirect(routes.search);
 };
 
-export const deleteMember = (req, res) => {
-    console.log(req.params); 
-    res.redirect(routes.search);
-}
-
-//LOGOUT
-
-export const logout = (req, res) => {
-    //세션을 destroy해야 함
-    loginUser = false;
-    res.redirect("login");
+//No template
+export const deleteMember = async(req, res) => {
+    const {params : {id: _id} } = req;
+    try {
+        await MemberDB.findOneAndDelete({ _id });
+        return res.redirect(routes.search);
+    } catch(error){
+        console.log("Error:", error);
+        return res.redirect(routes.search);
+    }
 };

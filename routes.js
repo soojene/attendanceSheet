@@ -26,7 +26,13 @@ const routes = {
     join:JOIN,
     login:LOGIN,
     logout:LOGOUT,
-    deleteMember:DELETEMEMBER,
+    deleteMember:(id)=>{
+        if(id){
+            return `/delete${id}`;
+        }else{
+            return DELETEMEMBER;
+        }
+    },
     socialLogin:SOCIAL
 };
 
