@@ -9,7 +9,7 @@ block content
             each member in findMember 
                 ul     
                     li 
-                        form(method="POST")
+                        form(method="POST" action=routes.search)
                             input(type="text" name="memberName" value=member.name)
                             label(for="week") choose a day of meeting: 
                             select(name="dayOfWeek" id="week" required)

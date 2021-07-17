@@ -10,12 +10,9 @@ const LOGOUT = "/logout";
 const JOIN = "/join";
 const DELETEMEMBER = "/delete:id";
 
-
-//User
-const USER = "/user";
-
 //socialLogin
-const SOCIAL = "/social"
+const STARTNAVER = "/gonaver";
+const FINISHNAVER = "/comefromnaver";
 
 
 const routes = {
@@ -33,7 +30,8 @@ const routes = {
             return DELETEMEMBER;
         }
     },
-    socialLogin:SOCIAL
+    startNaver:STARTNAVER,
+    finishNaver:FINISHNAVER
 };
 
 export default routes;

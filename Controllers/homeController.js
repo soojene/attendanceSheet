@@ -97,12 +97,11 @@ export const getSearch = async (req, res) => {
         console.log("search error:", error);
         return res.redirect(routes.search);
     }
-    
 };
 
-export const PostSearch = async (req, res) => {
+export const postEdit = async (req, res) => {
     //찾아서 수정해서 저장해준다. post방식은 req.body로 검색
-    console.log(req.body.memberName); 
+    console.log("edit member"); 
     res.redirect(routes.search);
 };
 
