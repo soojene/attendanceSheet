@@ -10,7 +10,7 @@ export const getHome = async(req, res) => {
     if (selectDay !== undefined){
         selectedDay = selectDay;    
     }
-    const createdBy = req.session.loggedInUser.name;
+    const createdBy = req.session.loggedInUser.email;
     try{
         const members = await MemberDB.find({ dayOfWeek: selectedDay, createdBy });
         // console.log(members);
@@ -32,7 +32,7 @@ export const getAddMember = (req, res) => {
 export const postAddMember = async (req, res) => {
     //맴버추가하는 폼을 받아와서 새로운 맴버를 만들어서 홈으로 redirect해줌
     const { name, email, dayOfWeek, nthMeeting, entryFee } = req.body;
-    const createdBy = req.session.loggedInUser.name;
+    const createdBy = req.session.loggedInUser.email;
     try {
         await MemberDB.create({
             name,
@@ -58,7 +58,7 @@ export const getSaved = async (req, res) => {
     if (selectDay !== undefined){
         selectedDayChart = selectDay;    
     }
-    const createdBy = req.session.loggedInUser.name;
+    const createdBy = req.session.loggedInUser.email;
     try{
         const members = await MemberDB.find({ dayOfWeek: selectedDayChart, createdBy });
         return res.render("saved", {pageTitle: "CART", members});
@@ -83,7 +83,7 @@ export const getSearch = async (req, res) => {
         noMember = "";
         return res.render("search", {pageTitle: "SEARCH", noMember });
     }
-    const createdBy = req.session.loggedInUser.name;
+    const createdBy = req.session.loggedInUser.email;
     try {
         let findMember = await MemberDB.find({ name: {$regex: searchingPeople, $options: "i" }, createdBy });
         if(findMember.length === 0){

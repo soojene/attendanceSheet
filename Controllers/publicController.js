@@ -40,20 +40,17 @@ export const postJoin = async (req, res) => {
     //브라우저가 join인식이 잘 안되었을때 statusCode400번때 주고
     //join할때 기재한 이메일가져와서 로그인화면으로 redirect 해주면서 
     // 로그인 인풋값에 넣어주어서 다시 타입하지 않게 해주고 
-    const { name, email, password1, password2} = req.body;
+    const { email, password1, password2} = req.body;
     if(password1 !== password2){
         return res.status(404).render("join", {pageTitle:"JOIN", ErrorMessage: "passwords are not match"});
     }
     try {
         const emailTaken = await UserDB.exists({ email });
-        const nameTaken = await UserDB.exists({ name });
+        // const nameTaken = await UserDB.exists({ name });
         if (emailTaken){
             return res.status(404).render("join", {pageTitle:"JOIN", ErrorMessage: "This email is already used."});
-        }else if(nameTaken){
-            return res.status(404).render("join", {pageTitle:"JOIN", ErrorMessage: "This nickname is already taken."});
         }else{
             await UserDB.create({
-                name,
                 email,
                 password: password1
             });

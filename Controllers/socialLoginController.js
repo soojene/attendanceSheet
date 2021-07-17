@@ -20,6 +20,7 @@ export const finishNaverLogin = async (req, res) => {
     if(req.query.error){
         console.log("네이버 인증 요청이 실패, 에러메서지:", req.query.error_description);
         //요청실패시 다시 소셜로그인 시도하던가, 그냥 로그인해야하는 메세지주자
+        return res.redirect(routes.login);
     }
     const config = {
         grant_type: "authorization_code",
@@ -48,7 +49,7 @@ export const finishNaverLogin = async (req, res) => {
         const {email, name} = userProfile.response;
         const existUser = await UserDB.findOne({ email });
         if(existUser){
-            console.log("이미 가입된 유저가 있음요");
+            console.log("이미 가입된 메일이 있음요");
             req.session.logIn = true;
             req.session.loggedInUser = existUser;
             return res.redirect(routes.home);
@@ -67,7 +68,6 @@ export const finishNaverLogin = async (req, res) => {
         //만약 소셜로그인시 이름과 메일이 동의되지 않으면 되돌려 보내야함. 
     } else {
         console.log("토큰없다.");
+        return res.redirect(routes.login);
     }
-    res.redirect(routes.login);
-    console.log("nothinggggg");
 };
