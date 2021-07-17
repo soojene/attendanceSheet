@@ -14,7 +14,11 @@ export const postLogin = async (req, res) => {
     //패스워드가 일치하면 로그인 시켜주고 
     //세션을 주고, 유저를 세션이 담고 홈으로 access
     const {email, password} = req.body;
-    const findUser = await UserDB.findOne({ email });
+    const socialUser = await UserDB.exists({ email, socialOnly: true });
+    if (socialUser){
+        return res.status(404).render("login", {pageTitle:"LOGIN", ErrorMessage: "네이버로그인을 이용 하세여"});
+    }
+    const findUser = await UserDB.findOne({ email, socialOnly: false });
     if(!findUser){
         return res.status(404).render("login", {pageTitle:"LOGIN", ErrorMessage: "틀린메일주소입네다."});
     }
@@ -24,7 +28,6 @@ export const postLogin = async (req, res) => {
     }
     req.session.logIn = true;
     req.session.loggedInUser = findUser;
-    // console.log(req.session.loggedInUser);
     return res.redirect(routes.home);
 };
 

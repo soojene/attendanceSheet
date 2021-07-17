@@ -1,5 +1,6 @@
 import routes from '../routes';
 import fetch from 'node-fetch';
+import UserDB from '../models/Leader';
 
 export const startNaverLogin = (req, res) => {
     const baseUrl = "https://nid.naver.com/oauth2.0/authorize";
@@ -37,7 +38,6 @@ export const finishNaverLogin = async (req, res) => {
         }
     })).json();
     if("access_token" in requestToken){
-        console.log("토큰이 있다");
         const { access_token } = requestToken;
         const apiUrl = "https://openapi.naver.com/v1/nid/me";
         const userProfile = await ( await fetch(apiUrl,{
@@ -45,12 +45,29 @@ export const finishNaverLogin = async (req, res) => {
                 Authorization: `Bearer ${access_token}`
             }
         })).json();
-        console.log(userProfile);
-        //메일을 검색해서 있는 메일이면 로그인 시키고, 없으면 회원가입시켜서 로그인해준다(socialOnly를 true로 해서 비번없이).
-        //email 과 name을 사용할 수 있음
+        const {email, name} = userProfile.response;
+        const existUser = await UserDB.findOne({ email });
+        if(existUser){
+            console.log("이미 가입된 유저가 있음요");
+            req.session.logIn = true;
+            req.session.loggedInUser = existUser;
+            return res.redirect(routes.home);
+        } else {
+            console.log("가입시켜~~~");
+            const newUser = await UserDB.create({
+                name,
+                email,
+                password: "",
+                socialOnly: true
+            });
+            req.session.logIn = true;
+            req.session.loggedInUser = newUser;
+            return res.redirect(routes.home);
+        }
         //만약 소셜로그인시 이름과 메일이 동의되지 않으면 되돌려 보내야함. 
     } else {
         console.log("토큰없다.");
     }
     res.redirect(routes.login);
+    console.log("nothinggggg");
 };
