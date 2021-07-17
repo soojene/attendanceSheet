@@ -1,7 +1,6 @@
-import express, { Router } from "express";
+import express from "express";
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
-import { connection } from 'mongoose';
 import morgan from 'morgan';
 import { localsMiddleware } from './middlewares';
 import { globalRouter } from './routers/globalRouter';
@@ -14,7 +13,7 @@ app.use(
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
-        Store:MongoStore.create({ mongoUrl: process.env.DB_URL})
+        store:MongoStore.create({ mongoUrl: process.env.DB_URL})
     })
 );
 app.use(localsMiddleware);

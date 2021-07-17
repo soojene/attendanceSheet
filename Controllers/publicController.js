@@ -16,14 +16,15 @@ export const postLogin = async (req, res) => {
     const {email, password} = req.body;
     const findUser = await UserDB.findOne({ email });
     if(!findUser){
-        return res.status(400).render("login", {pageTitle:"LOGIN", ErrorMessage: "틀린메일주소입네다."});
+        return res.status(404).render("login", {pageTitle:"LOGIN", ErrorMessage: "틀린메일주소입네다."});
     }
     const ok = await bcrypt.compare(password, findUser.password);
     if (!ok){
-        return res.status(400).render("login", {pageTitle:"LOGIN", ErrorMessage: "Wrong password"});
+        return res.status(404).render("login", {pageTitle:"LOGIN", ErrorMessage: "Wrong password"});
     }
     req.session.logIn = true;
     req.session.loggedInUser = findUser;
+    // console.log(req.session.loggedInUser);
     return res.redirect(routes.home);
 };
 
@@ -38,15 +39,15 @@ export const postJoin = async (req, res) => {
     // 로그인 인풋값에 넣어주어서 다시 타입하지 않게 해주고 
     const { name, email, password1, password2} = req.body;
     if(password1 !== password2){
-        return res.status(400).render("join", {pageTitle:"JOIN", ErrorMessage: "passwords are not match"});
+        return res.status(404).render("join", {pageTitle:"JOIN", ErrorMessage: "passwords are not match"});
     }
     try {
         const emailTaken = await UserDB.exists({ email });
         const nameTaken = await UserDB.exists({ name });
         if (emailTaken){
-            return res.status(400).render("join", {pageTitle:"JOIN", ErrorMessage: "This email is already used."});
+            return res.status(404).render("join", {pageTitle:"JOIN", ErrorMessage: "This email is already used."});
         }else if(nameTaken){
-            return res.status(400).render("join", {pageTitle:"JOIN", ErrorMessage: "This nickname is already taken."});
+            return res.status(404).render("join", {pageTitle:"JOIN", ErrorMessage: "This nickname is already taken."});
         }else{
             await UserDB.create({
                 name,

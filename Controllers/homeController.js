@@ -10,8 +10,9 @@ export const getHome = async(req, res) => {
     if (selectDay !== undefined){
         selectedDay = selectDay;    
     }
+    const createdBy = req.session.loggedInUser.name;
     try{
-        const members = await MemberDB.find({ dayOfWeek: selectedDay });
+        const members = await MemberDB.find({ dayOfWeek: selectedDay, createdBy });
         // console.log(members);
         return res.render("home", {pageTitle: "HOME", members});
     }catch(error){
@@ -21,20 +22,19 @@ export const getHome = async(req, res) => {
 };
 
 export const postHome = (req, res) => {
-    const members = fakeDB.filter(member => member.dayOfweek === "SAT");
-    res.render("home", {pageTitle: "Home", members });
+    res.render("home", {pageTitle: "Home" });
 };
 
 export const getAddMember = (req, res) => {
-    
     res.render("addmember", {pageTitle: "AddMember" });
 };
 
 export const postAddMember = async (req, res) => {
     //맴버추가하는 폼을 받아와서 새로운 맴버를 만들어서 홈으로 redirect해줌
-    const { name, email, dayOfWeek, nthMeeting, entryFee, createdBy } = req.body;
+    const { name, email, dayOfWeek, nthMeeting, entryFee } = req.body;
+    const createdBy = req.session.loggedInUser.name;
     try {
-        const member = await MemberDB.create({
+        await MemberDB.create({
             name,
             email,
             createdBy,
@@ -44,7 +44,6 @@ export const postAddMember = async (req, res) => {
             earnedMoney: 0,
             dayOfWeek
         });
-        // console.log(member);
         res.redirect(routes.home);
     } catch (error) {
         console.log("add Error:", error);
@@ -59,14 +58,16 @@ export const getSaved = async (req, res) => {
     if (selectDay !== undefined){
         selectedDayChart = selectDay;    
     }
+    const createdBy = req.session.loggedInUser.name;
     try{
-        const members = await MemberDB.find({ dayOfWeek: selectedDayChart });
+        const members = await MemberDB.find({ dayOfWeek: selectedDayChart, createdBy });
         return res.render("saved", {pageTitle: "CART", members});
     }catch(error){
         console.log("HOME error:", error);
         return res.redirect(routes.saved);
     }
 };
+
 export const PostSaved = (req, res) => {
     //10회 종료후 리셋 처리 or 밴드와 공유하는 버튼 생성
     console.log("post save page");
@@ -82,9 +83,9 @@ export const getSearch = async (req, res) => {
         noMember = "";
         return res.render("search", {pageTitle: "SEARCH", noMember });
     }
+    const createdBy = req.session.loggedInUser.name;
     try {
-        let findMember = await MemberDB.find({ name: {$regex: searchingPeople, $options: "i" } 
-        });
+        let findMember = await MemberDB.find({ name: {$regex: searchingPeople, $options: "i" }, createdBy });
         if(findMember.length === 0){
             noMember = `There is no "${searchingPeople}" in ur group. search again with exact name of the member.`;
             return res.render("search", {pageTitle: "SEARCH", noMember });
