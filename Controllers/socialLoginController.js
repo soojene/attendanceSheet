@@ -19,8 +19,7 @@ export const finishNaverLogin = async (req, res) => {
     const baseUrl = "https://nid.naver.com/oauth2.0/token";
     if(req.query.error){
         console.log("네이버 인증 요청이 실패, 에러메서지:", req.query.error_description);
-        //요청실패시 다시 소셜로그인 시도하던가, 그냥 로그인해야하는 메세지주자
-        return res.redirect(routes.login);
+        return res.status(404).render("login", {pageTitle:"LOGIN", ErrorMessage: "소셜로그인이 실행되지 않았습니다. 일반 로그인하세여"});
     }
     const config = {
         grant_type: "authorization_code",
@@ -31,14 +30,14 @@ export const finishNaverLogin = async (req, res) => {
     };
     const params = new URLSearchParams(config).toString();
     const finalUrl = `${baseUrl}?${params}`;
-    const requestToken = await ( await fetch(finalUrl, {
-        // method: "POST",
-        headers: {
-            'X-Naver-Client-Id': process.env.CLIENT_ID, 
-            'X-Naver-Client-Secret': process.env.CLIENT_SECRET
-        }
-    })).json();
-    if("access_token" in requestToken){
+    try {
+        const requestToken = await ( await fetch(finalUrl, {
+            // method: "POST",
+            headers: {
+                'X-Naver-Client-Id': process.env.CLIENT_ID, 
+                'X-Naver-Client-Secret': process.env.CLIENT_SECRET
+            }
+        })).json();
         const { access_token } = requestToken;
         const apiUrl = "https://openapi.naver.com/v1/nid/me";
         const userProfile = await ( await fetch(apiUrl,{
@@ -58,16 +57,21 @@ export const finishNaverLogin = async (req, res) => {
             const newUser = await UserDB.create({
                 name,
                 email,
-                password: "",
-                socialOnly: true
+                socialOnly: true,
+                password: ""
             });
             req.session.logIn = true;
             req.session.loggedInUser = newUser;
             return res.redirect(routes.home);
         }
-        //만약 소셜로그인시 이름과 메일이 동의되지 않으면 되돌려 보내야함. 
-    } else {
-        console.log("토큰없다.");
-        return res.redirect(routes.login);
+    } catch(error){
+        console.log("토큰에러",error);
+        return res.status(404).render("login", {pageTitle:"LOGIN", ErrorMessage: "소셜로그인 실패"});
     }
+    // if("access_token" in requestToken){
+    //     //만약 소셜로그인시 이름과 메일이 동의되지 않으면 되돌려 보내야함. 
+    // } else {
+    //     console.log("토큰없다.");
+    //     return res.redirect(routes.login);
+    // }
 };

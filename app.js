@@ -13,6 +13,7 @@ app.use(
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
+        cookie: { maxAge: 60000 }, //세션1분으로 
         store:MongoStore.create({ mongoUrl: process.env.DB_URL})
     })
 );
