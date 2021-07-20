@@ -19,7 +19,7 @@ app.use(
 );
 
 app.use(localsMiddleware);
-
+app.use(express.static("img"));
 app.set("view engine", "pug");
 app.use(express.urlencoded({ extended: true}));
 app.use(morgan("dev"));

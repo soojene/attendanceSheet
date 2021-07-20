@@ -1,14 +1,27 @@
 # attendence sheet
 
 public
-- login and join
-    - forgot account? using phone number or email
-    - social login available
+- [x] login and join
+- [ ] forgot account? 
+  - [ ] using phone number or email
 
 private
-- home
-- chart
-- add and edit/delete members
-- logout
+- [ ] home
+  - [x] show list
+  - [ ] check and operate
+  - [ ] what if user close browser accidently when checking?
+  
+- [ ] chart
+  - [x] show list
+  - [ ] BandShare
+  
+- [x] add and edit/delete members
+  - [ ] ...
+  
+- [x] logout
+  
+- [ ] edit User
+  - [ ] change password
+  - [ ] delete user account
 
 

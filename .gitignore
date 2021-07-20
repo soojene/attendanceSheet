@@ -5,3 +5,7 @@ fakeData.js
 .env
 
 package-lock.json
+
+img/
+
+.DS_Store
