@@ -1,25 +1,27 @@
 extends ./layouts/main.pug
 
 block content
-    h1 attendance sheet
-    include partials/selectDay.pug
-    .startAttendanceBox
-        .nthAttendanceBOX nth
-        button START
-    .attendanceSheet 
-        each member in members
-            ul
-                li
-                    form(action="") 
-                        button(value=member.name)=member.name
-                        div #{member.numberOfAbsence} 결석
-                        div #{member.entryFee} 참가비
-                        div #{member.earnedMoney} 원
-                        button(style={ background: 'red'}) Absence
+    include ./partials/navBar.pug
+    main
+        h1 attendance sheet
+        include partials/selectDay.pug
+        .homeStartAttendanceBox
+            .nthAttendanceBOX nth
+            button START
+        .homeAttendanceSheet 
+            each member in members
+                ul
+                    li
+                        form(action="") 
+                            button(value=member.name)=member.name
+                            div #{member.numberOfAbsence} 결석
+                            div #{member.entryFee} 참가비
+                            div #{member.earnedMoney} 원
+                            button(style={ background: 'red'}) Absence
 
-    .finishAttendanceBox 
-        a(href=routes.saved)  
-            button DONE 
+        .homeFinishAttendanceBox 
+            a(href=routes.saved)  
+                button DONE 
 
 //- fetch로 페이지를 rendering하지 않고 각각 수정이 가능한가?
 //- START버튼이 누르면 알람뜨고, 현시간 저장되고(2시간이 지나면 저장된 값은 없어진다.), 버튼이 없어진다. START버튼이 눌리지 않았거나, 저장된 시간값이 없으면 체크인이나 결석버튼이 작동이 안되게 만든다. (요일마다 다른 START 시간값을 가지고 작동하게 한다.)

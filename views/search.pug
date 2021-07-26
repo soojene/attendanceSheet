@@ -1,40 +1,42 @@
 extends ./layouts/main.pug
 
-block content 
-    form(method="" action="") 
-        input(type="text" placeholder="search by name" name="name")
+block content
+    include ./partials/navBar.pug
+    main
+        form.searchMemberBox(method="" action="") 
+            input(type="text" placeholder="search by name" name="name")
 
-    .searchedBox
-        if(findMember)
-            each member in findMember 
-                ul     
-                    li 
-                        form(method="POST" action=routes.search)
-                            input(type="text" name="memberName" value=member.name)
-                            label(for="week") choose a day of meeting: 
-                            select(name="dayOfWeek" id="week" required)
-                                option(value=member.dayOfWeek)=member.dayOfWeek
-                                option(value="MON") MON 
-                                option(value="TUE") TUE
-                                option(value="WED") WED
-                                option(value="THU") THU
-                                option(value="FRI") FRI
-                                option(value="SAT") SAT 
-                                option(value="SUN") SUN
-                            label(for="memberEmail") Email:
-                            input(type="mail" name="email" id="memberEmail" value=member.email)
-                            label(for="memberInning") start at:
-                            input(type="number" id="memberInning" name="nthMeeting" scale=1 max=10 min=1 value=member.nthMeeting required)
-                            label(for="memberAbsence") number of Absence:
-                            input(type="number" id="memberAbsence" name="numberOfabsence" scale=1 max=10 min=1 value=member.numberOfAbsence required)
-                            label(for="memberEntryFee") Entry fee:
-                            input(type="number" name="startFee" min=0 value=member.entryFee placeholder="entry fee" id="memberEntryFee" required)
+        .searchedMainBox
+            if(findMember)
+                each member in findMember 
+                    ul     
+                        li 
+                            form(method="POST" action=routes.search)
+                                input(type="text" name="memberName" value=member.name)
+                                label(for="week") choose a day of meeting: 
+                                select(name="dayOfWeek" id="week" required)
+                                    option(value=member.dayOfWeek)=member.dayOfWeek
+                                    option(value="MON") MON 
+                                    option(value="TUE") TUE
+                                    option(value="WED") WED
+                                    option(value="THU") THU
+                                    option(value="FRI") FRI
+                                    option(value="SAT") SAT 
+                                    option(value="SUN") SUN
+                                label(for="memberEmail") Email:
+                                input(type="mail" name="email" id="memberEmail" value=member.email)
+                                label(for="memberInning") start at:
+                                input(type="number" id="memberInning" name="nthMeeting" scale=1 max=10 min=1 value=member.nthMeeting required)
+                                label(for="memberAbsence") number of Absence:
+                                input(type="number" id="memberAbsence" name="numberOfabsence" scale=1 max=10 min=1 value=member.numberOfAbsence required)
+                                label(for="memberEntryFee") Entry fee:
+                                input(type="number" name="startFee" min=0 value=member.entryFee placeholder="entry fee" id="memberEntryFee" required)
 
-                            input(type="submit" value="Edit") 
+                                input(type="submit" value="Edit") 
 
-                        a(href=routes.deleteMember(member.id))  
-                            button Delete 
-        else 
-            h1=noMember
+                            a(href=routes.deleteMember(member.id))  
+                                button Delete 
+            else 
+                h1=noMember
 
         //- 삭제랑 edit도 가능하게 search하면 form형태로 나오게 만들고 수정하거나 지우자. 

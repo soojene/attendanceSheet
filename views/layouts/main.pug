@@ -5,13 +5,9 @@ html
         meta(http-equiv="X-UA-Compatible" content="IE=edge")
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
         title #{pageTitle} | #{locals.siteName}
-        link(rel="stylesheet" href="https://unpkg.com/mvp.css")
+        //- link(rel="stylesheet" href="https://unpkg.com/mvp.css")
 
     body 
-        include ../partials/navBar.pug
-        main
-            block content
+        block content
         
         script(src="/frontend/js/main.js")
-        //- script(src="js/practice.js")
-        //- 파일을 가져오기 위해서 http://localhost:4000/js/practice.js  url를 사용하는데, 아마 미들웨어로 처리해주던가, 모듈을 사용해야 할듯  

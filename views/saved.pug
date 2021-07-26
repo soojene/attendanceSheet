@@ -1,18 +1,20 @@
 extends ./layouts/main.pug
 
-block content 
-    h1 chart page 
-    include partials/selectDay.pug
-    .chartBox 
-        each member in members
-            ul
-                li(style={display: "flex"})
-                    a.nameSaved(href="" value=member.name)=member.name
-                    div.entryFeeSaved (참가비:#{member.entryFee})  
-                    //- div.nthMeetingSaved #{member.nthMeeting} 회차
-                    div.numbOfAbsence #{member.numberOfAbsence}결석으로 
-                    div.extraFeeSaved (추가/할인/동결). 
-                    div.earnedMoneySaved #{member.earnedMoney}원 이월로  
-                    div.nextFeeSaved ₩입금or환급.
-        if members.length !== 0            
-            button BAND share?
+block content
+    include ./partials/navBar.pug
+    main
+        h1.pageTitle chart page 
+        include partials/selectDay.pug
+        .chartBox 
+            each member in members
+                ul
+                    li(style={display: "flex"})
+                        a.nameSaved(href="" value=member.name)=member.name
+                        div.entryFeeSaved (참가비:#{member.entryFee})  
+                        //- div.nthMeetingSaved #{member.nthMeeting} 회차
+                        div.numbOfAbsence #{member.numberOfAbsence}결석으로 
+                        div.extraFeeSaved (추가/할인/동결). 
+                        div.earnedMoneySaved #{member.earnedMoney}원 이월로  
+                        div.nextFeeSaved ₩입금or환급.
+            if members.length !== 0            
+                button BAND share?
