@@ -13,14 +13,15 @@ app.use(
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
-        cookie: { maxAge: 60000 }, //세션1분으로 
+        // cookie: { maxAge: 60000 }, //세션1분으로 
         store:MongoStore.create({ mongoUrl: process.env.DB_URL})
     })
 );
 
+app.set("view engine", "pug");
 app.use(localsMiddleware);
 app.use(express.static("img"));
-app.set("view engine", "pug");
+app.use("/frontend", express.static("clients"));
 app.use(express.urlencoded({ extended: true}));
 app.use(morgan("dev"));
 

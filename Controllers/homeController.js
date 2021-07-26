@@ -1,6 +1,7 @@
 import { fakeDB } from '../fakeData';
 import routes from '../routes';
 import MemberDB from '../models/Member';
+import UserDB from '../models/Leader';
 
 let selectedDay = "SAT";
 
@@ -12,7 +13,8 @@ export const getHome = async(req, res) => {
     }
     const createdBy = req.session.loggedInUser.email;
     try{
-        const members = await MemberDB.find({ dayOfWeek: selectedDay, createdBy });
+        const members = await MemberDB.find({ dayOfWeek: selectedDay, createdBy});
+        // const members = await UserDB.find({createdBy}).populate("members");
         // console.log(members);
         return res.render("home", {pageTitle: "HOME", members});
     }catch(error){
@@ -31,12 +33,12 @@ export const getAddMember = (req, res) => {
 
 export const postAddMember = async (req, res) => {
     //맴버추가하는 폼을 받아와서 새로운 맴버를 만들어서 홈으로 redirect해줌
-    const { name, email, dayOfWeek, nthMeeting, entryFee } = req.body;
+    const { name, time, dayOfWeek, nthMeeting, entryFee } = req.body;
     const createdBy = req.session.loggedInUser.email;
     try {
         await MemberDB.create({
             name,
-            email,
+            time,
             createdBy,
             entryFee,
             nthMeeting,
@@ -44,6 +46,9 @@ export const postAddMember = async (req, res) => {
             earnedMoney: 0,
             dayOfWeek
         });
+        // const user = await UserDB.find({createdBy});
+        // user.members.push(newMember._id);
+        // user.save();
         res.redirect(routes.home);
     } catch (error) {
         console.log("add Error:", error);

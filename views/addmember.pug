@@ -15,11 +15,12 @@ block content
                     option(value="SAT") SAT 
                     option(value="SUN") SUN
 
+                label(for="memberTime") Time:
+                input(type="time" name="time" required id="memberTime")
+
                 label(for="memberName") Name:
                 input(type="text" name="name" placeholder="nickname" id="memberName" required)
                 
-                label(for="memberEmail") Email:
-                input(type="mail" name="email" id="memberEmail" placeholder="full email address")
                 
                 label(for="memberInning") start at:
                 input(type="number" id="memberInning" name="nthMeeting" scale=1 max=10 min=1 placeholder="inning" value=1 required)
