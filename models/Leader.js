@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
     email: {type: String, required: true, unique: true},
     password: {type:String},
     socialOnly: {type:Boolean, default: false},
-    members: [{type: mongoose.Schema.Types.ObjectId, ref: "Member" }]
+    members: [{ type: mongoose.Schema.Types.ObjectId, ref: "Member" }]
 });
 
 userSchema.pre("save", async function(){

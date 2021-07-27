@@ -35,6 +35,7 @@ export const postAddMember = async (req, res) => {
     const { name, time, dayOfWeek, nthMeeting, entryFee } = req.body;
     const createdBy = req.session.loggedInUser.email;
     try {
+        // const newMember = 
         await MemberDB.create({
             name,
             time,
@@ -45,9 +46,11 @@ export const postAddMember = async (req, res) => {
             earnedMoney: 0,
             dayOfWeek
         });
-        // const user = await UserDB.find({createdBy});
-        // user.members.push(newMember._id);
-        // user.save();
+        //I'm not sure using populate() is way better to filter and display MemberDB. If I push memberDB _id into UserDB.member[] when user add a member, then I also need to filter and find one specific _id in the array and delete it and save again when user delete one memberDB.  
+        // const leader = await UserDB.findOne({email:createdBy});
+        // leader.members.push(newMember._id);
+        // leader.save();
+        // console.log(leader); 
         res.redirect(routes.home);
     } catch (error) {
         console.log("add Error:", error);
