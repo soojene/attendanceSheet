@@ -1,4 +1,3 @@
-import { fakeDB } from '../fakeData';
 import routes from '../routes';
 import MemberDB from '../models/Member';
 import UserDB from '../models/Leader';

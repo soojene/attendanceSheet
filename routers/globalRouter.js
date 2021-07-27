@@ -25,4 +25,3 @@ globalRouter.route(routes.saved).all(onlyPrivate).get(getSaved).post(PostSaved);
 //no template
 globalRouter.get(routes.logout, onlyPrivate, logout);
 globalRouter.get(routes.deleteMember(), onlyPrivate, deleteMember);
-

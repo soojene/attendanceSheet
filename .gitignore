@@ -1,11 +1,11 @@
 /node_modules
 
-fakeData.js
-
 .env
 
 package-lock.json
 
-img/
+/img
 
 .DS_Store
+
+/clients
