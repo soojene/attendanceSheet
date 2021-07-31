@@ -1,12 +1,8 @@
-@import "./_variable";
 @import "./reset.scss";
-@import "./login.scss";
+@import "./_variable";
 
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  height: 80%;
-  background: $back;
-}
+//page
+@import "./base.scss";
+@import "./home.scss";
+@import "./login.scss";
+@import "./join.scss";

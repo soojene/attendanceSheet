@@ -6,15 +6,23 @@ block content
         h1.pageTitle chart page 
         include partials/selectDay.pug
         .chartBox 
-            each member in members
-                ul
-                    li(style={display: "flex"})
-                        a.nameSaved(href="" value=member.name)=member.name
-                        div.entryFeeSaved (참가비:#{member.entryFee})  
+            ul
+                each member in members
+                    //- if member.nextFeeOption < 0 ? `${member.nextFeeOption} 환급`:`${member.nextFeeOption} 입금` 
+                    li.chartSaved(style={display: "flex"})
+                        a.chartSaved-name(href=`${routes.search}?name=${member.name}`) #{member.name}
+                        div.chartSaved-entryFee (#{member.entryFee}): #{member.numberOfAbsence}회 결석으로 #{member.extraFeeText}. #{member.TotalEarnedMoney}원 이월로 #{member.nextFeeOption} #{member.nextFeeText}.
                         //- div.nthMeetingSaved #{member.nthMeeting} 회차
-                        div.numbOfAbsence #{member.numberOfAbsence}결석으로 
-                        div.extraFeeSaved (추가/할인/동결). 
-                        div.earnedMoneySaved #{member.earnedMoney}원 이월로  
-                        div.nextFeeSaved ₩입금or환급.
+                        //- div.chartSaved-numbOfAbsence(value=member.numberOfAbsence) #{member.numberOfAbsence}결석으로 
+                        //- div.chartSaved-extraFeeOption #{member.extraFeeText}. 
+                        //- div.chartSaved-earnedMoney #{member.TotalEarnedMoney}원 이월로  
+                        //- div.chartSaved-nextFeeOption(value=member.nextFeeOption) #{member.nextFeeOption} #{member.nextFeeText}
             if members.length !== 0            
-                button BAND share?
+                a.bandShareBtn
+                    img(src="BANDshare.png")
+                
+                form(action="", method="post")
+                    input.chartSaved-resetBtn(type="submit", value="reset") 
+
+
+                    

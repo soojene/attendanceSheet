@@ -1,3 +1,7 @@
 import "../scss/style.scss";
 
-console.log("hiri");
+import "./attendance";
+import "./chart";
+import "./bandShare";
+
+// console.log("connecting");

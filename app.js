@@ -24,7 +24,7 @@ app.use(express.static("img"));
 app.use("/frontend", express.static("clients"));
 app.use(express.urlencoded({ extended: true}));
 app.use(morgan("dev"));
-
+app.use(express.json());
 //Routers
 app.use(routes.home, globalRouter);
 

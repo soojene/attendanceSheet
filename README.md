@@ -13,10 +13,10 @@ private
   
 - [ ] chart
   - [x] show list
-  - [ ] BandShare
+  - [X] BandShare
   
 - [x] add and edit/delete members
-  - [ ] ...
+  - [x] ...
   
 - [x] logout
   

@@ -48,12 +48,12 @@ export const finishNaverLogin = async (req, res) => {
         const {email, name} = userProfile.response;
         const existUser = await UserDB.findOne({ email });
         if(existUser){
-            console.log("이미 가입된 메일이 있음요");
+            // console.log("이미 가입된 메일이 있음요");
             req.session.logIn = true;
             req.session.loggedInUser = existUser;
             return res.redirect(routes.home);
         } else {
-            console.log("가입시켜~~~");
+            // console.log("가입시켜~~~");
             const newUser = await UserDB.create({
                 name,
                 email,

@@ -2,9 +2,10 @@ extends ./layouts/main.pug
 
 block content 
         .loginWelcomeBox 
-            img(src="/nudasim_logo.png", alt="")     
-            h1  welcome to this website 
-            h4 login with your email 
+            img(src="/nudasim_logo.png", alt="")
+            .loginWelcomeBox--text     
+                h1  welcome to this website 
+                h4 login with your email 
         if(ErrorMessage)
             h4(style={color: "red"})=ErrorMessage
         .loginMainBox                
@@ -17,6 +18,6 @@ block content
                     img(src="/naverLoginBtn.png") 
         
         .loginJoinBox
-            h4 no account? it's OK 
+            h4 no account? 
             a(href=routes.join)
                 button JOIN NOW          

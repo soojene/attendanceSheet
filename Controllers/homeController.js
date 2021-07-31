@@ -22,8 +22,46 @@ export const getHome = async(req, res) => {
     }
 };
 
-export const postHome = (req, res) => {
-    res.render("home", {pageTitle: "Home" });
+export const postHome = async (req, res) => {
+     //update database in here
+    const {id, numberOfAbsence, earnedMoney} = req.body;
+    let extraFeeOption=0; 
+    let nextFeeOption=0;
+    let extraFeeText="";
+    let nextFeeText="";
+    let member = await MemberDB.findById(id);
+    member.numberOfAbsence += numberOfAbsence;
+    member.earnedMoney.push(earnedMoney);
+    member.TotalEarnedMoney += earnedMoney;
+    if(member.numberOfAbsence > 2) {
+        console.log("10000원 추가해야함");
+        extraFeeOption = 10000;
+        extraFeeText = "1만원 추가";
+        
+    } else if(member.numberOfAbsence <= 2 && member.entryFee !== 50000){
+        console.log("10000원 차감");
+        extraFeeOption = -10000;
+        extraFeeText = "1만원 할인";
+        
+    } else if(member.numberOfAbsence <= 2 && member.entryFee === 50000){
+        console.log("유지");
+        extraFeeText = "동결";
+        extraFeeOption = 0;
+        
+    }
+    member.extraFeeOption = extraFeeOption;
+    member.extraFeeText = extraFeeText;
+    nextFeeOption = await member.entryFee - member.TotalEarnedMoney + extraFeeOption;
+    if (nextFeeOption >= 0){
+        nextFeeText = "입금";
+    } else {
+        nextFeeText = "환급";
+    }
+    member.nextFeeText = nextFeeText;
+    member.nextFeeOption = nextFeeOption;
+    member.save();
+    console.log(member);
+    return res.redirect(routes.home);
 };
 
 export const getAddMember = (req, res) => {
@@ -76,9 +114,9 @@ export const getSaved = async (req, res) => {
 };
 
 export const PostSaved = (req, res) => {
-    //10회 종료후 리셋 처리 or 밴드와 공유하는 버튼 생성
+    //10회 종료후 리셋 처리
     console.log("post save page");
-    res.render("saved", {pageTitle: "Saved" });
+    res.redirect(routes.saved);
 };
 
 export const getSearch = async (req, res) => {

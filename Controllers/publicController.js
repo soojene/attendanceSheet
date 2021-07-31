@@ -2,17 +2,11 @@ import UserDB from '../models/Leader';
 import routes from '../routes';
 import bcrypt from 'bcrypt';
 
-//login하면 세션 로컬에 저장해서 수정
-// export let loginUser = false;
-
 export const getLogin = (req, res) => {
     return res.render("login", {pageTitle: "LOGIN"});
 };
 
 export const postLogin = async (req, res) => {
-    //로그인하면 유저를 이메일로 찾고, 
-    //패스워드가 일치하면 로그인 시켜주고 
-    //세션을 주고, 유저를 세션이 담고 홈으로 access
     const {email, password} = req.body;
     const socialUser = await UserDB.exists({ email, socialOnly: true });
     if (socialUser){
@@ -64,7 +58,6 @@ export const postJoin = async (req, res) => {
 
 //NO TEMPLATE
 export const logout = (req, res) => {
-    //세션을 destroy해야 함
     req.session.logIn = false;
     req.session.destroy();
     res.redirect("login");
