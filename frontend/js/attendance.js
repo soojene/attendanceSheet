@@ -28,7 +28,8 @@ if (checkedIn){
         const id = e.target.value;
         let numberOfAbsence = 0;
         let earnedMoney = 0;
-        
+        let entryFee = parseInt(e.target.dataset.entryfee);
+        console.log(entryFee);
         if(e.target.className === "checkBox-Absence"){
             console.log("absence");
             numberOfAbsence = 1;
@@ -38,7 +39,7 @@ if (checkedIn){
         }
         if (e.target.className === "checkBox-checkIn"){
             console.log("checkin");
-            earnedMoney=5000;
+            earnedMoney= entryFee * 0.1;
             //const fullearndMoney = entryFee의 10%
             // earnedMoney = fullearndmoney
             // if(30분안쪽){

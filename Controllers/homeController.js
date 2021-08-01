@@ -81,7 +81,7 @@ export const postAddMember = async (req, res) => {
             entryFee,
             nthMeeting,
             numberOfAbsence: 0,
-            earnedMoney: 0,
+            earnedMoney: [],
             dayOfWeek
         });
         //I'm not sure using populate() is way better to filter and display MemberDB. If I push memberDB _id into UserDB.member[] when user add a member, then I also need to filter and find one specific _id in the array and delete it and save again when user delete one memberDB.  
@@ -106,6 +106,7 @@ export const getSaved = async (req, res) => {
     const createdBy = req.session.loggedInUser.email;
     try{
         const members = await MemberDB.find({ dayOfWeek: selectedDayChart, createdBy });
+        console.log(members);
         return res.render("saved", {pageTitle: "CART", members});
     }catch(error){
         console.log("HOME error:", error);
@@ -146,8 +147,46 @@ export const getSearch = async (req, res) => {
 
 export const postEdit = async (req, res) => {
     //찾아서 수정해서 저장해준다. post방식은 req.body로 검색
-    console.log("edit member"); 
-    res.redirect(routes.search);
+    const {id, name, entryfee, nthMeeting, numberOfAbsence, TotalEarnedMoney, dayOfWeek}=req.body;
+    const entryFee = parseInt(entryfee);
+    // console.log(typeof entryFee); 
+    let extraFeeOption;
+    let extraFeeText;
+    let nextFeeText = "입금";
+    if(numberOfAbsence > 2) {
+        console.log("10000원 추가해야함");
+        extraFeeOption = 10000;
+        extraFeeText = "1만원 추가";
+        
+    } else if(numberOfAbsence <= 2 && entryFee !== 50000){
+        console.log("10000원 차감");
+        extraFeeOption = -10000;
+        extraFeeText = "1만원 할인";
+        
+    } else if(numberOfAbsence <= 2 && entryFee === 50000){
+        console.log("유지");
+        extraFeeText = "동결";
+        extraFeeOption = 0;
+        
+    }
+    let nextFeeOption= entryFee - TotalEarnedMoney + extraFeeOption;
+    if (nextFeeOption < 0){
+        nextFeeText = "환금";
+    }
+    // const updateMember = 
+    await MemberDB.findByIdAndUpdate(id, {
+        name,
+        entryFee,
+        nthMeeting,
+        numberOfAbsence,
+        TotalEarnedMoney,
+        dayOfWeek,
+        extraFeeText,
+        extraFeeOption,
+        nextFeeOption: Math.abs(nextFeeOption),
+        nextFeeText
+    });
+    res.redirect(routes.saved);
 };
 
 //No template

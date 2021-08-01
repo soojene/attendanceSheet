@@ -8,11 +8,12 @@ block content
 
         .searchedMainBox
             if(findMember)
-                each member in findMember 
-                    ul     
+                ul     
+                    each member in findMember 
                         li 
                             form(method="POST" action=routes.search)
-                                input(type="text" name="memberName" value=member.name)
+                                input(type="text" name="name" value=member.name)
+
                                 label(for="week") choose a day of meeting: 
                                 select(name="dayOfWeek" id="week" required)
                                     option(value=member.dayOfWeek)=member.dayOfWeek
@@ -23,14 +24,20 @@ block content
                                     option(value="FRI") FRI
                                     option(value="SAT") SAT 
                                     option(value="SUN") SUN
-                                label(for="memberEmail") Email:
-                                input(type="mail" name="email" id="memberEmail" value=member.email)
+
                                 label(for="memberInning") start at:
                                 input(type="number" id="memberInning" name="nthMeeting" scale=1 max=10 min=1 value=member.nthMeeting required)
+
                                 label(for="memberAbsence") number of Absence:
-                                input(type="number" id="memberAbsence" name="numberOfabsence" scale=1 max=10 min=1 value=member.numberOfAbsence required)
+                                input(type="number" id="memberAbsence" name="numberOfAbsence" scale=1 max=10 min=1 value=member.numberOfAbsence required)
+
+                                label(for="memberTotalEarnedMoney") totalearnedFee:
+                                input(type="number" name="TotalEarnedMoney" id="memberTotalEarnedMoney" min=0 value=member.TotalEarnedMoney)
+
                                 label(for="memberEntryFee") Entry fee:
-                                input(type="number" name="startFee" min=0 value=member.entryFee placeholder="entry fee" id="memberEntryFee" required)
+                                input(type="number" name="entryfee" min=0 value=member.entryFee placeholder="entry fee" id="memberEntryFee" required)
+
+                                input(type="hidden" name="id" value=member._id)    
 
                                 input(type="submit" value="Edit") 
 

@@ -14,7 +14,7 @@ block content
                 each member in members
                     li( style={display:"flex"})
                         //- form(action="", method="POST", style={display:"flex"}) 
-                        button.checkBox-checkIn(value=member._id)=member.name
+                        button.checkBox-checkIn(value=member._id data-entryFee=member.entryFee)=member.name
                         div #{member.numberOfAbsence} 결석
                         div #{member.entryFee} 참가비
                         div #{member.TotalEarnedMoney} 원
