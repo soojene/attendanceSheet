@@ -2,7 +2,7 @@ import routes from '../routes';
 import MemberDB from '../models/Member';
 import UserDB from '../models/Leader';
 
-let selectedDay = "SAT";
+export let selectedDay = "SAT";
 
 export const getHome = async(req, res) => {
     //로그인이 안되어있으면 로그인으로 redirect해놓고 있으면 홈을 렌더링.
@@ -24,12 +24,13 @@ export const getHome = async(req, res) => {
 
 export const postHome = async (req, res) => {
      //update database in here
-    const {id, numberOfAbsence, earnedMoney} = req.body;
+    const {id, numberOfAbsence, earnedMoney, nthMeeting} = req.body;
     let extraFeeOption=0; 
     let nextFeeOption=0;
     let extraFeeText="";
     let nextFeeText="";
     let member = await MemberDB.findById(id);
+    member.nthMeeting = nthMeeting;
     member.numberOfAbsence += numberOfAbsence;
     member.earnedMoney.push(earnedMoney);
     member.TotalEarnedMoney += earnedMoney;
@@ -60,7 +61,7 @@ export const postHome = async (req, res) => {
     member.nextFeeText = nextFeeText;
     member.nextFeeOption = nextFeeOption;
     member.save();
-    console.log(member);
+    // console.log(member);
     return res.redirect(routes.home);
 };
 
@@ -70,7 +71,7 @@ export const getAddMember = (req, res) => {
 
 export const postAddMember = async (req, res) => {
     //맴버추가하는 폼을 받아와서 새로운 맴버를 만들어서 홈으로 redirect해줌
-    const { name, time, dayOfWeek, nthMeeting, entryFee } = req.body;
+    const { name, time, dayOfWeek, entryFee, nthMeeting } = req.body;
     const createdBy = req.session.loggedInUser.email;
     try {
         // const newMember = 
@@ -80,7 +81,6 @@ export const postAddMember = async (req, res) => {
             createdBy,
             entryFee,
             nthMeeting,
-            numberOfAbsence: 0,
             earnedMoney: [],
             dayOfWeek
         });

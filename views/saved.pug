@@ -10,9 +10,9 @@ block content
             ul
                 each member in members
                     if member.earnedMoney.length === 0
-                        li #{member.name}: 
+                        li #{member.name}(#{member.nthMeeting}회차): 
                     else
-                        li #{member.name}: [#{member.earnedMoney}]
+                        li #{member.name}(#{member.nthMeeting}회차): [#{member.earnedMoney}]
         .chartBox-total 
             div 토탈   
             ul

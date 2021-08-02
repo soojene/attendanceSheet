@@ -29,7 +29,9 @@ if (checkedIn){
         let numberOfAbsence = 0;
         let earnedMoney = 0;
         let entryFee = parseInt(e.target.dataset.entryfee);
-        console.log(entryFee);
+        let nthMeeting = parseInt(e.target.dataset.nthmeeting);
+        nthMeeting += 1;
+        console.log(nthMeeting);
         if(e.target.className === "checkBox-Absence"){
             console.log("absence");
             numberOfAbsence = 1;
@@ -50,9 +52,9 @@ if (checkedIn){
             //     earnedMoney = fullearndmoney-3000;
             // }
         }
-        console.log(numberOfAbsence);
-        console.log(earnedMoney);
-        console.log(e.target.value);
+        // console.log(numberOfAbsence);
+        // console.log(earnedMoney);
+        // console.log(e.target.value);
         fetch('/', {
             method: 'post',
             headers: {
@@ -61,7 +63,8 @@ if (checkedIn){
             body:JSON.stringify({
                 id,
                 numberOfAbsence,
-                earnedMoney
+                earnedMoney,
+                nthMeeting,
             })
         })
     }
@@ -72,6 +75,7 @@ if (checkedIn){
 //Done button
 function attendanceDoneHandler (e) {
     // .listBoard-checkBox에 li가 있으면 warning.
+    alert("sure?");
     e.preventDefault();
     timeStartBtn.classList.remove("hidden");
     timeBegin = "";

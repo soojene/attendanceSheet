@@ -1,0 +1,18 @@
+.menuBar {
+  width: 100%;
+  font-weight: bold;
+  height: 3rem;
+  line-height: 3rem;
+  background-color: $menuBar-backgroundColor;
+  text-align: center;
+}
+.menuBar a {
+  font-size: 14px;
+  word-spacing: 8px;
+  margin: 0 0.5rem;
+  color: $menuBar-textColor;
+}
+.menuBar a:hover {
+  color: navy;
+  text-decoration: none;
+}

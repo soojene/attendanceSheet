@@ -6,7 +6,7 @@ const memberSchema = new mongoose.Schema({
     time: String,
     createdBy: { type:String, required: true},
     entryFee: { type:Number, required: true},
-    nthMeeting: { type:Number, default: 1}, 
+    nthMeeting: { type:Number, default: 0}, 
     numberOfAbsence: { type:Number, default: 0},
     extraFeeOption: {type:Number},
     earnedMoney: [{type:Number}],

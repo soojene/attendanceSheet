@@ -5,28 +5,33 @@ block content
     main
         h1 attendance sheet
         include partials/selectDay.pug
-        .homeStartAttendanceBox
+        .homeBtnBox-start
             .nthAttendanceBOX nth
-            button.homeTimeStartBtn START
+            button.homeTimeStartBtn START 
+            //- 버튼 클래스 픽스
 
-        .homeAttendanceSheet 
+        .homeAttendanceSheet-start
             ul.listBoard-checkBox
+                //- ul 클래스 픽스
                 each member in members
                     li( style={display:"flex"})
                         //- form(action="", method="POST", style={display:"flex"}) 
-                        button.checkBox-checkIn(value=member._id data-entryFee=member.entryFee)=member.name
+                        button.checkBox-checkIn(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting)=member.name
                         div #{member.numberOfAbsence} 결석
                         div #{member.entryFee} 참가비
                         div #{member.TotalEarnedMoney} 원
-                        button.checkBox-Absence(value=member._id) Absence
+                        button.checkBox-Absence(value=member._id data-nthMeeting=member.nthMeeting) Absence
                             
-        .homeCheckedMember
-            ul.listBoard-checkedBox
+        .homeAttendanceSheet-finish
+            ul.listBoard-checkedBox 
+                //- each member in checkedMember
+                    li( style = { display: "flex"})
+                        button(value=checkedMember._id)=checkedMember.name
 
-        .homeFinishAttendanceBox 
+        .homeBtnBox-finish 
             form(action="", method="")   
                 button.homeTimeFinishBtn DONE 
-
+                //- 버트 클래스 픽스
 //- fetch로 페이지를 rendering하지 않고 각각 수정이 가능한가?
 //- START버튼이 누르면 알람뜨고, 현시간 저장되고(2시간이 지나면 저장된 값은 없어진다.), 버튼이 없어진다. START버튼이 눌리지 않았거나, 저장된 시간값이 없으면 체크인이나 결석버튼이 작동이 안되게 만든다. (요일마다 다른 START 시간값을 가지고 작동하게 한다.)
 //- DONE버튼 누르면 회차가 1올라가고 10차에서 다시 1로 변경, START버튼 다시 생성

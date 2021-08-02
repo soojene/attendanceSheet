@@ -1,8 +1,12 @@
 @import "./reset.scss";
 @import "./_variable";
 
-//page
+//partials
+// @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 @import "./base.scss";
+@import "./navBar.scss";
+
+//page
 @import "./home.scss";
 @import "./login.scss";
 @import "./join.scss";
