@@ -2,17 +2,17 @@ import routes from '../routes';
 import MemberDB from '../models/Member';
 import UserDB from '../models/Leader';
 
-export let selectedDay = "SAT";
+// export let selectedDay = "SAT";
 
 export const getHome = async(req, res) => {
     //로그인이 안되어있으면 로그인으로 redirect해놓고 있으면 홈을 렌더링.
-    const {query: { day: selectDay }} = req;
-    if (selectDay !== undefined){
-        selectedDay = selectDay;    
-    }
+    // const {query: { day: selectDay }} = req;
+    // if (selectDay !== undefined){
+    //     selectedDay = selectDay;    
+    // }
     const createdBy = req.session.loggedInUser.email;
     try{
-        const members = await MemberDB.find({ dayOfWeek: selectedDay, createdBy});
+        const members = await MemberDB.find({createdBy});
         // const members = await UserDB.find({createdBy}).populate("members");
         // console.log(members);
         return res.render("home", {pageTitle: "HOME", members});
@@ -96,22 +96,23 @@ export const postAddMember = async (req, res) => {
     }
 };
 
-let selectedDayChart = "SAT";
+// let selectedDayChart = "SAT";
 export const getSaved = async (req, res) => {
     //요일별로 찾아서 디스플레이
-    const {query: { day: selectDay }} = req;
-    if (selectDay !== undefined){
-        selectedDayChart = selectDay;    
-    }
+    // const {query: { day: selectDay }} = req;
+    // if (selectDay !== undefined){
+    //     selectedDayChart = selectDay;    
+    // }
     const createdBy = req.session.loggedInUser.email;
     try{
-        const members = await MemberDB.find({ dayOfWeek: selectedDayChart, createdBy });
+        const members = await MemberDB.find({ createdBy });
         console.log(members);
         return res.render("saved", {pageTitle: "CART", members});
     }catch(error){
         console.log("HOME error:", error);
         return res.redirect(routes.saved);
     }
+    // dayOfWeek: selectedDayChart,
 };
 
 export const PostSaved = (req, res) => {

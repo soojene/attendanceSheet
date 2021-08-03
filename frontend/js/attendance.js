@@ -1,8 +1,8 @@
 import fetch from 'node-fetch';
 
-const timeStartBtn = document.querySelector(".homeTimeStartBtn");
+export const timeStartBtn = document.querySelector(".homeTimeStartBtn");
 const checkedIn = document.querySelector(".listBoard-checkBox");
-const timeFinishBtn = document.querySelector(".homeTimeFinishBtn");
+export const timeFinishBtn = document.querySelector(".homeTimeFinishBtn");
 
 let timeBegin;
 
@@ -52,9 +52,7 @@ if (checkedIn){
             //     earnedMoney = fullearndmoney-3000;
             // }
         }
-        // console.log(numberOfAbsence);
-        // console.log(earnedMoney);
-        // console.log(e.target.value);
+        // 회차는 왜 +1이 증가가 리로드되고 나서만 처리되고 버튼을 눌렀을때마다 안되는가.
         fetch('/', {
             method: 'post',
             headers: {

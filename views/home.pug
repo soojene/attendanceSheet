@@ -5,7 +5,7 @@ block content
     main
         h1 attendance sheet
         include partials/selectDay.pug
-        .homeBtnBox-start
+        .homeBtnBox-start.filteringMemberBtn
             .nthAttendanceBOX nth
             button.homeTimeStartBtn START 
             //- 버튼 클래스 픽스
@@ -14,7 +14,7 @@ block content
             ul.listBoard-checkBox
                 //- ul 클래스 픽스
                 each member in members
-                    li( style={display:"flex"})
+                    li.forFilter(value=member.dayOfWeek)
                         //- form(action="", method="POST", style={display:"flex"}) 
                         button.checkBox-checkIn(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting)=member.name
                         div #{member.numberOfAbsence} 결석
@@ -28,7 +28,7 @@ block content
                     li( style = { display: "flex"})
                         button(value=checkedMember._id)=checkedMember.name
 
-        .homeBtnBox-finish 
+        .homeBtnBox-finish.filteringMemberBtns 
             form(action="", method="")   
                 button.homeTimeFinishBtn DONE 
                 //- 버트 클래스 픽스

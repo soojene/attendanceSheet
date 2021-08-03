@@ -1,9 +1,25 @@
-//start and finish btn
+//home page start and finish btn
 .hidden {
   display: none;
 }
 
-//select one day
-.selectedDay {
-  background-color: rebeccapurple;
+//select day backbround color
+.selectedDayBgColor {
+  background-color: $selectedday-bgColor;
 }
+
+//saved & home pages filtering member and btns
+.forFilter {
+  display: none;
+}
+
+.filteringMemberBtn,
+.filteringMemberBtns {
+  display: none;
+}
+
+.show {
+  display: flex;
+}
+
+//css도 위치에 따라 적용이 달라짐. display:none이 먼저 작성해주어야 .show를 태그에 추가했을때 적용이 된다.
