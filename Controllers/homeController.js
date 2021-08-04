@@ -2,14 +2,9 @@ import routes from '../routes';
 import MemberDB from '../models/Member';
 import UserDB from '../models/Leader';
 
-// export let selectedDay = "SAT";
+export let selectedDay = "SAT";
 
 export const getHome = async(req, res) => {
-    //로그인이 안되어있으면 로그인으로 redirect해놓고 있으면 홈을 렌더링.
-    // const {query: { day: selectDay }} = req;
-    // if (selectDay !== undefined){
-    //     selectedDay = selectDay;    
-    // }
     const createdBy = req.session.loggedInUser.email;
     try{
         const members = await MemberDB.find({createdBy});
@@ -59,8 +54,9 @@ export const postHome = async (req, res) => {
         nextFeeText = "환급";
     }
     member.nextFeeText = nextFeeText;
-    member.nextFeeOption = nextFeeOption;
+    member.nextFeeOption = Math.abs(nextFeeOption);
     member.save();
+    selectedDay = member.dayOfWeek;
     // console.log(member);
     return res.redirect(routes.home);
 };
@@ -88,7 +84,8 @@ export const postAddMember = async (req, res) => {
         // const leader = await UserDB.findOne({email:createdBy});
         // leader.members.push(newMember._id);
         // leader.save();
-        // console.log(leader); 
+        // console.log(leader);
+        selectedDay = dayOfWeek; 
         res.redirect(routes.home);
     } catch (error) {
         console.log("add Error:", error);
@@ -96,29 +93,28 @@ export const postAddMember = async (req, res) => {
     }
 };
 
-// let selectedDayChart = "SAT";
 export const getSaved = async (req, res) => {
-    //요일별로 찾아서 디스플레이
-    // const {query: { day: selectDay }} = req;
-    // if (selectDay !== undefined){
-    //     selectedDayChart = selectDay;    
-    // }
     const createdBy = req.session.loggedInUser.email;
     try{
         const members = await MemberDB.find({ createdBy });
-        console.log(members);
+        // console.log(members);
         return res.render("saved", {pageTitle: "CART", members});
     }catch(error){
         console.log("HOME error:", error);
         return res.redirect(routes.saved);
     }
-    // dayOfWeek: selectedDayChart,
 };
 
 export const PostSaved = (req, res) => {
     //10회 종료후 리셋 처리
-    console.log("post save page");
-    res.redirect(routes.saved);
+    const{chooseDay}=req.body;
+    // console.log(req.path);
+    selectedDay = chooseDay; //멤버 dayOfWeek으로 변경
+    if(req.path === "/saved"){
+        return res.redirect(routes.saved);
+    } else if (req.path === "/"){
+        return res.redirect(routes.home);
+    }
 };
 
 export const getSearch = async (req, res) => {
@@ -187,6 +183,7 @@ export const postEdit = async (req, res) => {
         nextFeeOption: Math.abs(nextFeeOption),
         nextFeeText
     });
+    selectedDay = dayOfWeek;
     res.redirect(routes.saved);
 };
 
