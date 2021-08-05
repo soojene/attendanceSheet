@@ -10,18 +10,20 @@ export const postLogin = async (req, res) => {
     const {email, password} = req.body;
     const socialUser = await UserDB.exists({ email, socialOnly: true });
     if (socialUser){
-        return res.status(404).render("login", {pageTitle:"LOGIN", ErrorMessage: "네이버로그인을 이용 하세여"});
+        return res.status(404).render("login", {pageTitle:"LOGIN", ErrorMessage: "아래 네이버 로그인을 이용 하세여"});
     }
     const findUser = await UserDB.findOne({ email, socialOnly: false });
     if(!findUser){
-        return res.status(404).render("login", {pageTitle:"LOGIN", ErrorMessage: "틀린메일주소입네다."});
+        return res.status(404).render("login", {pageTitle:"LOGIN", ErrorMessage: "메일이 틀렸어요."});
     }
     const ok = await bcrypt.compare(password, findUser.password);
     if (!ok){
-        return res.status(404).render("login", {pageTitle:"LOGIN", ErrorMessage: "Wrong password"});
+        return res.status(404).render("login", {pageTitle:"LOGIN", ErrorMessage: "롱패스워드"});
     }
     req.session.logIn = true;
     req.session.loggedInUser = findUser;
+    req.session.day = "SAT";
+    // console.log("postLogin:",req.session);
     return res.redirect(routes.home);
 };
 
@@ -40,7 +42,6 @@ export const postJoin = async (req, res) => {
     }
     try {
         const emailTaken = await UserDB.exists({ email });
-        // const nameTaken = await UserDB.exists({ name });
         if (emailTaken){
             return res.status(404).render("join", {pageTitle:"JOIN", ErrorMessage: "This email is already used."});
         }else{

@@ -3,7 +3,7 @@ let pickOneDay = document.querySelectorAll(".selectOneDayOfWeek-btn");
 let lists = document.querySelectorAll(".forFilter");
 const filteringMemberBtn = document.querySelector(".filteringMemberBtn");
 const filteringMemberBtns = document.querySelector(".filteringMemberBtns");
-//요일이 서버로 보내져서 미들웨어에 저장되었다가 리도드되었을때 마지막으로 선택한 요일이 그래도 선택되어 보여지면 좋을듯.
+
 let chooseDay = "SAT";
 let apple= [];
 

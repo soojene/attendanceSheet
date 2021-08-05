@@ -51,6 +51,7 @@ export const finishNaverLogin = async (req, res) => {
             // console.log("이미 가입된 메일이 있음요");
             req.session.logIn = true;
             req.session.loggedInUser = existUser;
+            req.session.day = "SAT";
             return res.redirect(routes.home);
         } else {
             // console.log("가입시켜~~~");
@@ -62,6 +63,7 @@ export const finishNaverLogin = async (req, res) => {
             });
             req.session.logIn = true;
             req.session.loggedInUser = newUser;
+            req.session.day = "SAT";
             return res.redirect(routes.home);
         }
     } catch(error){

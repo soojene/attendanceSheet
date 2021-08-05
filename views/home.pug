@@ -16,14 +16,22 @@ block content
                 each member in members
                     li.forFilter(value=member.dayOfWeek)
                         //- form(action="", method="POST", style={display:"flex"}) 
-                        button.checkBox-checkIn(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting)=member.name
+                        button.checkBox-checkIn(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting) #{member.name} (#{member.nthMeeting + 1}회차)
                         div #{member.numberOfAbsence} 결석
                         div #{member.entryFee} 참가비
                         div #{member.TotalEarnedMoney} 원
                         button.checkBox-Absence(value=member._id data-nthMeeting=member.nthMeeting) Absence
                             
         .homeAttendanceSheet-finish
-            ul.listBoard-checkedBox 
+            ul.listBoard-checkedBox(style={margin: "50px 0px"})
+                each member in members
+                    li.forFilter(value=member.dayOfWeek)
+                        //- form(action="", method="POST", style={display:"flex"}) 
+                        button.checkBox-checkIn(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting style={background: "red"}) #{member.name} (#{member.nthMeeting + 1}회차 취소)
+                        div #{member.numberOfAbsence} 결석
+                        div #{member.entryFee} 참가비
+                        div #{member.TotalEarnedMoney} 원
+                        //- button.checkBox-Absence(value=member._id data-nthMeeting=member.nthMeeting) Absence
                 //- each member in checkedMember
                     li( style = { display: "flex"})
                         button(value=checkedMember._id)=checkedMember.name

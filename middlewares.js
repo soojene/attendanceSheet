@@ -1,4 +1,3 @@
-import { selectedDay } from './Controllers/homeController';
 import routes from './routes';
 
 export const localsMiddleware = (req, res, next) => {
@@ -6,7 +5,7 @@ export const localsMiddleware = (req, res, next) => {
     res.locals.siteName = "NOODASIM";
     res.locals.routes = routes;
     res.locals.logIn = Boolean(req.session.logIn);
-    res.locals.selectedDay = selectedDay;
+    res.locals.selectedDay = req.session.day;
     res.locals.loggedInUser= req.session.loggedInUser;
     next(); 
 };

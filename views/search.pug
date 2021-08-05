@@ -26,7 +26,7 @@ block content
                                     option(value="SUN") SUN
 
                                 label(for="memberInning") start at:
-                                input(type="number" id="memberInning" name="nthMeeting" scale=1 max=10 min=1 value=member.nthMeeting required)
+                                input(type="number" id="memberInning" name="nthMeeting" scale=1 max=10 min=0 value=member.nthMeeting required)
 
                                 label(for="memberAbsence") number of Absence:
                                 input(type="number" id="memberAbsence" name="numberOfAbsence" scale=1 max=10 min=0 value=member.numberOfAbsence required)
@@ -35,7 +35,7 @@ block content
                                 input(type="number" name="TotalEarnedMoney" id="memberTotalEarnedMoney" min=0 value=member.TotalEarnedMoney)
 
                                 label(for="memberEntryFee") Entry fee:
-                                input(type="number" name="entryfee" min=0 value=member.entryFee placeholder="entry fee" id="memberEntryFee" required)
+                                input(type="number" name="entryfee" min=10000 step=10000 value=member.entryFee placeholder="entry fee" id="memberEntryFee" required)
 
                                 input(type="hidden" name="id" value=member._id)    
 

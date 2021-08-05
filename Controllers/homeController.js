@@ -2,7 +2,7 @@ import routes from '../routes';
 import MemberDB from '../models/Member';
 import UserDB from '../models/Leader';
 
-export let selectedDay = "SAT";
+// export let selectedDay = "SAT";
 
 export const getHome = async(req, res) => {
     const createdBy = req.session.loggedInUser.email;
@@ -10,6 +10,7 @@ export const getHome = async(req, res) => {
         const members = await MemberDB.find({createdBy});
         // const members = await UserDB.find({createdBy}).populate("members");
         // console.log(members);
+        // console.log("getHome:",req.session);
         return res.render("home", {pageTitle: "HOME", members});
     }catch(error){
         console.log("HOME error:", error);
@@ -25,7 +26,7 @@ export const postHome = async (req, res) => {
     let extraFeeText="";
     let nextFeeText="";
     let member = await MemberDB.findById(id);
-    member.nthMeeting = nthMeeting;
+    member.nthMeeting += nthMeeting;
     member.numberOfAbsence += numberOfAbsence;
     member.earnedMoney.push(earnedMoney);
     member.TotalEarnedMoney += earnedMoney;
@@ -56,7 +57,7 @@ export const postHome = async (req, res) => {
     member.nextFeeText = nextFeeText;
     member.nextFeeOption = Math.abs(nextFeeOption);
     member.save();
-    selectedDay = member.dayOfWeek;
+    req.session.day = member.dayOfWeek;
     // console.log(member);
     return res.redirect(routes.home);
 };
@@ -85,7 +86,7 @@ export const postAddMember = async (req, res) => {
         // leader.members.push(newMember._id);
         // leader.save();
         // console.log(leader);
-        selectedDay = dayOfWeek; 
+        req.session.day = dayOfWeek; 
         res.redirect(routes.home);
     } catch (error) {
         console.log("add Error:", error);
@@ -98,6 +99,7 @@ export const getSaved = async (req, res) => {
     try{
         const members = await MemberDB.find({ createdBy });
         // console.log(members);
+        // console.log("getSaved:",req.session);
         return res.render("saved", {pageTitle: "CART", members});
     }catch(error){
         console.log("HOME error:", error);
@@ -107,9 +109,11 @@ export const getSaved = async (req, res) => {
 
 export const PostSaved = (req, res) => {
     //10회 종료후 리셋 처리
+    //선택요일 저장하는 처리. 필요하면 나중에 루트를 따로 만들어서 별도로 사용하는게 좋을듯.
     const{chooseDay}=req.body;
     // console.log(req.path);
-    selectedDay = chooseDay; //멤버 dayOfWeek으로 변경
+    req.session.day = chooseDay;
+    // selectedDay = chooseDay; //멤버 dayOfWeek으로 변경
     if(req.path === "/saved"){
         return res.redirect(routes.saved);
     } else if (req.path === "/"){
@@ -183,7 +187,7 @@ export const postEdit = async (req, res) => {
         nextFeeOption: Math.abs(nextFeeOption),
         nextFeeText
     });
-    selectedDay = dayOfWeek;
+    req.session.day = dayOfWeek;
     res.redirect(routes.saved);
 };
 

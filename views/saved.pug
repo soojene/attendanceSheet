@@ -10,9 +10,9 @@ block content
             ul
                 each member in members
                     if member.earnedMoney.length === 0
-                        li.forFilter(value=member.dayOfWeek) #{member.name}(#{member.nthMeeting}회차): 
+                        li.forFilter(value=member.dayOfWeek) #{member.name}(#{member.nthMeeting}회차까지): 
                     else
-                        li.forFilter(value=member.dayOfWeek) #{member.name}(#{member.nthMeeting}회차): [#{member.earnedMoney}]
+                        li.forFilter(value=member.dayOfWeek) #{member.name}(#{member.nthMeeting}회차까지): [#{member.earnedMoney}]
         .chartBox-total 
             div 토탈   
             ul

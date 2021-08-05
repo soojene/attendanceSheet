@@ -21,4 +21,5 @@ const MemberDB = mongoose.model("Member", memberSchema);
 
 export default MemberDB
 
-//earnedMoney[]배열로 만들고, totalEarnedMoney는 합산으로 만들고.
+//배열과 값을 설정할 수 있나? 배열의 length를 10이하, 그리고 nthMeeting값을 10이하로..그러면 그 값을 넘어가면 어떻게 되는거지?
+
