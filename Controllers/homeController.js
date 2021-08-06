@@ -19,17 +19,28 @@ export const getHome = async(req, res) => {
 };
 
 export const postHome = async (req, res) => {
-     //update database in here
-    const {id, numberOfAbsence, earnedMoney, nthMeeting} = req.body;
+    let {id, numberOfAbsence, earnedMoney, nthMeeting, entryFee} = req.body;
     let extraFeeOption=0; 
     let nextFeeOption=0;
     let extraFeeText="";
     let nextFeeText="";
-    let member = await MemberDB.findById(id);
+    const member = await MemberDB.findById(id);
+    if(nthMeeting < 0){
+        console.log("entryFee:", entryFee);
+        console.log(member.earnedMoney[member.earnedMoney.length-1]);
+        console.log("출첵취소파트");
+        if(member.earnedMoney[member.earnedMoney.length-1] === 0){
+            numberOfAbsence = -1
+        }
+        member.TotalEarnedMoney -= member.earnedMoney[member.earnedMoney.length-1];
+        member.earnedMoney.pop();
+    } else if (nthMeeting > 0){
+        member.earnedMoney.push(earnedMoney);
+        member.TotalEarnedMoney += earnedMoney;
+    }
     member.nthMeeting += nthMeeting;
     member.numberOfAbsence += numberOfAbsence;
-    member.earnedMoney.push(earnedMoney);
-    member.TotalEarnedMoney += earnedMoney;
+    
     if(member.numberOfAbsence > 2) {
         console.log("10000원 추가해야함");
         extraFeeOption = 10000;
@@ -48,7 +59,8 @@ export const postHome = async (req, res) => {
     }
     member.extraFeeOption = extraFeeOption;
     member.extraFeeText = extraFeeText;
-    nextFeeOption = await member.entryFee - member.TotalEarnedMoney + extraFeeOption;
+
+    nextFeeOption = entryFee - member.TotalEarnedMoney + extraFeeOption;
     if (nextFeeOption >= 0){
         nextFeeText = "입금";
     } else {
@@ -58,7 +70,7 @@ export const postHome = async (req, res) => {
     member.nextFeeOption = Math.abs(nextFeeOption);
     member.save();
     req.session.day = member.dayOfWeek;
-    // console.log(member);
+    console.log(member);
     return res.redirect(routes.home);
 };
 

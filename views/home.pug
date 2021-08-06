@@ -20,7 +20,7 @@ block content
                         div #{member.numberOfAbsence} 결석
                         div #{member.entryFee} 참가비
                         div #{member.TotalEarnedMoney} 원
-                        button.checkBox-Absence(value=member._id data-nthMeeting=member.nthMeeting) Absence
+                        button.checkBox-Absence(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting) Absence
                             
         .homeAttendanceSheet-finish
             ul.listBoard-checkedBox(style={margin: "50px 0px"})
