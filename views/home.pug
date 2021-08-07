@@ -20,7 +20,7 @@ block content
                         div #{member.numberOfAbsence} 결석
                         div #{member.entryFee} 참가비
                         div #{member.TotalEarnedMoney} 원
-                        button.checkBox-Absence(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting) Absence
+                        button.checkBox-Absence(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting data-numberOfAbsence=member.numberOfAbsence) Absence
                             
         .homeAttendanceSheet-finish
             ul.listBoard-checkedBox(style={margin: "50px 0px"})
@@ -28,16 +28,14 @@ block content
                     li.forFilter(value=member.dayOfWeek)
                         //- form(action="", method="POST", style={display:"flex"}) 
                         button.checkBox-checkIn(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting style={background: "red"}) #{member.name} (#{member.nthMeeting + 1}회차 취소)
-                        div #{member.numberOfAbsence} 결석
-                        div #{member.entryFee} 참가비
-                        div #{member.TotalEarnedMoney} 원
+                        div.fromCheckBoxInnerText :[결석: 0회차 || 출석: 5000원 (9:02 AM)]
                         //- button.checkBox-Absence(value=member._id data-nthMeeting=member.nthMeeting) Absence
                 //- each member in checkedMember
                     li( style = { display: "flex"})
                         button(value=checkedMember._id)=checkedMember.name
 
         .homeBtnBox-finish.filteringMemberBtns 
-            form(action="", method="")   
+            form(action="/saved", method="")   
                 button.homeTimeFinishBtn DONE 
                 //- 버트 클래스 픽스
 //- fetch로 페이지를 rendering하지 않고 각각 수정이 가능한가?

@@ -26,12 +26,9 @@ export const postHome = async (req, res) => {
     let nextFeeText="";
     const member = await MemberDB.findById(id);
     if(nthMeeting < 0){
-        console.log("entryFee:", entryFee);
-        console.log(member.earnedMoney[member.earnedMoney.length-1]);
-        console.log("출첵취소파트");
         if(member.earnedMoney[member.earnedMoney.length-1] === 0){
             numberOfAbsence = -1
-        }
+        };
         member.TotalEarnedMoney -= member.earnedMoney[member.earnedMoney.length-1];
         member.earnedMoney.pop();
     } else if (nthMeeting > 0){
@@ -42,17 +39,14 @@ export const postHome = async (req, res) => {
     member.numberOfAbsence += numberOfAbsence;
     
     if(member.numberOfAbsence > 2) {
-        console.log("10000원 추가해야함");
         extraFeeOption = 10000;
         extraFeeText = "1만원 추가";
         
     } else if(member.numberOfAbsence <= 2 && member.entryFee !== 50000){
-        console.log("10000원 차감");
         extraFeeOption = -10000;
         extraFeeText = "1만원 할인";
         
     } else if(member.numberOfAbsence <= 2 && member.entryFee === 50000){
-        console.log("유지");
         extraFeeText = "동결";
         extraFeeOption = 0;
         
@@ -70,7 +64,7 @@ export const postHome = async (req, res) => {
     member.nextFeeOption = Math.abs(nextFeeOption);
     member.save();
     req.session.day = member.dayOfWeek;
-    console.log(member);
+    // console.log(member);
     return res.redirect(routes.home);
 };
 

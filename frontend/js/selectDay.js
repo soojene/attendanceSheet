@@ -23,7 +23,7 @@ if(pickOneDay.length !== 0 && lists.length !== 0){
     function filteringMember (chooseDay) {
         apple = [];
         lists.forEach(member => {
-            if (member.attributes.value.value === chooseDay){
+            if (member.attributes.value.value === chooseDay && member.parentNode.className !== "listBoard-checkedBox"){
                 member.classList.add("show");
                 apple.push(member);
             }else{
