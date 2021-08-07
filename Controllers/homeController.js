@@ -8,9 +8,10 @@ export const getHome = async(req, res) => {
     const createdBy = req.session.loggedInUser.email;
     try{
         const members = await MemberDB.find({createdBy});
-        // const members = await UserDB.find({createdBy}).populate("members");
-        // console.log(members);
-        // console.log("getHome:",req.session);
+        const fullCheckedMember = await MemberDB.exists({ createdBy, nthMeeting: { '$gte' : 10 }});
+        if(fullCheckedMember){
+            return res.render("home", {pageTitle: "HOME", members, message: "10회 이상 출석체크가 된 멤버가 있습니다. 저장 페이지에서 입금확인 후 출첵하세여"});
+        }
         return res.render("home", {pageTitle: "HOME", members});
     }catch(error){
         console.log("HOME error:", error);
@@ -202,7 +203,7 @@ export const deleteMember = async(req, res) => {
     const {params : {id: _id} } = req;
     try {
         await MemberDB.findOneAndDelete({ _id });
-        return res.redirect(routes.search);
+        return res.redirect(routes.saved);
     } catch(error){
         console.log("Error:", error);
         return res.redirect(routes.search);

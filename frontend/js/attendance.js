@@ -1,21 +1,40 @@
 const checkedUlBox = document.querySelector(".listBoard-checkedBox");
 const checkedIn = document.querySelector(".listBoard-checkBox");
+
+//startBtn >> time
 let timeBegin;
+
+//operation variables
 let id;
 let clickedMember;
 let entryFee;
 let nthMeeting;
+
+//checkBox list length
+let checkBoxLength = 0;
 
 //if (earnedMoney.length===10)이면, 배열비우고,  entryFee += extraFeeOption; 하고, nthMeeting, numberOfAbsence, extraFeeOption, totalEarnedMoney, nextFeeOption 다 0으로 변경하고, extraFeeText하고 nextFeeText = "" 바꿔준다. 
 
 
 //time Start button
 const timeStartBtn = document.querySelector(".homeTimeStartBtn");
-function recordTimeHandler () {
-    const currentTime = new Date();
-    timeBegin = currentTime;
-    timeStartBtn.classList.add("hidden");
-    console.log(timeBegin);
+function recordTimeHandler (e) {
+    const btn = e.target;
+    btn.classList.toggle("toggle");
+    
+    if(timeBegin === undefined){
+        const currentTime = new Date();
+        timeBegin = currentTime;
+        btn.innerText = '취소';
+        console.log("타임스타뜨");
+        console.log(timeBegin);
+    }else{
+        timeBegin = undefined;
+        console.log("타임취소");
+        btn.innerText = '시작';
+        console.log(timeBegin);
+    }
+    // timeStartBtn.classList.add("hidden");
     //this btn appear again when reload. 
     //클릭한 시간을 서버로 보내서 쿠키에 저장? 아님 로컬에 2시간정도만 저장?
 };
@@ -62,17 +81,27 @@ function postFetch (id, numberOfAbsence, earnedMoney, nthMeeting,entryFee){
 
 //check Box
 if (checkedIn){
+    //nthMeeting이 다른건 비교해서 지워주고
+    const checkUlLists = checkedIn.querySelectorAll("li");
+    checkBoxLength = checkUlLists.length;
+    // checkUlLists.forEach(list => {
+    //     console.log(list)
+    // });
+
     checkedIn.addEventListener("click", (e) => {
         if (e.target.tagName !== "BUTTON" || timeBegin === undefined ){
+            alert("it's not btn or didn't click startBtn");
             console.log("it's not btn or didn't click startBtn");
             return;
         };
         if (parseInt(e.target.dataset.nthmeeting) >= 10){
+            alert("10회 출석체크가 되었습니다. 저장 페이지에서 입금확인을 하셔야 다음 1회 출석체크가 이루어집니다.");
             console.log("10회를 넘었음");
             return;
         };
         varialbesControll(e, 1);
         clickedMember.classList.remove("show");
+        checkBoxLength -= 1;
         
         const checkinTime = new Date();
         const timeDiff = checkinTime.getTime() - timeBegin.getTime();
@@ -121,7 +150,9 @@ if (checkedIn){
 
 // checked Box (invisible dafault setting)
 if (checkedUlBox){
+    //nthMeeting이 다른거 비교해서 표시해주고
     const checkedUlBoxLists = checkedUlBox.querySelectorAll("li");
+    // console.log(checkedUlBoxLists.length);
     checkedUlBoxLists.forEach(list => {
         list.classList.remove("show");
     });
@@ -132,6 +163,7 @@ if (checkedUlBox){
         }
         varialbesControll(e, -1);
         clickedMember.classList.remove("show");
+        checkBoxLength += 1;
         showingListHandler(id, checkedIn);
         // console.log("업데이트된 데이터 다시 복구하기");
 
@@ -144,11 +176,13 @@ if (checkedUlBox){
 //Done button
 const timeFinishBtn = document.querySelector(".homeTimeFinishBtn");
 function attendanceDoneHandler (e) {
-    // .listBoard-checkBox에 li가 있으면 warning.
-    // e.preventDefault();
-    alert("sure?");
-    timeStartBtn.classList.remove("hidden");
-    timeBegin = undefined;
+    if(checkBoxLength !== 0){
+        e.preventDefault();
+        alert("all members are not checked"); //취소버튼도 있어야함.
+        return;
+    }
+    // timeStartBtn.classList.remove("hidden");
+    // timeBegin = undefined;
     // console.log(timeBegin);
 }
 if (timeFinishBtn){

@@ -5,15 +5,19 @@ block content
     main
         h1 attendance sheet
         include partials/selectDay.pug
+
+        if (message)
+            div=message
+
         .homeBtnBox-start.filteringMemberBtn
-            .nthAttendanceBOX nth
+            //- .nthAttendanceBOX nth
             button.homeTimeStartBtn START 
             //- 버튼 클래스 픽스
 
         .homeAttendanceSheet-start
             ul.listBoard-checkBox
                 //- ul 클래스 픽스
-                each member in members
+                each member in members 
                     li.forFilter(value=member.dayOfWeek)
                         //- form(action="", method="POST", style={display:"flex"}) 
                         button.checkBox-checkIn(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting) #{member.name} (#{member.nthMeeting + 1}회차)

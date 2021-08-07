@@ -58,6 +58,7 @@ if(pickOneDay.length !== 0 && lists.length !== 0){
                     chooseDay
                 })
             })
+            //리로드? 요일을 누르고 업데이트된 데이터를 보려면?//서버에서 rendering하거나.?
         })
     // };
     
