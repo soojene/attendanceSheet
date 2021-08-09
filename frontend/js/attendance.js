@@ -111,14 +111,14 @@ if (timeStartBtn){
             timeBegin = currentTime;
             btn.innerText = '취소';
             startCounting = true;
-            console.log("타임스타뜨");
-            console.log(timeBegin);
+            // console.log("타임스타뜨");
+            // console.log(timeBegin);
         }else{
             timeBegin = undefined;
-            console.log("타임취소");
+            // console.log("타임취소");
             btn.innerText = '시작';
             startCounting = false;
-            console.log(timeBegin);
+            // console.log(timeBegin);
         }
         // timeStartBtn.classList.add("hidden");
         //this btn appear again when reload. 
@@ -133,7 +133,6 @@ function varialbesControll(e, numb){
     entryFee = parseInt(e.target.dataset.entryfee);
     nthMeeting = numb;
 };
-
 function showingListHandler(id, ulBox, fromcheckBox){
     const lists = ulBox.querySelectorAll("li");
     lists.forEach(list => {
@@ -146,7 +145,6 @@ function showingListHandler(id, ulBox, fromcheckBox){
         }
     });
 };
-
 function postFetch (id, numberOfAbsence, earnedMoney, nthMeeting,entryFee){
     fetch('/', {
         method: 'post',
@@ -168,7 +166,7 @@ function firstCheckBox (checkUlLists){
             list.classList.remove("show");
             numbOfApple -= 1;
         }else {
-            console.log("first Ul Box 회차같음:");
+            // console.log("first Ul Box 회차같음:");
         }
     });
 };
@@ -185,6 +183,7 @@ function secondUlBox (checkedUlBoxLists){
 if (checkedIn){
     checkUlLists = checkedIn.querySelectorAll("li");
     firstCheckBox(checkUlLists);
+
     checkedIn.addEventListener("click", (e) => {
         if (e.target.tagName !== "BUTTON" || timeBegin === undefined ){
             alert("it's not btn or didn't click startBtn");
@@ -199,7 +198,7 @@ if (checkedIn){
         varialbesControll(e, 1);
         clickedMember.classList.remove("show");
         numbOfApple -= 1;
-        console.log(numbOfApple);
+        // console.log(numbOfApple);
         const checkinTime = new Date();
         const timeDiff = checkinTime.getTime() - timeBegin.getTime();
         const timeDifferentBySecond = timeDiff/1000;
@@ -214,14 +213,14 @@ if (checkedIn){
         let earnedMoney = 0;
 
         if(e.target.className === "checkBox-Absence"){
-            console.log("absence");
+            // console.log("absence");
             numberOfAbsence = 1;
             let absenceNumb = parseInt(e.target.dataset.numberofabsence) + 1;
             const AbsenInnerTexts = `결석: ${absenceNumb}회.`
             showingListHandler(id, checkedUlBox, AbsenInnerTexts);
         };
         if (e.target.className === "checkBox-checkIn"){
-            console.log("checkin");
+            // console.log("checkin");
             //1800초, 3600초 시작전을 full로 할것인가, 시작하고 5분까지는 full로 하고 5-30분안을 10%로 할것인가..
             if(timeDifferentBySecond <= 3){
                 earnedMoney= entryFee * 0.1;
@@ -257,7 +256,7 @@ if (checkedUlBox){
         varialbesControll(e, -1);
         clickedMember.classList.remove("show");
         numbOfApple += 1;
-        console.log(numbOfApple);
+        // console.log(numbOfApple);
         showingListHandler(id, checkedIn);
         // console.log("업데이트된 데이터 다시 복구하기");
 
@@ -272,7 +271,7 @@ const timeFinishBtn = document.querySelector(".homeTimeFinishBtn");
 
 if (timeFinishBtn){
     timeFinishBtn.addEventListener("click", (e) => {
-        console.log(numbOfApple);
+        // console.log(numbOfApple);
         if(numbOfApple !== 0){
             e.preventDefault();
             alert("all members are not checked"); //취소버튼도 있어야함.

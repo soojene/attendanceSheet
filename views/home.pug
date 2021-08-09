@@ -15,6 +15,7 @@ block content
             //- 버튼 클래스 픽스
 
         .homeAttendanceSheet-start
+            .ulBox-title 체크박스
             ul.listBoard-checkBox
                 //- ul 클래스 픽스
                 each member in members 
@@ -27,6 +28,7 @@ block content
                         button.checkBox-Absence(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting data-numberOfAbsence=member.numberOfAbsence) Absence
                             
         .homeAttendanceSheet-finish
+            .ulBox-title 수정박스
             ul.listBoard-checkedBox(style={margin: "50px 0px"})
                 each member in members
                     li.forFilter(value=member.dayOfWeek data-nthMeeting=member.nthMeeting)

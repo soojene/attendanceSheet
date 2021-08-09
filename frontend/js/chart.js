@@ -1,4 +1,4 @@
-console.log("chart sheet work?");
+// console.log("chart sheet work?");
 
 //numberOfAbsence가 3이상이면 추가
 //numberOfAbsence가 2이하이면 할인 

@@ -113,7 +113,7 @@ export const PostSaved = (req, res) => {
     //선택요일 저장하는 처리. 필요하면 나중에 루트를 따로 만들어서 별도로 사용하는게 좋을듯.
     const{chooseDay}=req.body;
     req.session.day = chooseDay;
-    console.log("postsaved",chooseDay);
+    // console.log("postsaved",chooseDay);
     return res.redirect(routes.home);
 };
 
