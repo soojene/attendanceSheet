@@ -2,16 +2,10 @@ import routes from '../routes';
 import MemberDB from '../models/Member';
 import UserDB from '../models/Leader';
 
-// export let selectedDay = "SAT";
-
 export const getHome = async(req, res) => {
     const createdBy = req.session.loggedInUser.email;
     try{
         const members = await MemberDB.find({createdBy});
-        const fullCheckedMember = await MemberDB.exists({ createdBy, nthMeeting: { '$gte' : 10 }});
-        if(fullCheckedMember){
-            return res.render("home", {pageTitle: "HOME", members, message: "10회 이상 출석체크가 된 멤버가 있습니다. 저장 페이지에서 입금확인 후 출첵하세여"});
-        }
         return res.render("home", {pageTitle: "HOME", members});
     }catch(error){
         console.log("HOME error:", error);
@@ -118,14 +112,9 @@ export const PostSaved = (req, res) => {
     //10회 종료후 리셋 처리
     //선택요일 저장하는 처리. 필요하면 나중에 루트를 따로 만들어서 별도로 사용하는게 좋을듯.
     const{chooseDay}=req.body;
-    // console.log(req.path);
     req.session.day = chooseDay;
-    // selectedDay = chooseDay; //멤버 dayOfWeek으로 변경
-    if(req.path === "/saved"){
-        return res.redirect(routes.saved);
-    } else if (req.path === "/"){
-        return res.redirect(routes.home);
-    }
+    console.log("postsaved",chooseDay);
+    return res.redirect(routes.home);
 };
 
 export const getSearch = async (req, res) => {

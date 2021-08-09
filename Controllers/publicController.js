@@ -22,8 +22,9 @@ export const postLogin = async (req, res) => {
     }
     req.session.logIn = true;
     req.session.loggedInUser = findUser;
-    req.session.day = "SAT";
-    // console.log("postLogin:",req.session);
+    const days = new Array("SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT");
+    const Oneday = new Date().getDay()
+    req.session.day = days[Oneday];
     return res.redirect(routes.home);
 };
 

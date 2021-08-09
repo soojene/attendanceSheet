@@ -10,7 +10,7 @@ block content
             div=message
 
         .homeBtnBox-start.filteringMemberBtn
-            //- .nthAttendanceBOX nth
+            //- .nthAttendanceBOX(data-nth=nth) #{nth+1} 회차
             button.homeTimeStartBtn START 
             //- 버튼 클래스 픽스
 
@@ -18,7 +18,7 @@ block content
             ul.listBoard-checkBox
                 //- ul 클래스 픽스
                 each member in members 
-                    li.forFilter(value=member.dayOfWeek)
+                    li.forFilter(value=member.dayOfWeek data-nthMeeting=member.nthMeeting)
                         //- form(action="", method="POST", style={display:"flex"}) 
                         button.checkBox-checkIn(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting) #{member.name} (#{member.nthMeeting + 1}회차)
                         div #{member.numberOfAbsence} 결석
@@ -29,7 +29,7 @@ block content
         .homeAttendanceSheet-finish
             ul.listBoard-checkedBox(style={margin: "50px 0px"})
                 each member in members
-                    li.forFilter(value=member.dayOfWeek)
+                    li.forFilter(value=member.dayOfWeek data-nthMeeting=member.nthMeeting)
                         //- form(action="", method="POST", style={display:"flex"}) 
                         button.checkBox-checkIn(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting style={background: "red"}) #{member.name} (#{member.nthMeeting + 1}회차 취소)
                         div.fromCheckBoxInnerText :[결석: 0회차 || 출석: 5000원 (9:02 AM)]

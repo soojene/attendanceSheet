@@ -63,7 +63,9 @@ export const finishNaverLogin = async (req, res) => {
             });
             req.session.logIn = true;
             req.session.loggedInUser = newUser;
-            req.session.day = "SAT";
+            const days = new Array("SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT");
+            const Oneday = new Date().getDay()
+            req.session.day = days[Oneday];
             return res.redirect(routes.home);
         }
     } catch(error){
