@@ -1,19 +1,20 @@
-//Global
-const HOME = "/";
-const ADD = "/addmember";
-const SEARCH = "/search";
-const SAVED = "/saved";
-
-
+//public
 const LOGIN = "/login";
-const LOGOUT = "/logout";
 const JOIN = "/join";
-const DELETEMEMBER = "/delete:id";
-
 //socialLogin
 const STARTNAVER = "/gonaver";
 const FINISHNAVER = "/comefromnaver";
 
+//private
+const HOME = "/";
+const SAVED = "/saved";
+const ADD = "/addmember";
+const SEARCH = "/search";
+const DELETEMEMBER = "/delete:id";
+const LOGOUT = "/logout";
+//routes for datas
+const RESET = "/reset";
+const SAVETIME = "/recordtime";
 
 const routes = {
     home:HOME,
@@ -31,7 +32,9 @@ const routes = {
         }
     },
     startNaver:STARTNAVER,
-    finishNaver:FINISHNAVER
+    finishNaver:FINISHNAVER,
+    reset:RESET,
+    recordtime:SAVETIME
 };
 
 export default routes;

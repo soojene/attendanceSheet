@@ -6,15 +6,14 @@ block content
         form.searchMemberBox(method="" action="") 
             input(type="text" placeholder="search by name" name="name")
 
-        //- earnedMoney[]도 수정하게??
-
         .searchedMainBox
             if(findMember)
                 ul     
                     each member in findMember 
                         li 
                             form(method="POST" action=routes.search)
-                                input(type="text" name="name" value=member.name)
+
+                                input(type="text" name="name" value=member.name required)
 
                                 label(for="week") choose a day of meeting: 
                                 select(name="dayOfWeek" id="week" required)
@@ -27,14 +26,26 @@ block content
                                     option(value="SAT") SAT 
                                     option(value="SUN") SUN
 
-                                label(for="memberInning") start at:
-                                input(type="number" id="memberInning" name="nthMeeting" scale=1 max=10 min=0 value=member.nthMeeting required)
+                                //- label(for="memberInning") start at:
+                                //- input(type="number" id="memberInning" name="nthMeeting" scale=1 max=10 min=1 value=member.nthMeeting required)
 
                                 label(for="memberAbsence") number of Absence:
                                 input(type="number" id="memberAbsence" name="numberOfAbsence" scale=1 max=10 min=0 value=member.numberOfAbsence required)
 
-                                label(for="memberTotalEarnedMoney") totalearnedFee:
-                                input(type="number" name="TotalEarnedMoney" id="memberTotalEarnedMoney" min=0 value=member.TotalEarnedMoney)
+                                label(for="nthFee")  nth Fee 
+                                div(id="nthFee" data-label=member._id style={display: "flex"})
+                                    if member.earnedMoney.length !== 0
+                                        select(name="index").selectNth
+                                            each fee, index in member.earnedMoney 
+                                                option.selectNthOption(value=index) #{index + 1}회차: #{fee}원
+                                        input.nthEarndMoney(type="number" min=0 name="changedEarnedMoney" placeholder="회차 선택 후 변경 값")
+                                    else
+                                        select(name="index").selectNth
+                                            option.selectNthOption(value="") ----
+                                        input.nthEarndMoney(type="number" value="" name="changedEarnedMoney"  placeholder="haven't checked yet")
+
+                                //- label(for="memberTotalEarnedMoney") totalearnedFee:
+                                //- input(type="number" name="TotalEarnedMoney" id="memberTotalEarnedMoney" min=0 value=member.TotalEarnedMoney)
 
                                 label(for="memberEntryFee") Entry fee:
                                 input(type="number" name="entryfee" min=10000 step=10000 value=member.entryFee placeholder="entry fee" id="memberEntryFee" required)

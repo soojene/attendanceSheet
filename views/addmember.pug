@@ -24,12 +24,9 @@ block content
                     input(type="text" name="name" placeholder="nickname" id="memberName" required)
                     
                     label(for="memberInning") start at:
-                    input(type="number" id="memberInning" name="nthMeeting" scale=1 max=10 min=0 placeholder="inning" value=0 required)
+                    input(type="number" id="memberInning" name="nthMeeting" scale=1 max=10 min=1 required)
                     
                     label(for="memberEntryFee") Entry fee:
                     input(type="number" name="entryFee" min=10000 value=50000 step=10000 placeholder="entry fee" id="memberEntryFee" required)
 
                     input(type="submit" value="ADD MEMBER" style={background: 'pink'})
-
-//- inning value를 함수처리 해주자
-//- 요일도required이고 하나만 선택할 수 있게 처리해야함

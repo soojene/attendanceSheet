@@ -1,6 +1,6 @@
 import routes from '../routes';
 import MemberDB from '../models/Member';
-import UserDB from '../models/Leader';
+// import UserDB from '../models/Leader';
 
 export const getHome = async(req, res) => {
     const createdBy = req.session.loggedInUser.email;
@@ -32,7 +32,9 @@ export const postHome = async (req, res) => {
     }
     member.nthMeeting += nthMeeting;
     member.numberOfAbsence += numberOfAbsence;
-    
+    if(member.numberOfAbsence < 0){
+        member.numberOfAbsence = 0;
+    };
     if(member.numberOfAbsence > 2) {
         extraFeeOption = 10000;
         extraFeeText = "1만원 추가";
@@ -68,25 +70,27 @@ export const getAddMember = (req, res) => {
 };
 
 export const postAddMember = async (req, res) => {
-    //맴버추가하는 폼을 받아와서 새로운 맴버를 만들어서 홈으로 redirect해줌
     const { name, time, dayOfWeek, entryFee, nthMeeting } = req.body;
     const createdBy = req.session.loggedInUser.email;
     try {
-        // const newMember = 
-        await MemberDB.create({
+        const newMember = await MemberDB.create({
             name,
             time,
             createdBy,
             entryFee,
             nthMeeting,
             earnedMoney: [],
-            dayOfWeek
+            dayOfWeek,
+            TotalEarnedMoney: 0
         });
-        //I'm not sure using populate() is way better to filter and display MemberDB. If I push memberDB _id into UserDB.member[] when user add a member, then I also need to filter and find one specific _id in the array and delete it and save again when user delete one memberDB.  
-        // const leader = await UserDB.findOne({email:createdBy});
-        // leader.members.push(newMember._id);
-        // leader.save();
-        // console.log(leader);
+        if(nthMeeting !== 1){
+            for(let i = 1; i < nthMeeting; i++){
+                newMember.earnedMoney.push(0);
+            };
+            // newMember.earnedMoney.length = nthMeeting-1;
+            newMember.save();
+        }
+        console.log(newMember);
         req.session.day = dayOfWeek; 
         res.redirect(routes.home);
     } catch (error) {
@@ -99,8 +103,6 @@ export const getSaved = async (req, res) => {
     const createdBy = req.session.loggedInUser.email;
     try{
         const members = await MemberDB.find({ createdBy });
-        // console.log(members);
-        // console.log("getSaved:",req.session);
         return res.render("saved", {pageTitle: "CART", members});
     }catch(error){
         console.log("HOME error:", error);
@@ -109,8 +111,7 @@ export const getSaved = async (req, res) => {
 };
 
 export const PostSaved = (req, res) => {
-    //10회 종료후 리셋 처리
-    //선택요일 저장하는 처리. 필요하면 나중에 루트를 따로 만들어서 별도로 사용하는게 좋을듯.
+    //선택요일을 서버에서 처리
     const{chooseDay}=req.body;
     req.session.day = chooseDay;
     // console.log("postsaved",chooseDay);
@@ -143,48 +144,53 @@ export const getSearch = async (req, res) => {
 };
 
 export const postEdit = async (req, res) => {
-    //찾아서 수정해서 저장해준다. post방식은 req.body로 검색
-    const {id, name, entryfee, nthMeeting, numberOfAbsence, TotalEarnedMoney, dayOfWeek}=req.body;
+    const {name, dayOfWeek, numberOfAbsence, index, changedEarnedMoney, entryfee, id}=req.body;
+    // console.log("index/원:",typeof index, typeof changedEarnedMoney);
     const entryFee = parseInt(entryfee);
-    // console.log(typeof entryFee); 
     let extraFeeOption;
     let extraFeeText;
     let nextFeeText = "입금";
     if(numberOfAbsence > 2) {
-        console.log("10000원 추가해야함");
         extraFeeOption = 10000;
         extraFeeText = "1만원 추가";
         
     } else if(numberOfAbsence <= 2 && entryFee !== 50000){
-        console.log("10000원 차감");
         extraFeeOption = -10000;
         extraFeeText = "1만원 할인";
         
     } else if(numberOfAbsence <= 2 && entryFee === 50000){
-        console.log("유지");
         extraFeeText = "동결";
         extraFeeOption = 0;
-        
+    };
+    try{
+        const member = await MemberDB.findById(id);
+        if(index && changedEarnedMoney){
+            const inDex = parseInt(index);
+            const changedMoney = parseInt(changedEarnedMoney);
+            member.earnedMoney.splice(inDex,1,changedMoney);
+            member.TotalEarnedMoney= member.earnedMoney.reduce(function add(a, b) {
+                return a + b;}, 0);
+            member.nextFeeOption=entryFee - member.TotalEarnedMoney + extraFeeOption;
+        }else{
+            member.nextFeeOption=entryFee - member.TotalEarnedMoney + extraFeeOption;
+        };
+
+        if (member.nextFeeOption < 0){
+            nextFeeText = "환금";
+        };
+        member.name = name;
+        member.dayOfWeek = dayOfWeek;
+        member.numberOfAbsence = numberOfAbsence;
+        member.entryFee = entryfee;
+        member.extraFeeOption = extraFeeOption;
+        member.extraFeeText = extraFeeText;
+        member.nextFeeText = nextFeeText;
+        member.save();
+        return res.redirect(routes.saved);
+    }catch(error){
+        console.log("POST EDIT:", error);
+        return res.redirect(routes.saved);
     }
-    let nextFeeOption= entryFee - TotalEarnedMoney + extraFeeOption;
-    if (nextFeeOption < 0){
-        nextFeeText = "환금";
-    }
-    // const updateMember = 
-    await MemberDB.findByIdAndUpdate(id, {
-        name,
-        entryFee,
-        nthMeeting,
-        numberOfAbsence,
-        TotalEarnedMoney,
-        dayOfWeek,
-        extraFeeText,
-        extraFeeOption,
-        nextFeeOption: Math.abs(nextFeeOption),
-        nextFeeText
-    });
-    req.session.day = dayOfWeek;
-    res.redirect(routes.saved);
 };
 
 //No template
@@ -197,4 +203,30 @@ export const deleteMember = async(req, res) => {
         console.log("Error:", error);
         return res.redirect(routes.search);
     }
+};
+
+export const postReset = async(req, res) => {
+    const {id}=req.body;
+    try{
+       const member = await MemberDB.findById(id);
+       member.nthMeeting=1;
+       member.numberOfAbsence = 0;
+       member.earnedMoney =[];
+       member.TotalEarnedMoney = 0;
+       member.entryFee += member.extraFeeOption;
+       member.extraFeeOption = 0;
+       member.extraFeeText = "";
+       member.nextFeeOption = 0;
+       member.nextFeeText= "";
+       member.save();
+       return res.redirect(routes.saved);
+    } catch (err) {
+        console.log("postReset:", err);
+        return res.redirect(routes.saved);
+    }
+};
+
+export const postRecordTime = (req, res) => {
+    console.log("recordTime");
+    res.send("recordTime");
 };

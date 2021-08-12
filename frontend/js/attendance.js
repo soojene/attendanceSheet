@@ -1,16 +1,23 @@
 const days = document.querySelector(".selectOneDayOfWeek");
-let pickOneDay = document.querySelectorAll(".selectOneDayOfWeek-btn");
-let lists = document.querySelectorAll(".forFilter");
-const filteringMemberBtn = document.querySelector(".filteringMemberBtn");
-const filteringMemberBtns = document.querySelector(".filteringMemberBtns");
+const timeStartBtn = document.querySelector(".homeTimeStartBtn");
+const checkedUlBox = document.querySelector(".listBoard-checkedBox");
+const checkedIn = document.querySelector(".listBoard-checkBox");
+const timeFinishBtn = document.querySelector(".homeTimeFinishBtn");
 
 let apple= [];
 let nth;
+let maxNth;
 let chooseDay;
 
 //요일버튼
-if(pickOneDay.length !== 0 && lists.length !== 0){
+if(days){
+    let pickOneDay = document.querySelectorAll(".selectOneDayOfWeek-btn");
+    let lists = document.querySelectorAll(".forFilter");
+    const filteringMemberBtn = document.querySelector(".filteringMemberBtn");
+    const filteringMemberBtns = document.querySelector(".filteringMemberBtns");
+    const tenthMeetingMessage = document.querySelector(".ifTenthMeetingExist");
     chooseDay = days.attributes.value.value;
+
     function selectedDaybgColorFunction (chooseDay) {
         pickOneDay.forEach(day => {
             if(day.value === chooseDay){
@@ -33,12 +40,22 @@ if(pickOneDay.length !== 0 && lists.length !== 0){
                 member.classList.remove("show");
             }
         });
-        nth = Math.min(...arrayOfNthmeeting);
+        nth = Math.min(...arrayOfNthmeeting);//회차
+        maxNth = Math.max(...arrayOfNthmeeting);
         numbOfApple = apple.length;
-        if(apple.length === 0){
+        if(timeStartBtn){
+            startBtnSetting (nth);
+        }
+        if(tenthMeetingMessage && maxNth >= 11){
+            tenthMeetingMessage.classList.add("show");
+        } else if(tenthMeetingMessage && maxNth < 11){
+            tenthMeetingMessage.classList.remove("show");
+        };
+
+        if(numbOfApple === 0){
             filteringMemberBtn.classList.remove("show");
             filteringMemberBtns.classList.remove("show");
-        }else{
+        }else if(numbOfApple !== 0){
             filteringMemberBtn.classList.add("show");
             filteringMemberBtns.classList.add("show");
         }
@@ -80,9 +97,6 @@ if(pickOneDay.length !== 0 && lists.length !== 0){
 };
 
 //homepage
-const checkedUlBox = document.querySelector(".listBoard-checkedBox");
-const checkedIn = document.querySelector(".listBoard-checkBox");
-
 let checkUlLists;
 let checkedUlBoxLists;
 
@@ -95,36 +109,6 @@ let nthMeeting;
 
 let startCounting = false;
 let numbOfApple =apple.length;
-
-//time Start button
-const timeStartBtn = document.querySelector(".homeTimeStartBtn");
-if (timeStartBtn){
-    timeStartBtn.addEventListener("click", (e) => {
-        if (timeBegin !== undefined && apple.length !== numbOfApple){
-            console.log("체크된 멤버가 이미 있는데 시간취소한다고?");
-        };
-        const btn = e.target;
-        btn.classList.toggle("toggle");
-        
-        if(timeBegin === undefined){
-            const currentTime = new Date();
-            timeBegin = currentTime;
-            btn.innerText = '취소';
-            startCounting = true;
-            // console.log("타임스타뜨");
-            // console.log(timeBegin);
-        }else{
-            timeBegin = undefined;
-            // console.log("타임취소");
-            btn.innerText = '시작';
-            startCounting = false;
-            // console.log(timeBegin);
-        }
-        // timeStartBtn.classList.add("hidden");
-        //this btn appear again when reload. 
-        //클릭한 시간을 서버로 보내서 쿠키에 저장? 아님 로컬에 2시간정도만 저장?
-    });
-}
 
 //functions
 function varialbesControll(e, numb){
@@ -173,11 +157,48 @@ function firstCheckBox (checkUlLists){
 function secondUlBox (checkedUlBoxLists){
     checkedUlBoxLists.forEach(list => {
         if(parseInt(list.dataset.nthmeeting) !== nth && list.attributes.value.value === chooseDay){
+            let div =list.querySelector(".fromCheckBoxInnerText");
+            list.childNodes[0].innerText = `${list.dataset.name}(${list.dataset.nthmeeting - 1}회차 취소)`
+            div.innerText = `${list.dataset.nthofabsence}회 결석.`
             list.classList.add("show");
         }
     });
 };
+function startBtnSetting (nth){
+    if(nth >= 11){
+        timeStartBtn.innerText = `⛔️ 10회 다 했어유. 입금 확인 후 다시 출첵할 수 있어유`;
+    }else if(nth < 11){
+        timeStartBtn.innerText = `${nth}회차 스따뜨`;
+    }
+};
 
+//time Start button
+if (timeStartBtn){
+    startBtnSetting(nth);
+    timeStartBtn.addEventListener("click", (e) => {
+        if(nth >= 11){
+            alert("10회차 출첵한 멤머가 있어요. 입금확인 후 출첵할 수 있어요.")
+            return;
+        }
+        if (timeBegin !== undefined && apple.length !== numbOfApple){
+            alert("체크된 멤버가 이미 있는데 시간취소한다고? 체크된 멤버를 취소하던, 출첵을 마저 끝내고 시간취소를 하세여");
+            return;
+        };
+        const btn = e.target;
+        btn.classList.toggle("toggle");
+        if(timeBegin === undefined){
+            const currentTime = new Date();
+            timeBegin = currentTime;
+            btn.innerText = `${nth}회차 취소`;
+            startCounting = true;
+        }else{
+            timeBegin = undefined;
+            btn.innerText = `${nth}회차 재시작`;
+            startCounting = false;
+        }
+        //시간시작버튼을 누른 상태에서 다른페이지로 이동하거나 브라우저를 닫고 다시 돌아오면 시작된 시간은 저장되어 있지않아 시간시작버튼이 리셋되어있다.
+    });
+}
 
 //check Box
 if (checkedIn){
@@ -185,12 +206,15 @@ if (checkedIn){
     firstCheckBox(checkUlLists);
 
     checkedIn.addEventListener("click", (e) => {
-        if (e.target.tagName !== "BUTTON" || timeBegin === undefined ){
-            alert("it's not btn or didn't click startBtn");
-            console.log("it's not btn or didn't click startBtn");
+        if (e.target.tagName !== "BUTTON"){
+            console.log("it's not btn");
             return;
         };
-        if (parseInt(e.target.dataset.nthmeeting) >= 10){
+        if(timeBegin === undefined){
+            alert("didn't click startBtn");
+            return;
+        };
+        if (parseInt(e.target.dataset.nthmeeting) >= 12){
             alert("10회 출석체크가 되었습니다. 저장 페이지에서 입금확인을 하셔야 다음 1회 출석체크가 이루어집니다.");
             console.log("10회를 넘었음");
             return;
@@ -244,7 +268,7 @@ if (checkedIn){
     );
 };
 
-// checked Box (invisible dafault setting)
+// checked Box 
 if (checkedUlBox){
     checkedUlBoxLists = checkedUlBox.querySelectorAll("li");
     secondUlBox(checkedUlBoxLists);
@@ -265,10 +289,7 @@ if (checkedUlBox){
     })
 }
 
-
 //Done button
-const timeFinishBtn = document.querySelector(".homeTimeFinishBtn");
-
 if (timeFinishBtn){
     timeFinishBtn.addEventListener("click", (e) => {
         // console.log(numbOfApple);

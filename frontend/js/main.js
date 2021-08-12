@@ -1,7 +1,6 @@
 import "../scss/style.scss";
 
 import "./attendance";
-import "./chart";
+import "./resetRollCall";
+import "./addMember";
 import "./bandShare";
-
-// console.log("connecting");
