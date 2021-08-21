@@ -56,7 +56,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scs
   \**************************************/
 /***/ (() => {
 
-eval("var savedPage = document.querySelector(\".chartBox-total\");\n\nif (savedPage) {\n  var resetBtn = document.querySelectorAll(\".resetCallBtn\");\n  resetBtn.forEach(function (btn) {\n    btn.addEventListener(\"click\", function () {\n      var id = btn.dataset.id;\n      btn.classList.add(\"hideResetBtn\");\n      fetch('/reset', {\n        method: 'post',\n        headers: {\n          'Content-Type': 'application/json'\n        },\n        body: JSON.stringify({\n          id: id\n        })\n      });\n    });\n  });\n}\n\n//# sourceURL=webpack://noodasim/./frontend/js/resetRollCall.js?");
+eval("var savedPage = document.querySelector(\".chartBox-total\");\n\nif (savedPage) {\n  var resetBtn = document.querySelectorAll(\".resetCallBtn\");\n  resetBtn.forEach(function (btn) {\n    btn.addEventListener(\"click\", function () {\n      var id = btn.dataset.id;\n      btn.classList.add(\"hideResetBtn\");\n      btn.previousSibling.innerText = \"입금 확인\";\n      fetch('/reset', {\n        method: 'post',\n        headers: {\n          'Content-Type': 'application/json'\n        },\n        body: JSON.stringify({\n          id: id\n        })\n      });\n    });\n  });\n}\n\n//# sourceURL=webpack://noodasim/./frontend/js/resetRollCall.js?");
 
 /***/ }),
 

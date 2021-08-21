@@ -1,6 +1,5 @@
 import routes from '../routes';
 import MemberDB from '../models/Member';
-// import UserDB from '../models/Leader';
 
 export const getHome = async(req, res) => {
     const createdBy = req.session.loggedInUser.email;
@@ -145,7 +144,6 @@ export const getSearch = async (req, res) => {
 
 export const postEdit = async (req, res) => {
     const {name, dayOfWeek, numberOfAbsence, index, changedEarnedMoney, entryfee, id}=req.body;
-    // console.log("index/원:",typeof index, typeof changedEarnedMoney);
     const entryFee = parseInt(entryfee);
     let extraFeeOption;
     let extraFeeText;
