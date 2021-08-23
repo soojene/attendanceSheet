@@ -3,21 +3,20 @@ extends ./layouts/main.pug
 block content 
         .loginWelcomeBox 
             img(src="/nudasim_logo.png", alt="")
-            .loginWelcomeBox--text     
-                h1  welcome to this website 
-                h4 login with your email 
+            //- .loginWelcomeBox--text
+            //-     h4 login with your email 
         if(ErrorMessage)
             h4(style={color: "red"})=ErrorMessage
-        .loginMainBox                
+        .loginMainBox
             form(action=routes.login, method="POST") 
+                h4 🌰 이메일로 로그인하세요. 🥕                
                 input(type="mail" name="email" placeholder="email" required)
                 input(type="password" name="password" placeholder="password" required)
-                input.log(type="submit"  value="LOGIN")
+                input.log(type="submit"  value="로그인")
             .socialLogin 
                 a(href=routes.startNaver)
                     img(src="/naverLoginBtn.png") 
         
         .loginJoinBox
-            h4 no account? 
             a(href=routes.join)
-                button JOIN NOW          
+                button 가입할래?          
