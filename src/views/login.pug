@@ -1,0 +1,21 @@
+extends ./layouts/main.pug
+
+block content 
+        //- .loginWelcomeBox 
+        //-     img(src="/nudasim_logo.png", alt="")
+        .loginPage
+            if(ErrorMessage)
+                h4(style={color: "red"})=ErrorMessage
+            .loginMainBox
+                form(action=routes.login, method="POST") 
+                    h4 🌳🌳🌳              
+                    input(type="mail" name="email" placeholder="email" required)
+                    input(type="password" name="password" placeholder="password" required)
+                    input.log(type="submit"  value="로그인")
+                .socialLogin 
+                    a(href=routes.startNaver) 🅽 네이버 간편 로그인
+                        //- img(src="/naverLoginBtn.png") 
+            
+            .loginJoinBox
+                a(href=routes.join)
+                    button 가입          

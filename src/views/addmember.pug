@@ -1,0 +1,16 @@
+extends ./layouts/main.pug
+
+block content
+    include ./partials/navBar.pug
+    .addPage       
+        .addMemberMainBox        
+            h1.pageTitle ADD NEW MEMBER
+            form(action="/addmember" method="POST")
+
+                input(type="text" name="name" placeholder="닉네임" required)
+                
+                input(type="number" name="nthMeeting" step=1 max=10 min=1 placeholder="시작회차" required)
+                
+                input(type="number" name="entryFee" min=10000 value=50000 step=10000 placeholder="시작회비" required)
+
+                input(type="submit" value="멤버 추가")

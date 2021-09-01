@@ -1,0 +1,53 @@
+// .loginWelcomeBox {
+//   margin: 50px 0px 20px 0px;
+// }
+
+.loginMainBox {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: $basic-border;
+  border-radius: 5px;
+  // margin-bottom: 20px;
+  form {
+    align-items: center;
+    padding: 20px 5px 0px 5px;
+    h4 {
+      width: 230px;
+      text-align: center;
+      margin: 5px 0px;
+    }
+  }
+  .socialLogin {
+    width: 70%;
+    margin: 20px 0px;
+    a {
+      display: flex;
+      justify-content: center;
+      padding: 10px 20px;
+      font-size: 20px;
+      font-weight: 450;
+      color: whitesmoke;
+      background-color: #04c75a;
+      border-radius: 5px;
+    }
+  }
+}
+
+.loginJoinBox {
+  margin-top: 40px;
+  width: 350px;
+  button {
+    width: 100%;
+    border-style: none;
+    border-radius: 10px;
+    font-size: 15px;
+    padding: 10px 5px;
+    &:hover {
+      background-color: $main-color;
+      color: $main-green;
+      font-weight: bolder;
+    }
+  }
+}

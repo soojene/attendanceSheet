@@ -1,0 +1,42 @@
+extends ./layouts/main.pug
+
+block content
+    include ./partials/navBar.pug
+    main
+        if members.length === 0
+            h1 add members first
+        else
+            h1.pageTitle chart page 
+            //- include partials/selectDay.pug
+            .chartBox-array
+                div 회당 금액
+                ul
+                    each member in members
+                        if member.earnedMoney.length === 0
+                            li(value=member.dayOfWeek) #{member.name}:1회차 전
+                        else
+                            li(value=member.dayOfWeek) #{member.name}(#{member.nthMeeting - 1}회차까지): [#{member.earnedMoney}]
+            .chartBox-total 
+                div 토탈   
+                ul
+                    each member in members
+                        if(member.nextFeeText)
+                            li.chartSaved(value=member.dayOfWeek)
+                                a.chartSaved-name(href=`${routes.search}?name=${member.name}`) #{member.name}
+                                div.chartSaved-entryFee (#{member.entryFee}): #{member.numberOfAbsence}회 결석으로 #{member.extraFeeText}. #{member.TotalEarnedMoney}원 이월로 #{member.nextFeeOption} #{member.nextFeeText}.
+                                if member.nthMeeting > 10
+                                    button.resetCallBtn(data-id=member._id) #{member.name}(입금확인)
+                        else        
+                            li.chartSaved(value=member.dayOfWeek)
+                                a.chartSaved-name(href=`${routes.search}?name=${member.name}`) #{member.name}
+                                div.chartSaved-entryFee (#{member.entryFee}): #{member.nthMeeting}회차부터 시작 
+                                
+                    a.bandShareBtn
+                        img(src="BANDshare.png")
+
+
+
+
+
+
+                    
