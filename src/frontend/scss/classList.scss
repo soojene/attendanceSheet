@@ -1,12 +1,3 @@
-//home page start and finish btn
-// .hidden {
-//   display: none;
-// }
-.toggle {
-  margin-left: 445px;
-  background-color: rebeccapurple;
-}
-
 //home pages filtering members
 .forFilter {
   display: none;
@@ -14,9 +5,10 @@
 
 .show {
   display: flex;
+  animation: $showing-page;
 }
 
-//10th resetBtn savedPage
-.hideResetBtn {
+//foldBox
+.close {
   display: none;
 }

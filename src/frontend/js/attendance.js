@@ -1,99 +1,99 @@
-const days = document.querySelector(".selectOneDayOfWeek");
-const timeStartBtn = document.querySelector(".homeTimeStartBtn");
-const checkedUlBox = document.querySelector(".listBoard-checkedBox");
-const checkedIn = document.querySelector(".listBoard-checkBox");
-const timeFinishBtn = document.querySelector(".homeTimeFinishBtn");
+// const days = document.querySelector(".selectOneDayOfWeek");
+// const timeStartBtn = document.querySelector(".homeTimeStartBtn");
+// const checkedUlBox = document.querySelector(".listBoard-checkedBox");
+// const checkedIn = document.querySelector(".listBoard-checkBox");
+// const timeFinishBtn = document.querySelector(".homeTimeFinishBtn");
 
-let apple= [];
-let nth;
-let maxNth;
-let chooseDay;
+// let apple= [];
+// let nth;
+// let maxNth;
+// let chooseDay;
 
 //요일버튼
 if(days){
-    let pickOneDay = document.querySelectorAll(".selectOneDayOfWeek-btn");
-    let lists = document.querySelectorAll(".forFilter");
-    const filteringMemberBtn = document.querySelector(".filteringMemberBtn");
-    const filteringMemberBtns = document.querySelector(".filteringMemberBtns");
-    const tenthMeetingMessage = document.querySelector(".ifTenthMeetingExist");
-    chooseDay = days.attributes.value.value;
+    // let pickOneDay = document.querySelectorAll(".selectOneDayOfWeek-btn");
+    // let lists = document.querySelectorAll(".forFilter");
+    // const filteringMemberBtn = document.querySelector(".filteringMemberBtn");
+    // const filteringMemberBtns = document.querySelector(".filteringMemberBtns");
+    // const tenthMeetingMessage = document.querySelector(".ifTenthMeetingExist");
+    // chooseDay = days.attributes.value.value;
 
-    function selectedDaybgColorFunction (chooseDay) {
-        pickOneDay.forEach(day => {
-            if(day.value === chooseDay){
-                day.classList.add("selectedDayBgColor");
-            }else{
-                day.classList.remove("selectedDayBgColor");
-            }
-        });
-    };
+    // function selectedDaybgColorFunction (chooseDay) {
+    //     pickOneDay.forEach(day => {
+    //         if(day.value === chooseDay){
+    //             day.classList.add("selectedDayBgColor");
+    //         }else{
+    //             day.classList.remove("selectedDayBgColor");
+    //         }
+    //     });
+    // };
     
-    function filteringMember (chooseDay) {
-        let arrayOfNthmeeting = [];
-        apple = [];
-        lists.forEach(member => {
-            if (member.attributes.value.value === chooseDay && member.parentNode.className !== "listBoard-checkedBox"){
-                member.classList.add("show");
-                apple.push(member);
-                arrayOfNthmeeting.push(member.dataset.nthmeeting);
-            }else{
-                member.classList.remove("show");
-            }
-        });
-        nth = Math.min(...arrayOfNthmeeting);//회차
-        maxNth = Math.max(...arrayOfNthmeeting);
-        numbOfApple = apple.length;
-        if(timeStartBtn){
-            startBtnSetting (nth);
-        }
-        if(tenthMeetingMessage && maxNth >= 11){
-            tenthMeetingMessage.classList.add("show");
-        } else if(tenthMeetingMessage && maxNth < 11){
-            tenthMeetingMessage.classList.remove("show");
-        };
+    // function filteringMember (chooseDay) {
+    //     let arrayOfNthmeeting = [];
+    //     apple = [];
+    //     lists.forEach(member => {
+    //         if (member.attributes.value.value === chooseDay && member.parentNode.className !== "listBoard-checkedBox"){
+    //             member.classList.add("show");
+    //             apple.push(member);
+    //             arrayOfNthmeeting.push(member.dataset.nthmeeting);
+    //         }else{
+    //             member.classList.remove("show");
+    //         }
+    //     });
+    //     nth = Math.min(...arrayOfNthmeeting);//회차
+    //     maxNth = Math.max(...arrayOfNthmeeting);
+    //     numbOfApple = apple.length;
+    //     if(timeStartBtn){
+    //         startBtnSetting (nth);
+    //     }
+    //     if(tenthMeetingMessage && maxNth >= 11){
+    //         tenthMeetingMessage.classList.add("show");
+    //     } else if(tenthMeetingMessage && maxNth < 11){
+    //         tenthMeetingMessage.classList.remove("show");
+    //     };
 
-        if(numbOfApple === 0){
-            filteringMemberBtn.classList.remove("show");
-            filteringMemberBtns.classList.remove("show");
-        }else if(numbOfApple !== 0){
-            filteringMemberBtn.classList.add("show");
-            filteringMemberBtns.classList.add("show");
-        }
-    };
+    //     if(numbOfApple === 0){
+    //         filteringMemberBtn.classList.remove("show");
+    //         filteringMemberBtns.classList.remove("show");
+    //     }else if(numbOfApple !== 0){
+    //         filteringMemberBtn.classList.add("show");
+    //         filteringMemberBtns.classList.add("show");
+    //     }
+    // };
     
-    days.addEventListener("click", (e) => {
-        e.preventDefault();
-        if(e.target.tagName !== "BUTTON"){
-            return;
-        };
-        if (startCounting) {
-            alert("출첵중입니다. 출석체크를 다 끝내세요")
-            return;
-        };
+    // days.addEventListener("click", (e) => {
+    //     e.preventDefault();
+    //     if(e.target.tagName !== "BUTTON"){
+    //         return;
+    //     };
+    //     if (startCounting) {
+    //         alert("출첵중입니다. 출석체크를 다 끝내세요")
+    //         return;
+    //     };
         
-        chooseDay = e.target.value;
+    //     chooseDay = e.target.value;
         
-        fetch('/saved', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify({
-                chooseDay
-            })
-        });
-        //fetch성공 후 리로드??? // location.reload();
+    //     fetch('/saved', {
+    //         method: 'post',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body:JSON.stringify({
+    //             chooseDay
+    //         })
+    //     });
+    //     //fetch성공 후 리로드??? // location.reload();
         
-        selectedDaybgColorFunction (chooseDay);
-        filteringMember(chooseDay);
-        if (checkedIn && checkedUlBox){
-            firstCheckBox (checkUlLists);
-            secondUlBox (checkedUlBoxLists);
-        }
-    });
+    //     selectedDaybgColorFunction (chooseDay);
+    //     filteringMember(chooseDay);
+    //     if (checkedIn && checkedUlBox){
+    //         firstCheckBox (checkUlLists);
+    //         secondUlBox (checkedUlBoxLists);
+    //     }
+    // });
     
-    selectedDaybgColorFunction (chooseDay);
-    filteringMember (chooseDay);
+    // selectedDaybgColorFunction (chooseDay);
+    // filteringMember (chooseDay);
 };
 
 //homepage
@@ -108,7 +108,7 @@ let checkedUlBoxLists;
 // let nthMeeting;
 
 // let startCounting = false;
-let numbOfApple =apple.length;
+// let numbOfApple =apple.length;
 
 //functions
 // function varialbesControll(e, numb){
@@ -130,19 +130,19 @@ let numbOfApple =apple.length;
 //     });
 // };
 function postFetch (id, numberOfAbsence, earnedMoney, nthMeeting,entryFee){
-    fetch('/', {
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body:JSON.stringify({
-            id,
-            numberOfAbsence,
-            earnedMoney,
-            nthMeeting,
-            entryFee
-        })
-    })
+    // fetch('/', {
+    //     method: 'post',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body:JSON.stringify({
+    //         id,
+    //         numberOfAbsence,
+    //         earnedMoney,
+    //         nthMeeting,
+    //         entryFee
+    //     })
+    // })
 };
 function firstCheckBox (checkUlLists){
     // checkUlLists.forEach(list => {
@@ -164,13 +164,13 @@ function secondUlBox (checkedUlBoxLists){
     //     }
     // });
 };
-// function startBtnSetting (nth){
-//     if(nth >= 11){
-//         timeStartBtn.innerText = `⛔️ 10회 다 했어유. 입금 확인 후 다시 출첵할 수 있어유`;
-//     }else if(nth < 11){
-//         timeStartBtn.innerText = `${nth}회차 스따뜨`;
-//     }
-// };
+function startBtnSetting (nth){
+    // if(nth >= 11){
+    //     timeStartBtn.innerText = `⛔️ 10회 다 했어유. 입금 확인 후 다시 출첵할 수 있어유`;
+    // }else if(nth < 11){
+    //     timeStartBtn.innerText = `${nth}회차 스따뜨`;
+    // }
+};
 
 //time Start button
 if (timeStartBtn){

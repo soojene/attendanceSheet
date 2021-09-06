@@ -1,12 +1,124 @@
-// color
+// Theme color
 $main-color: #fed32e;
 $main-green: green;
+$naver-green: #04c75a;
 
-$background: white;
+//background Color
+$background: #333;
 $menuBar-backgroundColor: #fed32e;
-$menuBar-textColor: #333;
-$selectedday-bgColor: plum;
+$form-bgColor: rgba(245, 245, 245, 0.164);
+$searchBox-bgColor: rgba(0, 0, 0, 0.226);
+
+//styleColor
+$editBox-underlineColor: rgba(219, 219, 219, 0.329);
+$startBtn-bgColor: tomato;
+
+//text color
+$menuBar-textColor: white;
+$inputText-color: white;
+$btnText-color: white;
+
+//width size; //change depends on screen size
+$boxSize-width: 600px;
+$startBtn-width: 200px;
+$moveStartBtn: 400px; //($boxSize-width - $startBtn-width)
+$headText-size: 30px;
+$listBoard-marginTop: 8px;
 
 //style
-$shadow: 2px 1px 5px#000;
-$basic-border: 0.3px solid lightgray;
+$shadow: 0.8px 1px 4px rgba(0, 0, 0, 0.274);
+$basic-border: 0.2px solid $form-bgColor;
+
+//animation
+$showing-page: fade-in-fwd 0.7s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+$bounce-top: bounce-top 0.9s both;
+// $slide-right: slide-right 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+// $slide-left: slide-left 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+
+@keyframes fade-in-fwd {
+  0% {
+    transform: translateZ(-80px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateZ(-40px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateZ(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce-top {
+  0% {
+    transform: translateY(-25px);
+    animation-timing-function: ease-in;
+    opacity: 1;
+  }
+  24% {
+    opacity: 1;
+  }
+  40% {
+    transform: translateY(-7px);
+    animation-timing-function: ease-in;
+  }
+  65% {
+    transform: translateY(-4px);
+    animation-timing-function: ease-in;
+  }
+  82% {
+    transform: translateY(-1px);
+    animation-timing-function: ease-in;
+  }
+  93% {
+    transform: translateY(1px);
+    animation-timing-function: ease-in;
+  }
+  25%,
+  55%,
+  75%,
+  87% {
+    transform: translateY(4px);
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: translateY(0px);
+    animation-timing-function: ease-out;
+    opacity: 1;
+  }
+}
+
+//example
+@keyframes scale-up-ver-top {
+  // 0% {
+  //   transform: scaleY(0.4);
+  //   transform-origin: 100% 0%;
+  // }
+  // 100% {
+  //   transform: scaleY(1);
+  //   transform-origin: 100% 0%;
+  // }
+}
+
+// @keyframes slide-right {
+//   0% {
+//     transform: translateX(0);
+//     background-color: $startBtn-bgColor;
+//   }
+//   100% {
+//     transform: translateX($moveStartBtn);
+//     background-color: rebeccapurple;
+//   }
+// }
+
+// @keyframes slide-left {
+//   0% {
+//     transform: translateX($moveStartBtn);
+//     background-color: rebeccapurple;
+//   }
+//   100% {
+//     transform: translateX(0px);
+//     background-color: $startBtn-bgColor;
+//   }
+// }

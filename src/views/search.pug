@@ -2,43 +2,45 @@ extends ./layouts/main.pug
 
 block content
     include ./partials/navBar.pug
-    form.searchMemberBox(method="" action="") 
-        input(type="text" placeholder="search by nickname" name="name")
+    main
+        .pageTitle
+            .headBox
+                form.searchMemberBox(method="" action="") 
+                    input(type="text" placeholder="search by nickname" name="name")
 
-    .searchedMainBox
-        if(findMember)
-            ul     
-                each member in findMember 
-                    li 
-                        form(method="POST" action=routes.search)
-                            .searchedBox-inForm
-                                label(for="searchedName") 닉네임:
-                                input(type="text" name="name" value=member.name id="searchedName" required)
-                            .searchedBox-inForm
-                                label(for="memberAbsence") 결석:
-                                input(type="number" id="memberAbsence" name="numberOfAbsence" scale=1 max=10 min=0 value=member.numberOfAbsence required)
-                            .searchedBox-inForm
-                                label(for="memberEntryFee") 참가비:
-                                input(type="number" name="entryfee" min=10000 step=10000 value=member.entryFee placeholder="entry fee" id="memberEntryFee" required)
-                            .searchedBox-inForm
-                                label(for="nthFee") 출석비: 
-                                div(id="nthFee" data-label=member._id style={display: "flex"})
-                                    if member.earnedMoney.length !== 0
-                                        select(name="index").selectNth
-                                            each fee, index in member.earnedMoney 
-                                                option.selectNthOption(value=index) #{index + 1}회차: #{fee}원
-                                        input.nthEarndMoney(type="number" min=0 step=1000  name="changedEarnedMoney" placeholder="회차 선택 후 변경 값")
-                                    else
-                                        select(name="index").selectNth
-                                            option.selectNthOption(value="") ----
-                                        input.nthEarndMoney(type="number" value="" name="changedEarnedMoney"  placeholder="haven't checked yet")
-
-                            input(type="hidden" name="id" value=member._id)    
-
-                            input.search-editSubmit(type="submit" value="Edit") 
-
-                        a.search-deleteBtn(href=routes.deleteMember(member.id)) 멤버 삭제 
-        else 
-            h1=noMember
+        .searchedMainBox
+            if(findMember)
+                ul.deletBtnInUl     
+                    each member in findMember 
+                        li.formLi-edit(data-memberId=member.id)
+                            //- a.search-deleteBtn(href=routes.deleteMember(member.id))
+                            a.search-deleteBtn(href=routes.deleteMember(member.id))
+                                i.far.fa-trash-alt
+                            form(action=routes.search method="POST")
+                                .searchedBox-inForm
+                                    label(for="searchedName") 닉네임:
+                                    input(type="text" name="name" value=member.name id="searchedName" required)
+                                .searchedBox-inForm
+                                    label(for="memberAbsence") 결석:
+                                    input(type="number" id="memberAbsence" name="numberOfAbsence" scale=1 max=10 min=0 value=member.numberOfAbsence required)
+                                .searchedBox-inForm
+                                    label(for="memberEntryFee") 참가비:
+                                    input(type="number" name="entryfee" min=10000 step=10000 value=member.entryFee placeholder="entry fee" id="memberEntryFee" required)
+                                .searchedBox-inForm
+                                    label(for="nthFee") 출석비: 
+                                    div(id="nthFee" data-label=member._id style={display: "flex"})
+                                        if member.earnedMoney.length !== 0
+                                            select(name="index").selectNth
+                                                each fee, index in member.earnedMoney 
+                                                    option.selectNthOption(value=index) #{index + 1}회차: #{fee}원
+                                            input.nthEarndMoney(type="number" min=0 step=1000  name="changedEarnedMoney" placeholder="변경 값")
+                                        else
+                                            select(name="index").selectNth
+                                                option.selectNthOption(value="") -------
+                                            input.nthEarndMoney(type="number" value="" name="changedEarnedMoney"  placeholder="nothing")
+                                input(type="hidden" name="id" value=member._id)    
+                                input.search-editSubmit.lastInputBtn(type="submit" value="Edit")  
+            else 
+                h1=noMember
 
     

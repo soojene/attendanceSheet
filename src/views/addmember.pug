@@ -1,10 +1,16 @@
 extends ./layouts/main.pug
 
 block content
-    include ./partials/navBar.pug
-    .addPage       
+    //- include ./partials/navBar.pug
+    main       
+        .pageTitle
+            .headBox
+                .spaceForLayout
+                    i.fas.fa-chevron-left.forFilter
+                h1 ADD NEW MEMBER
+                .spaceForLayout
+                
         .addMemberMainBox        
-            h1.pageTitle ADD NEW MEMBER
             form(action="/addmember" method="POST")
 
                 input(type="text" name="name" placeholder="닉네임" required)
@@ -13,4 +19,4 @@ block content
                 
                 input(type="number" name="entryFee" min=10000 value=50000 step=10000 placeholder="시작회비" required)
 
-                input(type="submit" value="멤버 추가")
+                input.lastInputBtn(type="submit" value="멤버 추가")

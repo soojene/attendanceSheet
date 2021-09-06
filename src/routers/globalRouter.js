@@ -1,5 +1,5 @@
 import express from "express";
-import { deleteMember, getAddMember, getHome, getSaved, getSearch, goFetch, postAddMember, postEdit, postHome, postRecordTime, postReset, PostSaved } from '../Controllers/homeController';
+import { deleteMember, getAddMember, getHome, getSaved, getSearch, goFetch, postAddMember, postEdit, postHome, postRecordTime, PostSaved, reset } from '../Controllers/homeController';
 import { getJoin, getLogin, logout, postJoin, postLogin } from '../Controllers/publicController';
 import { finishNaverLogin, startNaverLogin } from '../Controllers/socialLoginController';
 import { onlyPrivate, onlyPublic } from '../middlewares';
@@ -27,6 +27,6 @@ globalRouter.get("/goFetch", onlyPrivate, goFetch);
 
 //no template
 globalRouter.get(routes.logout, onlyPrivate, logout);
-globalRouter.post(routes.reset, onlyPrivate, postReset);
+globalRouter.get(routes.reset(), onlyPrivate, reset);
 globalRouter.post(routes.recordtime, onlyPrivate, postRecordTime);
 globalRouter.get(routes.deleteMember(), onlyPrivate, deleteMember);

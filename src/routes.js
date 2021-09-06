@@ -13,7 +13,7 @@ const SEARCH = "/search";
 const DELETEMEMBER = "/delete:id";
 const LOGOUT = "/logout";
 //routes for datas
-const RESET = "/reset";
+const RESET = "/reset:id";
 const SAVETIME = "/recordtime";
 
 const routes = {
@@ -33,7 +33,13 @@ const routes = {
     },
     startNaver:STARTNAVER,
     finishNaver:FINISHNAVER,
-    reset:RESET,
+    reset:(id)=>{
+        if(id){
+            return `/reset${id}`;
+        }else{
+            return RESET;
+        }
+    },
     recordtime:SAVETIME
 };
 

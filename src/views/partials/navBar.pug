@@ -1,15 +1,35 @@
-nav.menuBar
-    a.menuBar-icon(href=routes.home)
-        i.fas.fa-user-check   CHECK             
-    a.menuBar-icon(href=routes.saved) 
-        i.fas.fa-clipboard-list  LIST
-    a.menuBar-icon(href=routes.add)
-        i.fas.fa-plus  ADD
-    a.menuBar-icon(href=routes.search)
-        i.fas.fa-search  SEARCH/Edit
-    a.menuBar-icon(href=routes.logout)
-        i.fas LOGOUT
+.menuBar
+    .menuBar-containner
+        a.menuBox(href=routes.home)
+            i.fas.fa-user-check   
+            //- .menuBox-text CHECK             
+        a.menuBox(href=routes.saved) 
+            i.fas.fa-clipboard-list  
+            //- .menuBox-text LIST
+        a.menuBox(href=routes.search)
+            i.fas.fa-search  
+            //- .menuBox-text SEARCH/Edit
+    .menuBar-containnerSecond        
+        a.menuBox(href=routes.logout)   
+                i.fas.fa-sign-out-alt
+            
 
-        //- <i class="fas fa-user-check"></i>
 
-        //- <i class="fas fa-sign-out-alt"></i>
+    //- a.menuBox(href=routes.home)
+    //-     i.fas.fa-user-check   
+    //-     .menuBox-text CHECK             
+    //- a.menuBox(href=routes.saved) 
+    //-     i.fas.fa-clipboard-list  
+    //-     .menuBox-text LIST
+    //- a.menuBox(href=routes.search)
+    //-     i.fas.fa-search  
+    //-     .menuBox-text SEARCH/Edit
+    //- a.menuBox(href=routes.logout)
+    //-     i.fas.fa-sign-out-alt
+    //-     .menuBox-text LOGOUT
+
+
+
+        //- a.menuBox(href=routes.add)
+        //-     i.fas.fa-user-plus  
+        //-     .menuBox-text ADD

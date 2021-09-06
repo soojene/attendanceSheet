@@ -2,15 +2,17 @@ extends ./layouts/main.pug
 
 block content
         .joinPage
+            .pageTitle-join
+                i.fas.fa-chevron-left.forFilter 
+                h4 🌳 🌳 🌳      
             .joinWelcomeBox     
                 if(ErrorMessage)
                     h4=ErrorMessage
                 //- h4 fill in the all blanks 
             .joinBox
-                h4 ☘️ ☘️ ☘️      
                 form(action=routes.join, method="POST") 
                     //- input(type="text" name="name" placeholder="nickname" required)
                     input(type="mail" name="email" placeholder="이메일" required)
                     input(type="password" name="password1" placeholder="비밀번호" required)
                     input(type="password" name="password2" placeholder="비밀번호 확인" required)
-                    input(type="submit"  value="JOIN")
+                    input.lastInputBtn(type="submit"  value="JOIN")

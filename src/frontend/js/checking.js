@@ -19,7 +19,7 @@ let nthMeeting;
 //functions
 function startBtnSetting (nth){
     if(nth >= 11){
-        startBtn.innerText = `⛔️ 10회 다 했어유. 입금 확인 후 다시 출첵할 수 있어유`;
+        startBtn.innerText = `⛔️ 10회까지 모두 체크. 입금 확인 후 다시 1회부터 시작하세요.`;
     }else if(nth < 11){
         startBtn.innerText = `${nth}회차 스따뜨`;
     }
@@ -28,7 +28,7 @@ function listSetting(ulBox, whichOne){
     const li = ulBox.querySelectorAll("li");
     if(whichOne){
         li.forEach(list => {
-            if(list.dataset.nthmeeting <= nth){
+            if(list.dataset.nthmeeting <= nth ){
                 list.classList.add("show");
                 numberOfChecklist +=1;
             }
@@ -80,7 +80,7 @@ function postFetch (id, numberOfAbsence, earnedMoney, nthMeeting,entryFee){
 
 //boxs
 if(startBtn){
-    nth = startBtn.dataset.nth;
+    nth = parseInt(startBtn.dataset.nth);
     startBtnSetting(startBtn.dataset.nth);
     startBtn.addEventListener("click", (e) => {
         if(nth >= 11){
@@ -91,24 +91,28 @@ if(startBtn){
         //     alert("체크된 멤버가 이미 있는데 시간취소한다고? 체크된 멤버를 취소하던, 출첵을 마저 끝내고 시간취소를 하세여");
         //     return;
         // };
+        startBtn.classList.remove("startBtnSet");
         const btn = e.target;
-        btn.classList.toggle("toggle");
         if(timeBegin === undefined){
             const currentTime = new Date();
             timeBegin = currentTime;
             btn.innerText = `${nth}회차 취소`;
             startCounting = true;
+            btn.classList.add("timeBegin");
+            btn.classList.remove("timeEnd");
         }else{
             timeBegin = undefined;
             btn.innerText = `${nth}회차 재시작`;
             startCounting = false;
+            btn.classList.add("timeEnd");
+            btn.classList.remove("timeBegin");
         }
     });
     
 }
 
 if (startUlBox){
-    nth = startBtn.dataset.nth;
+    nth = parseInt(startBtn.dataset.nth);
     listSetting(startUlBox, true);
 
     startUlBox.addEventListener("click", (e) => {
@@ -117,13 +121,16 @@ if (startUlBox){
             return;
         };
         if (e.target.tagName !== "BUTTON"){
-            console.log("it's not btn");
             return;
         };
 
         varialbesControll(e, 1);
         clickedMember.classList.remove("show");
         numberOfChecklist -=1;
+        if(numberOfChecklist === 0){
+            startBtn.classList.add("forFilter");
+            finishBtn.classList.remove("forFilter");
+        }
         const checkinTime = new Date();
         const timeDiff = checkinTime.getTime() - timeBegin.getTime();
         const timeDifferentBySecond = timeDiff/1000;
@@ -139,25 +146,23 @@ if (startUlBox){
         
 
         if(e.target.className === "checkBox-Absence"){
-            console.log("absence");
             numberOfAbsence = 1;
             let absenceNumb = parseInt(e.target.dataset.numberofabsence) + 1;
             const AbsenInnerTexts = `결석: ${absenceNumb}회.`
             showingListHandler(id, finishUlBox, AbsenInnerTexts);
         } else if (e.target.className === "checkBox-checkIn"){
-            console.log("checkin");
             if(timeDifferentBySecond <= 3){
                 earnedMoney= entryFee * 0.1;
-                console.log("3초 이하:", earnedMoney);
+                // console.log("3초 이하:", earnedMoney);
             }else if (timeDifferentBySecond > 3 && timeDifferentBySecond <= 8){
                 earnedMoney= entryFee * 0.1 - 1000;
-                console.log("3초 초과 8초이하:", earnedMoney);
+                // console.log("3초 초과 8초이하:", earnedMoney);
             }else if (timeDifferentBySecond > 8 && timeDifferentBySecond <= 13){
                 earnedMoney= entryFee * 0.1 - 2000;
-                console.log("8초 초과 13초이하:", earnedMoney);
+                // console.log("8초 초과 13초이하:", earnedMoney);
             } else if (timeDifferentBySecond > 13){
                 earnedMoney= entryFee * 0.1 - 3000;
-                console.log("13초 초과:", earnedMoney);
+                // console.log("13초 초과:", earnedMoney);
             }
             const checkInnerTexts = `시작 ${minutes}후 출석: ${earnedMoney}원 적립`;
             showingListHandler(id, finishUlBox, checkInnerTexts);
@@ -177,6 +182,10 @@ if(finishUlBox){
         varialbesControll(e, -1);
         clickedMember.classList.remove("show");
         numberOfChecklist += 1;
+        if(numberOfChecklist !== 0){
+            finishBtn.classList.add("forFilter");
+            startBtn.classList.remove("forFilter");
+        }
         showingListHandler(id, startUlBox);
 
         postFetch(id, 0, 0, nthMeeting,entryFee);

@@ -174,12 +174,13 @@ export const postEdit = async (req, res) => {
         };
 
         if (member.nextFeeOption < 0){
-            nextFeeText = "환금";
+            nextFeeText = "환급";
         };
         member.name = name;
         // member.dayOfWeek = dayOfWeek;
         member.numberOfAbsence = numberOfAbsence;
         member.entryFee = entryfee;
+        member.nextFeeOption = Math.abs(member.nextFeeOption);
         member.extraFeeOption = extraFeeOption;
         member.extraFeeText = extraFeeText;
         member.nextFeeText = nextFeeText;
@@ -196,17 +197,17 @@ export const deleteMember = async(req, res) => {
     const {params : {id: _id} } = req;
     try {
         await MemberDB.findOneAndDelete({ _id });
-        return res.redirect(routes.saved);
+        return res.status(200).redirect(routes.saved);
     } catch(error){
         console.log("Error:", error);
         return res.redirect(routes.search);
     }
 };
 
-export const postReset = async(req, res) => {
-    const {id}=req.body;
+export const reset = async(req, res) => {
+    const {params : {id: _id} } = req;
     try{
-        const member = await MemberDB.findById(id);
+        const member = await MemberDB.findById(_id);
         member.nthMeeting=1;
         member.numberOfAbsence = 0;
         member.earnedMoney =[];
@@ -217,7 +218,7 @@ export const postReset = async(req, res) => {
         member.nextFeeOption = 0;
         member.nextFeeText= "";
         member.save();
-        return res.redirect(routes.saved);
+        return res.status(200).redirect(routes.saved);
     } catch (err) {
         console.log("postReset:", err);
         return res.redirect(routes.saved);

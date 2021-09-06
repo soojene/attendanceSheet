@@ -1,0 +1,161 @@
+//login page
+.loginMainBox {
+  form {
+    padding: 20px 5px 0px 5px;
+    h4 {
+      // width: 230px;
+      text-align: center;
+      margin: 5px 0px;
+    }
+    input:last-child {
+      width: 70%;
+      margin-top: 30px;
+    }
+  }
+  .socialLogin {
+    width: 70%;
+    margin: 20px 0px;
+    a {
+      display: flex;
+      justify-content: center;
+      padding: 10px 20px;
+      font-size: 20px;
+      font-weight: 450;
+      color: whitesmoke;
+      background-color: $naver-green;
+      border-radius: 5px;
+    }
+  }
+}
+.loginJoinBox {
+  margin-top: 40px;
+  width: 200px;
+  button {
+    width: 100%;
+    border-style: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 5px;
+    background-color: rgba(255, 255, 255, 0.842);
+    &:hover {
+      background-color: $main-color;
+      color: $main-green;
+      font-weight: bolder;
+    }
+  }
+}
+
+//.addMemberMainBox{}, .joinBox{}
+//if some chage needed,
+
+.joinWelcomeBox {
+  margin-top: 10px;
+}
+
+//search page
+.searchMemberBox {
+  // max-width: 600px;
+  // // margin-top: 50px;
+  // border-bottom: rgba(240, 240, 240, 0.178) 0.8px dotted;
+  // input {
+  //   max-width: 300px;
+  //   border-radius: 20px;
+  //   margin-bottom: 22px;
+  //   padding-left: 15px;
+  //   cursor: text;
+  //   background-color: $searchBox-bgColor;
+  //   // &::placeholder {
+  //   //   // color: rgba(214, 213, 213, 0.658);
+  //   // }
+  // }
+}
+.searchedMainBox {
+  width: 90%;
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  .formLi-edit {
+    position: relative;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 45px 20px 15px 20px;
+    margin-bottom: 25px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background-color: rgba(240, 248, 255, 0.219);
+    .search-deleteBtn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: white;
+      // border-radius: 50%;
+      padding: 10px 10px;
+      // background-color: rgb(207, 24, 24);
+      // box-shadow: $shadow;
+      cursor: pointer;
+      &:hover {
+        font-weight: bolder;
+        color: rgb(255, 77, 71);
+        background-color: transparent;
+      }
+    }
+    .searchedBox-inForm {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-left: 5px;
+      margin-bottom: 15px;
+      border-bottom: $editBox-underlineColor solid 1px;
+      // border-radius: 18px;
+      label {
+        width: 20%;
+        color: $editBox-underlineColor;
+        text-align: end;
+        padding-right: 10px;
+      }
+      input {
+        width: 80%;
+        margin: 0px;
+        // color: whitesmoke;
+        font-weight: bold;
+        // padding-left: 10px;
+        background-color: transparent;
+        border: none;
+      }
+      :last-of-type {
+        input {
+          width: 48%;
+          &::placeholder {
+            font-weight: 530;
+          }
+        }
+      }
+      #nthFee {
+        width: 80%;
+        margin-bottom: 5px;
+        select {
+          width: 52%;
+          border-style: none;
+          border-radius: 5px;
+          // border-radius: 3px;
+          // padding-left: 3px;
+          margin-right: 2%;
+          outline: none;
+          color: rgba(255, 255, 255, 0.897);
+          background-color: $form-bgColor;
+          option {
+            background-color: rgba(240, 248, 255, 0.219);
+          }
+        }
+      }
+      // .search-editSubmit {
+      //   // box-shadow: $shadow;
+      // }
+    }
+  }
+}

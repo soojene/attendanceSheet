@@ -1,11 +1,380 @@
-.homeAttendanceSheet-start {
-  ul {
-    background-color: rgba(185, 218, 109, 0.219);
+.menuBar {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  z-index: 1;
+  height: 100vh;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  .menuBar-containner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 90px;
+  }
+  // .menuBar-containnerSecond {
+  //   margin-bottom: 10px;
+  // }
+  .menuBox {
+    padding: 0px 8px;
+    i {
+      text-align: center;
+      font-size: 25px;
+      width: 30px;
+      color: transparent;
+      // border: green solid 2px;
+      border-radius: 5px;
+      padding: 5px 5px;
+      margin-bottom: 50px;
+      &:hover {
+        background-color: rgb(241, 229, 231);
+      }
+    }
+  }
+  transition: ease-out 0.5s;
+  &:hover {
+    transition: ease-out 0.5s;
+    background-color: $menuBar-backgroundColor;
+    .menuBox {
+      i {
+        color: green;
+        border: green solid 2px;
+      }
+    }
   }
 }
 
-.homeAttendanceSheet-finish {
-  ul {
-    background-color: rgba(236, 183, 114, 0.219);
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 0px;
+
+  //home&saved
+  .ifNoMemberAdded {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .ifNoMemberAddedBox {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .addMemberIconBox {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-self: center;
+        color: #000;
+        background-color: aliceblue;
+        border-radius: 50%;
+        padding: 25px 20px;
+        margin: 30px auto;
+        .fa-user-plus {
+          margin: 0px auto;
+        }
+        .icon-text {
+          font-weight: 800;
+          margin: 6px auto;
+        }
+        &:hover {
+          cursor: pointer;
+          color: rgb(2, 92, 2);
+          box-shadow: 0.8px 1px 4px rgba(95, 95, 95, 0.993);
+          transform: scale(1.08);
+          transition: 0.1s linear;
+        }
+      }
+    }
+  }
+  //home, saved, addmember,search
+  .pageTitle {
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+    color: whitesmoke;
+    width: 100%;
+    padding-bottom: 5px;
+    // margin-bottom: 15px;
+    border-bottom: $basic-border;
+    .headBox {
+      width: $boxSize-width;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      .startAndDoneBtnContainner {
+        display: flex;
+        .finisheBtnSet {
+          width: 100px;
+          padding: 0px;
+          animation: $bounce-top;
+        }
+        .startBtnSet,
+        .timeBegin,
+        .timeEnd,
+        .finisheBtnSet button {
+          // width: 100px;
+          height: $headText-size;
+          font-weight: 700;
+          padding: 0px 10px;
+          border-style: none;
+          // border: solid 1px $inputText-color;
+          border-radius: 20px;
+          background-color: transparent;
+          &:hover {
+            color: rgba(255, 255, 255, 0.329);
+          }
+          &:active {
+            transform: scale(0.98);
+            // transition: 0.8s linear;
+          }
+        }
+        .startBtnSet,
+        .timeEnd {
+          background-color: rgba(9, 255, 0, 0.301);
+        }
+        .timeBegin {
+          background-color: rgba(253, 66, 33, 0.582);
+        }
+        .finisheBtnSet button {
+          background-color: rgba(0, 0, 255, 0.301);
+        }
+      }
+      .searchMemberBox {
+        width: 100%;
+        text-align: center;
+        height: $headText-size;
+        // border-bottom: dotted 0.6px rgba(255, 255, 255, 0.096);
+        input {
+          max-width: 55%;
+          height: 100%;
+          border-radius: 20px;
+          // margin-bottom: 22px;
+          padding-left: 15px;
+          cursor: text;
+          background-color: $searchBox-bgColor;
+          margin: 0px;
+        }
+      }
+      // .spaceForLayout {
+      //   i {
+      //     display: none;
+      //   }
+      // }
+    }
+  }
+
+  .homeAttendanceSheet-start,
+  .homeAttendanceSheet-finish,
+  .chartBox-array,
+  .chartBox-total {
+    width: 100%;
+    max-width: $boxSize-width;
+  }
+  .ulBoxHead,
+  .ulBoxHead-two {
+    font-weight: bolder;
+    color: $form-bgColor;
+    padding: 10px 5px 0px 5px;
+    margin-top: 10px;
+  }
+
+  //home page
+  .homeAttendanceSheet-start {
+    .ulBoxHead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .listBoard-checkBox {
+      margin-top: $listBoard-marginTop;
+      background-color: rgba(185, 218, 109, 0.219);
+    }
+  }
+
+  .homeAttendanceSheet-finish {
+    .ulBoxHead-two {
+      border-top: $basic-border;
+    }
+    .listBoard-checkedBox {
+      margin-top: $listBoard-marginTop;
+      background-color: rgba(236, 183, 114, 0.219);
+    }
+  }
+
+  //saved page
+  .chartBox-array {
+    #foldBox {
+      display: flex;
+      justify-content: space-between;
+      i {
+        color: $form-bgColor;
+        &:hover {
+          color: white;
+        }
+      }
+    }
+    ul {
+      padding: 5px 5px;
+      box-sizing: border-box;
+      animation: $showing-page;
+      .chartSaved-table {
+        margin: 15px 0px;
+      }
+    }
+  }
+
+  .chartBox-total {
+    .ulBoxHead-two {
+      display: flex;
+      justify-content: space-between;
+      border-top: $basic-border;
+      #bandBtn {
+        color: $naver-green;
+        border: solid 2px $naver-green;
+        border-radius: 20px;
+        padding: 1px 10px;
+        box-sizing: border-box;
+        background-color: rgba(240, 248, 255, 0.123);
+        &:hover {
+          color: rgba(245, 245, 245, 0.836);
+          border-color: rgba(245, 245, 245, 0.836);
+          background-color: $naver-green;
+        }
+      }
+    }
+    .listBord-chartBox {
+      margin-top: $listBoard-marginTop;
+      .chartSaved {
+        font-family: "Nanum Gothic", sans-serif;
+        .chartText {
+          position: relative;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 10px 5px;
+          box-sizing: border-box;
+          .chartText-firstBox {
+            display: flex;
+            .chartText-nameEntryFee {
+              width: 70px;
+              height: 70px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              // padding: 20px 10px;
+              border-radius: 20px;
+              margin-right: 10px;
+              background-color: rgba(6, 31, 13, 0.637);
+              .nameEntryFee-name {
+                // font-size: 100%;
+                // font-size: 25px;
+                font-weight: 700;
+              }
+            }
+            .chartText-AbsenceExtraEarnd {
+              display: flex;
+              flex-direction: column;
+              justify-content: space-around;
+              color: rgba(255, 255, 255, 0.404);
+              .AbsenceExtraEarnd-BoxTop {
+                display: flex;
+                font-size: 13px;
+                align-items: center;
+                justify-content: space-between;
+                .nameEntryFee-entryFee {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  height: 100%;
+                  border-right: $basic-border;
+                  padding-right: 8px;
+                }
+                .BoxTop-numberOfAbsence {
+                  display: flex;
+                  align-items: center;
+                  border-right: $basic-border;
+                  padding: 0px 8px;
+                  .wordAbsence {
+                    margin-right: 5px;
+                  }
+                  .circleAbsence {
+                    color: white;
+                    font-size: 11px;
+                    font-weight: bolder;
+                    background-color: rgba(236, 77, 38, 0.534);
+                    border-radius: 20px;
+                    padding: 4px 6px;
+                  }
+                }
+                .BoxTop-extra {
+                  padding-left: 8px;
+                  color: rgba(255, 224, 224, 0.575);
+                }
+              }
+              .AbsenceExtraEarnd-TotalEarnedMoney {
+                color: rgba(255, 255, 255, 0.767);
+                font-size: 21px;
+                font-weight: 700;
+              }
+            }
+          }
+          .chartText-secondBox {
+            i {
+              color: $form-bgColor;
+            }
+            #resetConfirm,
+            #resetConfirmRe {
+              //li가 relative
+              position: absolute;
+              height: 90%;
+              width: 80px;
+              word-wrap: break-word;
+              right: 0px;
+              bottom: 5%;
+              z-index: 1;
+              font-size: 18px;
+              font-weight: 700;
+              border: $basic-border;
+              border-radius: 5px;
+              padding: 5px 5px;
+              &:hover {
+                color: rgb(221, 237, 241);
+              }
+            }
+            #resetConfirm {
+              color: rgb(194, 165, 0);
+              background-color: rgb(70, 82, 82);
+            }
+            #resetConfirmRe {
+              color: rgb(194, 165, 0);
+              background-color: rgb(68, 61, 71);
+            }
+          }
+        }
+        &:hover {
+          background-color: rgb(71, 70, 70);
+          .chartText-secondBox i {
+            color: $inputText-color;
+          }
+        }
+      }
+    }
+  }
+}
+
+//screen size
+@media (min-width: 650px) {
+  main {
+    animation: $showing-page;
   }
 }

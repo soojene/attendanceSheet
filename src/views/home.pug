@@ -4,17 +4,31 @@ block content
     include ./partials/navBar.pug
     main
         if members.length === 0
-            h1 add members first
+            .ifNoMemberAdded
+                .ifNoMemberAddedBox
+                    h1 Add Member
+                    a.addMemberIconBox(href=routes.add)
+                        i.fas.fa-user-plus.fa-2x  
+                        //- .icon-text ADD
         else
-            h1 attendance sheet
+            .pageTitle
+                .headBox
+                    h1 Attendance
+                    .startAndDoneBtnContainner
+                        button.homeTimeStartBtn.startBtnSet(data-nth=nth) #{nth}회차 시작
+                        form(action="/saved", method="").homeTimeFinishBtn.finisheBtnSet.forFilter   
+                            button DONE
+                    //- a(href=routes.add)
+                    //-     i.fas.fa-user-plus.homeIcon
             //- button.goFetch fetch
-
-            .homeBtnBox-start
-                button.homeTimeStartBtn(data-nth=nth) #{nth}회차 시작 
+                //- .homeBtnBox-start
+                //- button.homeTimeStartBtn.startBtnSet(data-nth=nth) #{nth}회차 시작 
                 //- 버튼 클래스 픽스
 
             .homeAttendanceSheet-start
-                .ulBox-title 체크박스
+                .ulBoxHead 체크박스
+                    a(href=routes.add)
+                        i.fas.fa-user-plus.homeIcon
                 ul.listBoard-checkBox
                     //- ul 클래스 픽스
                     each member in members
@@ -25,14 +39,9 @@ block content
                             button.checkBox-Absence(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting data-numberOfAbsence=member.numberOfAbsence) Absence
                                 
             .homeAttendanceSheet-finish
-                .ulBox-title 수정박스
+                .ulBoxHead-two 수정박스
                 ul.listBoard-checkedBox
                     each member in members
                         li.forFilter(data-nthMeeting=member.nthMeeting data-nthOfAbsence=member.numberOfAbsence data-name=member.name)
                             button.checkBox-checkIn(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting style={background: "red"}) #{member.name} (#{member.nthMeeting}회차 취소)
                             div.fromCheckBoxInnerText :[결석: 0회차 || 출석: 5000원 (9:02 AM)]
-
-            .homeBtnBox-finish
-                form(action="/saved", method="")   
-                    button.homeTimeFinishBtn DONE 
-                //- 버트 클래스 픽스

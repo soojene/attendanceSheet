@@ -4,39 +4,67 @@ block content
     include ./partials/navBar.pug
     main
         if members.length === 0
-            h1 add members first
+            .ifNoMemberAdded
+                .ifNoMemberAddedBox
+                    h1 Add Member
+                    a.addMemberIconBox(href=routes.add)
+                        i.fas.fa-user-plus.fa-2x  
+                        //- .icon-text ADD
         else
-            h1.pageTitle chart page 
             //- include partials/selectDay.pug
+            .pageTitle
+                .headBox 
+                    h1 chart page
+
             .chartBox-array
-                div 회당 금액
-                ul
+                .ulBoxHead#foldBox 
+                    h6 회당 금액
+                    i.fas.fa-chevron-down#foldBoxBtn 
+                ul.close#foldBoxContainner
                     each member in members
                         if member.earnedMoney.length === 0
-                            li(value=member.dayOfWeek) #{member.name}:1회차 전
+                            li.chartSaved-table #{member.name}:1회차 전
                         else
-                            li(value=member.dayOfWeek) #{member.name}(#{member.nthMeeting - 1}회차까지): [#{member.earnedMoney}]
+                            li.chartSaved-table #{member.name}(#{member.nthMeeting - 1}회차): [#{member.earnedMoney}]
+            
             .chartBox-total 
-                div 토탈   
-                ul
+                .ulBoxHead-two 토탈 
+                    a.bandShareBtn#bandBtn BAND  
+                ul.resetBtnUl.listBord-chartBox
                     each member in members
                         if(member.nextFeeText)
-                            li.chartSaved(value=member.dayOfWeek)
-                                a.chartSaved-name(href=`${routes.search}?name=${member.name}`) #{member.name}
-                                div.chartSaved-entryFee (#{member.entryFee}): #{member.numberOfAbsence}회 결석으로 #{member.extraFeeText}. #{member.TotalEarnedMoney}원 이월로 #{member.nextFeeOption} #{member.nextFeeText}.
-                                if member.nthMeeting > 10
-                                    button.resetCallBtn(data-id=member._id) #{member.name}(입금확인)
+                            li.chartSaved
+                                div(style={display: "none"}) #{member.name}(#{member.entryFee}): #{member.numberOfAbsence}회 결석으로 #{member.extraFeeText}. #{member.TotalEarnedMoney}원 이월로 #{member.nextFeeOption} #{member.nextFeeText}.
+                                a.chartText(href=`${routes.search}?name=${member.name}`)
+                                    .chartText-firstBox
+                                        .chartText-nameEntryFee
+                                            .nameEntryFee-name #{member.name}
+                                            //- .nameEntryFee-entryFee #{member.entryFee/10000}만원
+                                        .chartText-AbsenceExtraEarnd
+                                            .AbsenceExtraEarnd-BoxTop
+                                                .nameEntryFee-entryFee #{member.entryFee/10000}만원 
+                                                .BoxTop-numberOfAbsence
+                                                    .wordAbsence 결석
+                                                    .circleAbsence #{member.numberOfAbsence}
+                                                .BoxTop-extra #{member.extraFeeText}
+                                            .AbsenceExtraEarnd-TotalEarnedMoney #{member.TotalEarnedMoney}원 
+                                    .chartText-secondBox
+                                        i.fas.fa-chevron-right
+                                        .resetBtnContainner
+                                        if member.nthMeeting > 10 && member.nextFeeText === "입금"
+                                            button.resetCallBtn#resetConfirm(data-id=member._id) #{member.nextFeeOption}원 #{member.nextFeeText}
+                                        if member.nthMeeting > 10 && member.nextFeeText === "환급"
+                                            button.resetCallBtn#resetConfirmRe(data-id=member._id) #{member.nextFeeOption}원 #{member.nextFeeText}
                         else        
-                            li.chartSaved(value=member.dayOfWeek)
-                                a.chartSaved-name(href=`${routes.search}?name=${member.name}`) #{member.name}
-                                div.chartSaved-entryFee (#{member.entryFee}): #{member.nthMeeting}회차부터 시작 
-                                
-                    a.bandShareBtn
-                        img(src="BANDshare.png")
+                            li.chartSaved
+                                a.chartText(href=`${routes.search}?name=${member.name}`)
+                                    .chartText-firstBox
+                                        .chartText-nameEntryFee
+                                            .nameEntryFee-name #{member.name}
+                                            //- .nameEntryFee-entryFee #{member.entryFee/10000}만원
+                                        .chartText-AbsenceExtraEarnd #{member.nthMeeting}회차부터 시작
+                                    .chartText-secondBox
+                                        i.fas.fa-chevron-right
+                                //- a.chartSaved-name(href=`${routes.search}?name=${member.name}`) #{member.name}
+                                //- div.chartSaved-entryFee (#{member.entryFee}): #{member.nthMeeting}회차부터 시작                     
 
-
-
-
-
-
-                    

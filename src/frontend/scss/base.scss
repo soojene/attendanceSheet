@@ -1,56 +1,101 @@
 body {
-  height: 100vh;
+  // height: 100vh;
+  position: relative;
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
   align-items: center;
   background: $background;
+  color: white;
+  font-family: "Nanum Gothic", sans-serif;
+  // font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+  //   Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 h1 {
-  font-size: 1.5em;
-  font-weight: bolder;
+  font-size: $headText-size;
+  font-weight: 700;
 }
 h4 {
   font-size: 1em;
 }
 button {
+  color: $btnText-color;
   cursor: pointer;
 }
 a {
+  cursor: pointer;
+  color: whitesmoke;
   text-decoration: none;
+}
+i {
+  cursor: pointer;
+}
+::placeholder {
+  color: rgba(245, 245, 245, 0.644);
 }
 
 .loginPage,
-.joinPage,
-.addPage {
+.joinPage {
   height: 70vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  // .pageTitle-add,
+  // .pageTitle-login,
+  // .pageTitle-join {
+  //   margin-bottom: 30px;
+  // }
+}
+.pageTitle-join {
+  width: 350px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-form {
+.addMemberMainBox,
+.loginMainBox,
+.joinBox {
+  width: 350px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 95%;
+  padding-bottom: 20px;
+  border: $basic-border;
+  border-radius: 5px;
+  margin-top: 20px;
+  background-color: $form-bgColor;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   input {
     width: 90%;
     font-size: 15px;
+    border: none;
+    border-bottom: $basic-border;
     padding: 10px 5px;
-    box-sizing: border-box;
     margin-top: 13px;
-    border: $basic-border;
-    border-radius: 5px;
+    color: $inputText-color;
+    box-sizing: border-box;
+    outline: none;
+    background-color: transparent;
   }
-  :last-child {
+  .lastInputBtn {
+    width: 60%;
     cursor: pointer;
     border-style: none;
+    border-radius: 5px;
     background-color: $main-color;
     color: $main-green;
     font-weight: bolder;
+    margin-top: 20px;
     &:hover {
       background-color: $main-green;
       color: $main-color;
@@ -59,110 +104,9 @@ form {
   }
 }
 
-.addMemberMainBox {
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+// @media (max-width: 830px) {
 
-.searchMemberBox {
-  width: 90%;
-  margin-top: 50px;
-  border-bottom: rgba(0, 0, 0, 0.178) 0.8px dotted;
-  input {
-    width: 40%;
-    cursor: text;
-    border: $basic-border;
-    color: black;
-    background-color: white;
-    font-weight: lighter;
-    margin-bottom: 20px;
-    &::placeholder {
-      color: rgba(0, 0, 0, 0.288);
-    }
-    &:hover {
-      background-color: white;
-      color: black;
-      font-weight: lighter;
-    }
-  }
-}
+// }
 
-.searchedMainBox {
-  width: 90%;
-  margin-top: 25px;
-  display: flex;
-  justify-content: center;
-  li {
-    width: 350px;
-    margin-bottom: 25px;
-    padding: 15px 5px;
-    background-color: blanchedalmond;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    .searchedBox-inForm {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 15px;
-      margin-right: 5px;
-      label {
-        width: 15%;
-        height: 17px;
-        text-align: end;
-      }
-      input {
-        cursor: text;
-        width: 83%;
-        font-weight: normal;
-        color: black;
-        background-color: whitesmoke;
-        margin: 0;
-      }
-      :last-of-type {
-        input {
-          width: 58%;
-          color: black;
-          &::placeholder {
-            font-weight: normal;
-          }
-          // background-color: violet;
-        }
-      }
-      #nthFee {
-        width: 83%;
-        background-color: transparent;
-        select {
-          width: 40%;
-          border-style: none;
-          border-radius: 3px;
-          padding-left: 3px;
-          margin-right: 2%;
-          // background-color: yellow;
-        }
-        &:hover {
-          background-color: transparent;
-        }
-      }
-    }
-    .search-editSubmit {
-      width: 30%;
-      color: $main-color;
-      background-color: green;
-    }
-    .search-deleteBtn {
-      width: 20%;
-      font-size: 15px;
-      padding: 10px 15px;
-      text-align: center;
-      color: white;
-      background-color: red;
-      margin-top: 23px;
-      border-radius: 5px;
-    }
-  }
-}
+// @media (max-width: 450px) {
+// }
