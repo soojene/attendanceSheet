@@ -1,13 +1,17 @@
 extends ./layouts/main.pug
 
 block content 
-        //- .loginWelcomeBox 
-        //-     img(src="/nudasim_logo.png", alt="")
-        .loginPage
-            h4.pageTitle-login 🌳 🌳 🌳              
-            if(ErrorMessage)
-                h4(style={color: "red"})=ErrorMessage
-            .loginMainBox
+        .publicPage
+            .publicPage-head
+                .spaceForLayout 
+                h1 🌳 🌳 🌳       
+                .spaceForLayout
+            
+            .loginJoinErrorBox       
+                if(ErrorMessage)
+                    h4=ErrorMessage
+            
+            .loginFormBox
                 form(action=routes.login, method="POST") 
                     input(type="mail" name="email" placeholder="email" required)
                     input(type="password" name="password" placeholder="password" required)
@@ -16,6 +20,5 @@ block content
                     a(href=routes.startNaver) 🅽 네이버 간편 로그인
                         //- img(src="/naverLoginBtn.png") 
             
-            .loginJoinBox
-                a(href=routes.join)
+            a.loginJoinBox(href=routes.join)
                     button 가입하기          

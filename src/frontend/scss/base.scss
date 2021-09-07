@@ -1,112 +1,166 @@
 body {
-  // height: 100vh;
   position: relative;
   display: flex;
-  // flex-direction: column;
   align-items: center;
   background: $background;
   color: white;
   font-family: "Nanum Gothic", sans-serif;
-  // font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-  //   Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  h1 {
+    font-size: $headText-size;
+    font-weight: 700;
+  }
+  h4 {
+    font-size: 1em;
+  }
+  button,
+  a {
+    cursor: pointer;
+    color: $btnText-color;
+    text-decoration: none;
+  }
+  li {
+    // width: 100%;
+    padding: 7px;
+  }
+  i {
+    cursor: pointer;
+  }
+  ::placeholder {
+    color: $placeholder-textColor;
+  }
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    input {
+      width: 90%;
+      font-size: $inputText-size;
+      border: none;
+      border-bottom: $basic-border;
+      padding: 10px 5px;
+      margin-top: 13px;
+      color: $inputText-color;
+      box-sizing: border-box;
+      outline: none;
+      background-color: transparent;
+    }
+    .lastInputBtn {
+      width: 70%;
+      color: $main-green;
+      font-size: $submitText-size;
+      font-weight: bolder;
+      border-style: none;
+      border-radius: 5px;
+      margin-top: 35px;
+      background-color: $main-color;
+      cursor: pointer;
+      &:hover {
+        background-color: $main-green;
+        color: $main-color;
+      }
+    }
+  }
 }
 
-h1 {
-  font-size: $headText-size;
-  font-weight: 700;
-}
-h4 {
-  font-size: 1em;
-}
-button {
-  color: $btnText-color;
-  cursor: pointer;
-}
-a {
-  cursor: pointer;
-  color: whitesmoke;
-  text-decoration: none;
-}
-i {
-  cursor: pointer;
-}
-::placeholder {
-  color: rgba(245, 245, 245, 0.644);
-}
-
-.loginPage,
-.joinPage {
+.publicPage {
   height: 70vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // .pageTitle-add,
-  // .pageTitle-login,
-  // .pageTitle-join {
-  //   margin-bottom: 30px;
-  // }
-}
-.pageTitle-join {
-  width: 350px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  .publicPage-head {
+    width: 100%;
+    max-width: $formBox-width;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .loginJoinErrorBox {
+    color: rgb(235, 68, 38);
+    margin-top: 15px;
+  }
 }
 
-.addMemberMainBox,
-.loginMainBox,
-.joinBox {
-  width: 350px;
+//goback a link
+.spaceForLayout {
+  padding: 0px 15px;
+  width: 10%;
+  font-size: larger;
+  .goback {
+    color: $editBox-underlineColor;
+    &:hover {
+      color: $placeholder-textColor;
+    }
+  }
+  #gobackAdd {
+    display: none;
+  }
+}
+
+//add member
+.addMemberPage {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-bottom: 60px;
+  margin-top: 120px;
+}
+//login, join, addmember form containnerBox
+.loginFormBox,
+.joinFormBox,
+.addMemberFormBox {
+  width: 100%;
+  max-width: $formBox-width;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 20px;
   border: $basic-border;
   border-radius: 5px;
-  margin-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 5px;
   background-color: $form-bgColor;
 }
-
-form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  input {
-    width: 90%;
-    font-size: 15px;
-    border: none;
-    border-bottom: $basic-border;
-    padding: 10px 5px;
-    margin-top: 13px;
-    color: $inputText-color;
-    box-sizing: border-box;
-    outline: none;
-    background-color: transparent;
-  }
-  .lastInputBtn {
-    width: 60%;
-    cursor: pointer;
-    border-style: none;
-    border-radius: 5px;
-    background-color: $main-color;
-    color: $main-green;
-    font-weight: bolder;
+//login page
+.loginFormBox {
+  .socialLogin {
+    width: 70%;
     margin-top: 20px;
-    &:hover {
-      background-color: $main-green;
-      color: $main-color;
-      font-weight: bolder;
+    a {
+      display: flex;
+      justify-content: center;
+      font-size: $submitText-size;
+      padding: 10px 20px;
+      border-radius: 5px;
+      background-color: $naver-green;
+      &:hover {
+        font-weight: bolder;
+      }
     }
   }
 }
-
-// @media (max-width: 830px) {
-
-// }
-
-// @media (max-width: 450px) {
-// }
+.loginJoinBox {
+  width: 100%;
+  max-width: $formBox-width;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  button {
+    width: 50%;
+    color: $main-color;
+    font-size: $submitText-size;
+    font-weight: bold;
+    border-style: none;
+    border-radius: 5px;
+    padding: 10px 5px;
+    background-color: $main-green;
+    &:hover {
+      background-color: $main-color;
+      color: $main-green;
+    }
+  }
+}

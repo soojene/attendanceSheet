@@ -10,15 +10,15 @@ export const postLogin = async (req, res) => {
     const {email, password} = req.body;
     const socialUser = await UserDB.exists({ email, socialOnly: true });
     if (socialUser){
-        return res.status(404).render("login", {pageTitle:"LOGIN", ErrorMessage: "아래 네이버 로그인을 이용 하세여"});
+        return res.status(404).render("login", {pageTitle:"LOGIN", ErrorMessage: "🅽 네이버 간편 로그인을 이용하세요."});
     }
     const findUser = await UserDB.findOne({ email, socialOnly: false });
     if(!findUser){
-        return res.status(404).render("login", {pageTitle:"LOGIN", ErrorMessage: "😜 메일이 틀렸어요."});
+        return res.status(404).render("login", {pageTitle:"LOGIN", ErrorMessage: "🥕 가입되지 않은 이메일입니다."});
     }
     const ok = await bcrypt.compare(password, findUser.password);
     if (!ok){
-        return res.status(404).render("login", {pageTitle:"LOGIN", ErrorMessage: "🤮 비번이 틀렸어요."});
+        return res.status(404).render("login", {pageTitle:"LOGIN", ErrorMessage: "🌰 틀린 비번입니다."});
     }
     req.session.logIn = true;
     req.session.loggedInUser = findUser;

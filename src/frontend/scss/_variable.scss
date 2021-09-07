@@ -17,13 +17,17 @@ $startBtn-bgColor: tomato;
 $menuBar-textColor: white;
 $inputText-color: white;
 $btnText-color: white;
+$placeholder-textColor: rgba(245, 245, 245, 0.644);
 
 //width size; //change depends on screen size
 $boxSize-width: 600px;
 $startBtn-width: 200px;
-$moveStartBtn: 400px; //($boxSize-width - $startBtn-width)
+$formBox-width: 350px;
+// $moveStartBtn: 400px; //($boxSize-width - $startBtn-width)
 $headText-size: 30px;
-$listBoard-marginTop: 8px;
+$inputText-size: 15px;
+$submitText-size: 17px;
+// $listBoard-marginTop: 8px;
 
 //style
 $shadow: 0.8px 1px 4px rgba(0, 0, 0, 0.274);

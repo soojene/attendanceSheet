@@ -3,20 +3,21 @@ extends ./layouts/main.pug
 block content
     //- include ./partials/navBar.pug
     main       
-        .pageTitle
-            .headBox
+        .headBox
                 .spaceForLayout
-                    i.fas.fa-chevron-left.forFilter
-                h1 ADD NEW MEMBER
+                    a.goback(href="/")#gobackAdd
+                        i.fas.fa-chevron-left
+                h1 ADD MEMBER
                 .spaceForLayout
                 
-        .addMemberMainBox        
-            form(action="/addmember" method="POST")
+        .addMemberPage
+            .addMemberFormBox        
+                form(action="/addmember" method="POST")
 
-                input(type="text" name="name" placeholder="닉네임" required)
-                
-                input(type="number" name="nthMeeting" step=1 max=10 min=1 placeholder="시작회차" required)
-                
-                input(type="number" name="entryFee" min=10000 value=50000 step=10000 placeholder="시작회비" required)
+                    input(type="text" name="name" placeholder="닉네임" required)
+                    
+                    input(type="number" name="nthMeeting" step=1 max=10 min=1 placeholder="시작회차" required)
+                    
+                    input(type="number" name="entryFee" min=10000 value=50000 step=10000 placeholder="시작회비" required)
 
-                input.lastInputBtn(type="submit" value="멤버 추가")
+                    input.lastInputBtn(type="submit" value="멤버 추가")

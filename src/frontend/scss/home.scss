@@ -53,167 +53,150 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px 0px;
+  // padding: 40px 0px;
 
   //home&saved
   .ifNoMemberAdded {
-    height: 80vh;
+    height: 60vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    .ifNoMemberAddedBox {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      .addMemberIconBox {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-self: center;
-        color: #000;
-        background-color: aliceblue;
-        border-radius: 50%;
-        padding: 25px 20px;
-        margin: 30px auto;
-        .fa-user-plus {
-          margin: 0px auto;
-        }
-        .icon-text {
-          font-weight: 800;
-          margin: 6px auto;
-        }
-        &:hover {
-          cursor: pointer;
-          color: rgb(2, 92, 2);
-          box-shadow: 0.8px 1px 4px rgba(95, 95, 95, 0.993);
-          transform: scale(1.08);
-          transition: 0.1s linear;
-        }
+    justify-content: center;
+    .addMemberIconBox {
+      color: #000;
+      background-color: aliceblue;
+      border-radius: 50%;
+      padding: 25px 20px;
+      margin: 30px auto;
+      .fa-user-plus {
+        margin: 0px auto;
+      }
+      &:hover {
+        cursor: pointer;
+        color: rgb(2, 92, 2);
+        box-shadow: 0.8px 1px 4px rgba(95, 95, 95, 0.993);
+        transform: scale(1.08);
+        transition: 0.1s linear;
       }
     }
   }
-  //home, saved, addmember,search
-  .pageTitle {
-    display: flex;
-    justify-content: center;
-    // align-items: center;
-    color: whitesmoke;
+  //home, saved, addmember, search
+  .headBox {
+    position: fixed;
+    z-index: 10;
     width: 100%;
-    padding-bottom: 5px;
-    // margin-bottom: 15px;
-    border-bottom: $basic-border;
-    .headBox {
-      width: $boxSize-width;
+    max-width: $boxSize-width;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 0px 15px 0px;
+    margin-bottom: 20px;
+    // background-color: rgba(51, 51, 51, 0.979);
+    background-color: rgba(123, 65, 177, 0.952);
+    h1 {
+      padding: 0px 10px;
+    }
+    .startAndDoneBtnContainner {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-      .startAndDoneBtnContainner {
-        display: flex;
-        .finisheBtnSet {
-          width: 100px;
-          padding: 0px;
-          animation: $bounce-top;
-        }
-        .startBtnSet,
-        .timeBegin,
-        .timeEnd,
-        .finisheBtnSet button {
-          // width: 100px;
-          height: $headText-size;
-          font-weight: 700;
-          padding: 0px 10px;
-          border-style: none;
-          // border: solid 1px $inputText-color;
-          border-radius: 20px;
-          background-color: transparent;
-          &:hover {
-            color: rgba(255, 255, 255, 0.329);
-          }
-          &:active {
-            transform: scale(0.98);
-            // transition: 0.8s linear;
-          }
-        }
-        .startBtnSet,
-        .timeEnd {
-          background-color: rgba(9, 255, 0, 0.301);
-        }
-        .timeBegin {
-          background-color: rgba(253, 66, 33, 0.582);
-        }
-        .finisheBtnSet button {
-          background-color: rgba(0, 0, 255, 0.301);
-        }
+      padding: 0px 10px;
+      .finisheBtnSet {
+        width: 100px;
+        padding: 0px;
+        animation: $bounce-top;
       }
-      .searchMemberBox {
-        width: 100%;
-        text-align: center;
+      .startBtnSet,
+      .timeBegin,
+      .timeEnd,
+      .finisheBtnSet button {
         height: $headText-size;
-        // border-bottom: dotted 0.6px rgba(255, 255, 255, 0.096);
-        input {
-          max-width: 55%;
-          height: 100%;
-          border-radius: 20px;
-          // margin-bottom: 22px;
-          padding-left: 15px;
-          cursor: text;
-          background-color: $searchBox-bgColor;
-          margin: 0px;
+        font-weight: 700;
+        padding: 0px 10px;
+        border-style: none;
+        border-radius: 20px;
+        background-color: transparent;
+        &:hover {
+          color: rgba(255, 255, 255, 0.329);
+        }
+        &:active {
+          transform: scale(0.98);
         }
       }
-      // .spaceForLayout {
-      //   i {
-      //     display: none;
-      //   }
-      // }
+      .startBtnSet,
+      .timeEnd {
+        background-color: rgba(9, 255, 0, 0.301);
+      }
+      .timeBegin {
+        background-color: rgba(253, 66, 33, 0.582);
+      }
+      .finisheBtnSet button {
+        background-color: rgba(0, 0, 255, 0.301);
+      }
+    }
+    .searchMemberBox {
+      width: 100%;
+      height: $headText-size;
+      input {
+        max-width: 55%;
+        height: 100%;
+        border-radius: 20px;
+        padding-left: 15px;
+        margin: 0px;
+        background-color: $searchBox-bgColor;
+        cursor: text;
+      }
     }
   }
 
-  .homeAttendanceSheet-start,
-  .homeAttendanceSheet-finish,
-  .chartBox-array,
-  .chartBox-total {
-    width: 100%;
-    max-width: $boxSize-width;
-  }
+  //home && saved inside ul
   .ulBoxHead,
   .ulBoxHead-two {
+    // width: 100%;
     font-weight: bolder;
     color: $form-bgColor;
-    padding: 10px 5px 0px 5px;
+    border-top: $basic-border;
+    display: flex;
+    // align-items: center;
+    justify-content: space-between;
+    padding: 10px 10px 0px 10px;
     margin-top: 10px;
   }
 
   //home page
-  .homeAttendanceSheet-start {
+  .homeBox-start {
+    width: 100%;
+    max-width: $boxSize-width;
+    margin-top: 70px;
     .ulBoxHead {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      a {
+        &:hover {
+          padding: 3px 2px 3px 5px;
+          border-radius: 50%;
+          background-color: rgba(238, 130, 238, 0.247);
+        }
+      }
     }
     .listBoard-checkBox {
-      margin-top: $listBoard-marginTop;
-      background-color: rgba(185, 218, 109, 0.219);
+      li {
+        // padding: 10px 5px;
+      }
     }
   }
 
-  .homeAttendanceSheet-finish {
-    .ulBoxHead-two {
-      border-top: $basic-border;
-    }
+  .homeBox-finish {
+    width: 100%;
+    max-width: $boxSize-width;
+    padding-bottom: 60px;
     .listBoard-checkedBox {
-      margin-top: $listBoard-marginTop;
-      background-color: rgba(236, 183, 114, 0.219);
+      // background-color: rgba(236, 183, 114, 0.219);
     }
   }
 
   //saved page
   .chartBox-array {
-    #foldBox {
-      display: flex;
-      justify-content: space-between;
+    width: 100%;
+    max-width: $boxSize-width;
+    margin-top: 70px;
+    .ulBoxHead {
       i {
         color: $form-bgColor;
         &:hover {
@@ -222,20 +205,56 @@ main {
       }
     }
     ul {
-      padding: 5px 5px;
-      box-sizing: border-box;
+      padding: 10px 5px 0px 5px;
       animation: $showing-page;
-      .chartSaved-table {
-        margin: 15px 0px;
+      li {
+        display: flex;
+        align-items: center;
+        .chartArrayName {
+          height: 100%;
+          font-size: 15px;
+          border-right: $basic-border;
+          padding-right: 5px;
+        }
+        .chartArrayText {
+          display: flex;
+          // flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+          border: $basic-border;
+          border-radius: 5px;
+          margin-left: 5px;
+          #ifNotStart {
+            padding: 3px 3px;
+          }
+          .chartArrayText-Num {
+            //스크린사이즈에 display:none적용
+            font-size: 10px;
+            padding: 5px 5px;
+            border-bottom-left-radius: 0px;
+            background-color: rgba(160, 160, 160, 0.212);
+          }
+          .chartArrayText-Mon {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1px 1px;
+            padding: 0px 4px;
+          }
+        }
+        &:hover {
+          background-color: rgba(238, 130, 238, 0.13);
+        }
       }
     }
   }
 
   .chartBox-total {
+    width: 100%;
+    max-width: $boxSize-width;
+    padding-bottom: 60px;
     .ulBoxHead-two {
-      display: flex;
-      justify-content: space-between;
-      border-top: $basic-border;
       #bandBtn {
         color: $naver-green;
         border: solid 2px $naver-green;
@@ -251,7 +270,7 @@ main {
       }
     }
     .listBord-chartBox {
-      margin-top: $listBoard-marginTop;
+      margin-top: 15px;
       .chartSaved {
         font-family: "Nanum Gothic", sans-serif;
         .chartText {
@@ -260,8 +279,6 @@ main {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 10px 5px;
-          box-sizing: border-box;
           .chartText-firstBox {
             display: flex;
             .chartText-nameEntryFee {
@@ -271,13 +288,10 @@ main {
               flex-direction: column;
               justify-content: center;
               align-items: center;
-              // padding: 20px 10px;
               border-radius: 20px;
               margin-right: 10px;
               background-color: rgba(6, 31, 13, 0.637);
               .nameEntryFee-name {
-                // font-size: 100%;
-                // font-size: 25px;
                 font-weight: 700;
               }
             }
@@ -292,10 +306,10 @@ main {
                 align-items: center;
                 justify-content: space-between;
                 .nameEntryFee-entryFee {
+                  height: 100%;
                   display: flex;
                   justify-content: center;
                   align-items: center;
-                  height: 100%;
                   border-right: $basic-border;
                   padding-right: 8px;
                 }
@@ -311,9 +325,9 @@ main {
                     color: white;
                     font-size: 11px;
                     font-weight: bolder;
-                    background-color: rgba(236, 77, 38, 0.534);
                     border-radius: 20px;
                     padding: 4px 6px;
+                    background-color: rgba(236, 77, 38, 0.534);
                   }
                 }
                 .BoxTop-extra {
@@ -322,9 +336,9 @@ main {
                 }
               }
               .AbsenceExtraEarnd-TotalEarnedMoney {
-                color: rgba(255, 255, 255, 0.767);
                 font-size: 21px;
                 font-weight: 700;
+                color: rgba(255, 255, 255, 0.767);
               }
             }
           }
@@ -370,6 +384,83 @@ main {
       }
     }
   }
+
+  //search page
+  .searchedMainBox {
+    padding-bottom: 60px;
+    .formLi-edit {
+      position: relative;
+      max-width: $formBox-width;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 25px 20px 15px 20px;
+      margin-bottom: 25px;
+      border-radius: 10px;
+      background-color: rgba(201, 201, 201, 0.13);
+      box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.192);
+      .search-deleteBtn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 10px 10px;
+        cursor: pointer;
+        &:hover {
+          font-weight: bolder;
+          color: rgb(255, 77, 71);
+          background-color: transparent;
+        }
+      }
+      .searchedBox-inForm {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 5px;
+        margin-top: 15px;
+        border-bottom: $editBox-underlineColor solid 1px;
+        label {
+          width: 20%;
+          font-size: $inputText-size;
+          color: $editBox-underlineColor;
+          text-align: end;
+          padding-right: 10px;
+        }
+        input {
+          width: 80%;
+          margin: 0px;
+          font-weight: bold;
+          background-color: transparent;
+          border: none;
+        }
+        :last-of-type {
+          input {
+            width: 48%;
+            &::placeholder {
+              font-weight: 530;
+            }
+          }
+        }
+        #nthFee {
+          width: 80%;
+          margin-bottom: 5px;
+          select {
+            width: 52%;
+            border-style: none;
+            border-radius: 5px;
+            margin-right: 2%;
+            outline: none;
+            color: rgba(255, 255, 255, 0.897);
+            background-color: $form-bgColor;
+            option {
+              background-color: rgba(240, 248, 255, 0.219);
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 //screen size
@@ -378,3 +469,10 @@ main {
     animation: $showing-page;
   }
 }
+@media (max-width: 580px) {
+  .chartArrayText-Num {
+    display: none;
+  }
+}
+
+//320px부터는 .chartArrayName의 font가 15px보다 작게

@@ -1,7 +1,7 @@
 const startBtn = document.querySelector(".homeTimeStartBtn");
-const startSheet = document.querySelector(".homeAttendanceSheet-start");
+const startSheet = document.querySelector(".homeBox-start");
 const startUlBox = document.querySelector(".listBoard-checkBox");
-const finishSheet = document.querySelector(".homeAttendanceSheet-finish");
+const finishSheet = document.querySelector(".homeBox-finish");
 const finishUlBox = document.querySelector(".listBoard-checkedBox");
 const finishBtn = document.querySelector(".homeTimeFinishBtn");
 
@@ -19,7 +19,7 @@ let nthMeeting;
 //functions
 function startBtnSetting (nth){
     if(nth >= 11){
-        startBtn.innerText = `⛔️ 10회까지 모두 체크. 입금 확인 후 다시 1회부터 시작하세요.`;
+        startBtn.innerText = `⛔️ 10회 끝`;
     }else if(nth < 11){
         startBtn.innerText = `${nth}회차 스따뜨`;
     }
@@ -84,7 +84,7 @@ if(startBtn){
     startBtnSetting(startBtn.dataset.nth);
     startBtn.addEventListener("click", (e) => {
         if(nth >= 11){
-            alert("10회차 출첵한 멤머가 있어요. 입금확인 후 출첵할 수 있어요.")
+            alert("모두 10회차 출첵이 끝났습니다. 입금확인을 해주세요.")
             return;
         }
         // if (timeBegin !== undefined && apple.length !== numbOfApple){

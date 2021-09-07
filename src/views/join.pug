@@ -1,15 +1,19 @@
 extends ./layouts/main.pug
 
 block content
-        .joinPage
-            .pageTitle-join
-                i.fas.fa-chevron-left.forFilter 
-                h4 🌳 🌳 🌳      
-            .joinWelcomeBox     
+        .publicPage
+            .publicPage-head
+                .spaceForLayout
+                    a.goback(href="/") 
+                        i.fas.fa-chevron-left
+                h1 🌳 🌳 🌳
+                .spaceForLayout      
+            
+            .loginJoinErrorBox     
                 if(ErrorMessage)
                     h4=ErrorMessage
-                //- h4 fill in the all blanks 
-            .joinBox
+            
+            .joinFormBox
                 form(action=routes.join, method="POST") 
                     //- input(type="text" name="name" placeholder="nickname" required)
                     input(type="mail" name="email" placeholder="이메일" required)
