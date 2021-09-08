@@ -5,7 +5,7 @@ $naver-green: #04c75a;
 
 //background Color
 $background: #333;
-$menuBar-backgroundColor: #fed32e;
+$menuBarBottom-backgroundColor: rgba(43, 43, 43, 0.966);
 $form-bgColor: rgba(245, 245, 245, 0.164);
 $searchBox-bgColor: rgba(0, 0, 0, 0.226);
 
@@ -20,7 +20,7 @@ $btnText-color: white;
 $placeholder-textColor: rgba(245, 245, 245, 0.644);
 
 //width size; //change depends on screen size
-$boxSize-width: 600px;
+$boxSize-width: 800px;
 $startBtn-width: 200px;
 $formBox-width: 350px;
 // $moveStartBtn: 400px; //($boxSize-width - $startBtn-width)

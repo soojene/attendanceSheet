@@ -1,10 +1,14 @@
 body {
-  position: relative;
+  // position: relative;
+  // height: 100vh;
   display: flex;
+  // flex-direction: column;
   align-items: center;
+  justify-content: center;
   background: $background;
   color: white;
   font-family: "Nanum Gothic", sans-serif;
+  // padding: 0px 15px;
   h1 {
     font-size: $headText-size;
     font-weight: 700;
@@ -20,7 +24,7 @@ body {
   }
   li {
     // width: 100%;
-    padding: 7px;
+    padding: 7px 15px;
   }
   i {
     cursor: pointer;
@@ -69,14 +73,16 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  // justify-content: center;
   align-items: center;
+  padding: 0px 15px;
   .publicPage-head {
     width: 100%;
     max-width: $formBox-width;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 40px;
   }
   .loginJoinErrorBox {
     color: rgb(235, 68, 38);
@@ -86,7 +92,7 @@ body {
 
 //goback a link
 .spaceForLayout {
-  padding: 0px 15px;
+  // padding: 0px 15px;
   width: 10%;
   font-size: larger;
   .goback {

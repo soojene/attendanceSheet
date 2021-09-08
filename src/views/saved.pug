@@ -1,7 +1,16 @@
 extends ./layouts/main.pug
 
 block content
-    include ./partials/navBar.pug
+    //- include ./partials/navBar.pug
+    .menuBar
+        a.menuBox(href=routes.home)
+            i.fas.fa-user-check              
+        a.menuBox(href=routes.saved) 
+            i.fas.fa-clipboard-list(style={color:"white"}) 
+        a.menuBox(href=routes.search)
+            i.fas.fa-search  
+        a.menuBox(href=routes.logout)   
+            i.fas.fa-sign-out-alt
     main
         if members.length === 0
             .ifNoMemberAdded
