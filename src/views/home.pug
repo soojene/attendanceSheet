@@ -21,7 +21,7 @@ block content
             .headBox
                     h1 Attendance
                     .startAndDoneBtnContainner
-                        button.homeTimeStartBtn.startBtnSet(data-nth=nth) #{nth}회차 시작
+                        button.homeTimeStartBtn.startBtnSet(data-nth=nth) #{nth}회 시작
                         form(action="/saved", method="").homeTimeFinishBtn.finisheBtnSet.forFilter  
                             button DONE
             //- button.goFetch fetch
@@ -35,10 +35,17 @@ block content
                     each member in members
                         li.forFilter(data-nthMeeting=member.nthMeeting)
                             button.checkBox-checkIn(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting) #{member.name}
-                            div #{member.numberOfAbsence} 결석
-                            div #{member.TotalEarnedMoney} 원
-                            button.checkBox-Absence(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting data-numberOfAbsence=member.numberOfAbsence) Absence
-                                
+                            .checkBox-text
+                                .textBox 
+                                    .textBox-title 출석률 
+                                    .textBox-content #{Math.round((nth - member.numberOfAbsence)/nth*100)}%
+                                .textBox
+                                    .textBox-title 지각
+                                    .textBox-content #{((nth-1)*(member.entryFee/10)-member.TotalEarnedMoney)/2000}시간
+                            button.checkBox-Absence(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting data-numberOfAbsence=member.numberOfAbsence) 
+                                i.fas.fa-times
+                                //- <i class="fas fa-times-circle"></i>
+                                //- <i class="far fa-times-circle"></i>
             .homeBox-finish
                 .ulBoxHead-two 수정박스
                 ul.listBoard-checkedBox

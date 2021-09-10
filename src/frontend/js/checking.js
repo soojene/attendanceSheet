@@ -21,7 +21,7 @@ function startBtnSetting (nth){
     if(nth >= 11){
         startBtn.innerText = `⛔️ 10회 끝`;
     }else if(nth < 11){
-        startBtn.innerText = `${nth}회차 스따뜨`;
+        startBtn.innerText = `${nth}회 스따뜨`;
     }
 };
 function listSetting(ulBox, whichOne){
@@ -45,9 +45,9 @@ function listSetting(ulBox, whichOne){
     }
 }
 function varialbesControll(e, numb){
-    id = e.target.value;
-    clickedMember = e.target.parentNode;
-    entryFee = parseInt(e.target.dataset.entryfee);
+    id = e.value;
+    clickedMember = e.parentNode;
+    entryFee = parseInt(e.dataset.entryfee);
     nthMeeting = numb;
 };
 function showingListHandler(id, ulBox, fromcheckBox){
@@ -96,13 +96,13 @@ if(startBtn){
         if(timeBegin === undefined){
             const currentTime = new Date();
             timeBegin = currentTime;
-            btn.innerText = `${nth}회차 취소`;
+            btn.innerText = `${nth}회 취소`;
             startCounting = true;
             btn.classList.add("timeBegin");
             btn.classList.remove("timeEnd");
         }else{
             timeBegin = undefined;
-            btn.innerText = `${nth}회차 재시작`;
+            btn.innerText = `${nth}회 재시작`;
             startCounting = false;
             btn.classList.add("timeEnd");
             btn.classList.remove("timeBegin");
@@ -116,15 +116,19 @@ if (startUlBox){
     listSetting(startUlBox, true);
 
     startUlBox.addEventListener("click", (e) => {
+        let selectNode=e.target;
         if(timeBegin === undefined){
             alert("didn't click startBtn");
             return;
         };
-        if (e.target.tagName !== "BUTTON"){
+        if(selectNode.tagName === "I"){
+            selectNode = e.target.parentNode;
+        }
+        if (selectNode.tagName !== "BUTTON"){
             return;
         };
-
-        varialbesControll(e, 1);
+        
+        varialbesControll(selectNode, 1);
         clickedMember.classList.remove("show");
         numberOfChecklist -=1;
         if(numberOfChecklist === 0){
@@ -145,12 +149,12 @@ if (startUlBox){
         let earnedMoney = 0;
         
 
-        if(e.target.className === "checkBox-Absence"){
+        if(selectNode.className === "checkBox-Absence"){
             numberOfAbsence = 1;
-            let absenceNumb = parseInt(e.target.dataset.numberofabsence) + 1;
+            let absenceNumb = parseInt(selectNode.dataset.numberofabsence) + 1;
             const AbsenInnerTexts = `결석: ${absenceNumb}회.`
             showingListHandler(id, finishUlBox, AbsenInnerTexts);
-        } else if (e.target.className === "checkBox-checkIn"){
+        } else if (selectNode.className === "checkBox-checkIn"){
             if(timeDifferentBySecond <= 3){
                 earnedMoney= entryFee * 0.1;
                 // console.log("3초 이하:", earnedMoney);
@@ -164,10 +168,10 @@ if (startUlBox){
                 earnedMoney= entryFee * 0.1 - 3000;
                 // console.log("13초 초과:", earnedMoney);
             }
-            const checkInnerTexts = `시작 ${minutes}후 출석: ${earnedMoney}원 적립`;
+            const checkInnerTexts = `${minutes}후 출석: ${earnedMoney/1000}천원 적립`;
             showingListHandler(id, finishUlBox, checkInnerTexts);
         };
-
+        e.target
         postFetch (id, numberOfAbsence, earnedMoney, nthMeeting,entryFee);
     })
 };
@@ -179,7 +183,7 @@ if(finishUlBox){
         if (e.target.tagName !== "BUTTON"){
             return;
         }
-        varialbesControll(e, -1);
+        varialbesControll(e.target, -1);
         clickedMember.classList.remove("show");
         numberOfChecklist += 1;
         if(numberOfChecklist !== 0){

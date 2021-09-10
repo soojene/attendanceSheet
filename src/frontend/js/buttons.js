@@ -70,3 +70,22 @@ if (bandBtn) {
     const textChart = chart.toString(); 
     bandBtn.addEventListener("click", () => window.open(`https://band.us/plugin/share?body=${textChart}&route=http://localhost:5000/saved`, "band-share", "width=125, height=240, resizable=no"));
 }
+
+//chart folded box
+const foldBtn = document.getElementById("foldBoxBtn");
+if(foldBtn){
+    const foldBoxContainner = document.getElementById("foldBoxContainner");
+    let switchValue = true;
+    foldBtn.addEventListener("click", (e)=> {
+        foldBoxContainner.classList.toggle("close");
+        if(switchValue){
+            foldBtn.classList.remove("fa-chevron-down");
+            foldBtn.classList.add("fa-chevron-up");
+            switchValue = false;
+        } else{
+            foldBtn.classList.remove("fa-chevron-up");
+            foldBtn.classList.add("fa-chevron-down");
+            switchValue = true;
+        }
+    });
+}

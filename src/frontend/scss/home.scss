@@ -27,8 +27,6 @@
 }
 
 main {
-  // height: 100vh;
-  // z-index: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -64,14 +62,14 @@ main {
   .headBox {
     position: sticky;
     top: 0px;
-    z-index: 1;
+    z-index: 10;
     width: 100%;
     max-width: $boxSize-width;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 40px 15px 15px 15px;
-    // background-color: $background;
+    background-color: $background; //smallscreen에서 적용x
     h1 {
       padding: 0px 15px;
     }
@@ -89,7 +87,7 @@ main {
       .finisheBtnSet button {
         height: $headText-size;
         font-weight: 700;
-        padding: 0px 10px;
+        padding: 0px 15px;
         border-style: none;
         border-radius: 20px;
         background-color: transparent;
@@ -102,14 +100,14 @@ main {
       }
       .startBtnSet,
       .timeEnd {
-        background-color: rgba(9, 255, 0, 0.301);
+        background-color: rgba(112, 252, 107, 0.116);
       }
       .timeBegin {
-        background-color: rgba(253, 66, 33, 0.582);
+        background-color: rgba(255, 80, 49, 0.247);
       }
       .finisheBtnSet button {
         margin-left: 42.48px;
-        background-color: rgba(0, 0, 255, 0.301);
+        background-color: rgba(62, 62, 255, 0.247);
       }
     }
     .searchMemberBox {
@@ -146,22 +144,84 @@ main {
   .homeBox-start {
     width: 100%;
     max-width: $boxSize-width;
-    z-index: 99;
-    // margin-top: 70px;
     .ulBoxHead {
       margin-top: 0px;
+      padding-right: 23px;
       a {
-        padding-right: 5px;
+        // padding-right: 10px;
         &:hover {
-          padding: 3px 2px 3px 5px;
+          padding: 7px 6px 7px 9px;
           border-radius: 50%;
-          background-color: rgba(238, 130, 238, 0.247);
+          background-color: rgba(255, 255, 255, 0.205);
         }
       }
     }
     .listBoard-checkBox {
+      margin-top: 15px;
       li {
-        // padding: 10px 5px;
+        align-items: center;
+        align-items: center;
+        justify-content: space-between;
+        button {
+          font-weight: 700;
+          &:first-of-type {
+            width: 40%;
+            padding: 10px 20px;
+            margin: 10px 0px;
+            font-size: 16px;
+            border-style: none;
+            border-radius: 5px;
+            color: #333;
+            background-color: rgb(227, 231, 227);
+            &:hover {
+              color: green;
+              background-color: $btnText-color;
+            }
+          }
+          &:last-of-type {
+            width: 15%;
+            max-width: 39px;
+            height: 39px;
+            border: 0.8px solid rgba(255, 255, 255, 0.089);
+            border-radius: 50%;
+            color: rgba(255, 255, 255, 0.089);
+            background-color: #333;
+            box-shadow: 1px 1px 5px rgba(102, 101, 101, 0.103);
+            &:hover {
+              color: red;
+              background-color: $btnText-color;
+            }
+          }
+        }
+        .checkBox-text {
+          width: 40%;
+          height: 39px;
+          display: flex;
+          justify-content: space-around;
+          .textBox {
+            display: flex;
+            align-items: center;
+            .textBox-title {
+              width: 53px;
+              text-align: center;
+              // border: 0.5px solid rgba(255, 255, 255, 0.089);
+              border-right: none;
+              border-bottom-left-radius: 5px;
+              border-top-left-radius: 5px;
+              background-color: rgba(255, 255, 255, 0.205);
+              padding: 1px 0px;
+            }
+            .textBox-content {
+              width: 67px;
+              text-align: center;
+              padding: 1px 0px;
+              // border: 0.5px solid rgba(255, 255, 255, 0.089);
+            }
+          }
+        }
+        &:hover {
+          background-color: $liBoxHover-bgColor;
+        }
       }
     }
   }
@@ -171,7 +231,32 @@ main {
     max-width: $boxSize-width;
     padding-bottom: 60px;
     .listBoard-checkedBox {
-      // background-color: rgba(236, 183, 114, 0.219);
+      // display: flex;
+      // flex-direction: row;
+      // flex-wrap: wrap;
+      margin-top: 15px;
+      li {
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+        button {
+          font-size: 15px;
+          border-style: none;
+          border-radius: 20px;
+          padding: 10px 25px;
+          margin: 5px 5px;
+          background-color: tomato;
+        }
+        div {
+          color: rgba(255, 255, 255, 0.322);
+          font-size: 13px;
+          margin-left: 5px;
+        }
+        &:hover {
+          background-color: $liBoxHover-bgColor;
+        }
+      }
     }
   }
 
@@ -195,6 +280,7 @@ main {
       li {
         display: flex;
         align-items: center;
+        padding: 7px 0px 7px 10px;
         .chartArrayName {
           height: 100%;
           font-size: 15px;
@@ -336,16 +422,16 @@ main {
               //li가 relative
               position: absolute;
               height: 90%;
-              width: 80px;
+              width: 70px;
               word-wrap: break-word;
-              right: 0px;
+              right: -5px;
               bottom: 5%;
               z-index: 1;
-              font-size: 18px;
+              font-size: 15px;
               font-weight: 700;
               border: $basic-border;
               border-radius: 5px;
-              padding: 5px 5px;
+              // padding: 4px 5px;
               &:hover {
                 color: rgb(221, 237, 241);
               }
@@ -361,7 +447,7 @@ main {
           }
         }
         &:hover {
-          background-color: rgb(71, 70, 70);
+          background-color: $liBoxHover-bgColor;
           .chartText-secondBox i {
             color: $inputText-color;
           }
@@ -453,10 +539,15 @@ main {
   }
 }
 
-//screen size
-@media (min-width: 950px) {
-  .headBox {
-    background-color: #333;
+//screen size [main박스 사이즈 만큼]
+@media (max-width: 830px) {
+  main {
+    .headBox {
+      background-color: $menuBarBottom-backgroundColor;
+      #gobackAdd {
+        display: unset;
+      }
+    }
   }
 }
 @media (max-width: 950px) {
@@ -482,18 +573,29 @@ main {
         border-style: none;
         margin-bottom: 0px;
         background-color: transparent;
+        &:hover {
+          color: white;
+          background-color: unset;
+        }
       }
     }
   }
-
-  .headBox {
-    background-color: $menuBarBottom-backgroundColor;
-  }
 }
-@media (max-width: 580px) {
+@media (max-width: 590px) {
   .chartArrayText-Num {
     display: none;
   }
+  .checkBox-text {
+    flex-direction: column;
+    justify-content: space-around;
+    .textBox {
+      font-size: 13px;
+      .textBox-title {
+        padding: 0px;
+      }
+      .textBox-content {
+        padding: 0px;
+      }
+    }
+  }
 }
-
-//320px부터는 .chartArrayName의 font가 15px보다 작게

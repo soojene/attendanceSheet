@@ -32,7 +32,7 @@ block content
                             li 
                                 .chartArrayName #{member.name}
                                 h6.chartArrayText 
-                                    #ifNotStart 1회차 전
+                                    #ifNotStart 참가비: #{member.entryFee/10000}만원
                         else
                             li 
                                 .chartArrayName #{member.name}
@@ -60,7 +60,12 @@ block content
                                                 .BoxTop-numberOfAbsence
                                                     .wordAbsence 결석
                                                     .circleAbsence #{member.numberOfAbsence}
-                                                .BoxTop-extra #{member.extraFeeText}
+                                                if member.extraFeeOption === 0
+                                                    .BoxTop-extra 동결
+                                                else if member.extraFeeOption === -10000
+                                                    .BoxTop-extra 할인
+                                                else
+                                                    .BoxTop-extra 추가
                                             .AbsenceExtraEarnd-TotalEarnedMoney #{member.TotalEarnedMoney}원 
                                     .chartText-secondBox
                                         i.fas.fa-chevron-right
@@ -83,3 +88,5 @@ block content
                                 //- div.chartSaved-entryFee (#{member.entryFee}): #{member.nthMeeting}회차부터 시작                     
 
 //- (#{member.nthMeeting - 1}회차): [#{member.earnedMoney}]
+
+//- .BoxTop-extra #{member.extraFeeText}

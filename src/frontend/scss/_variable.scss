@@ -8,6 +8,7 @@ $background: #333;
 $menuBarBottom-backgroundColor: rgba(43, 43, 43, 0.966);
 $form-bgColor: rgba(245, 245, 245, 0.164);
 $searchBox-bgColor: rgba(0, 0, 0, 0.226);
+$liBoxHover-bgColor: rgb(71, 70, 70);
 
 //styleColor
 $editBox-underlineColor: rgba(219, 219, 219, 0.329);
@@ -104,25 +105,3 @@ $bounce-top: bounce-top 0.9s both;
   //   transform-origin: 100% 0%;
   // }
 }
-
-// @keyframes slide-right {
-//   0% {
-//     transform: translateX(0);
-//     background-color: $startBtn-bgColor;
-//   }
-//   100% {
-//     transform: translateX($moveStartBtn);
-//     background-color: rebeccapurple;
-//   }
-// }
-
-// @keyframes slide-left {
-//   0% {
-//     transform: translateX($moveStartBtn);
-//     background-color: rebeccapurple;
-//   }
-//   100% {
-//     transform: translateX(0px);
-//     background-color: $startBtn-bgColor;
-//   }
-// }
