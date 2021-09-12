@@ -1,6 +1,7 @@
 import UserDB from '../models/Leader';
 import routes from '../routes';
 import bcrypt from 'bcrypt';
+import MemberDB from '../models/Member';
 
 export const getLogin = (req, res) => {
     return res.render("login", {pageTitle: "LOGIN"});
@@ -22,10 +23,7 @@ export const postLogin = async (req, res) => {
     }
     req.session.logIn = true;
     req.session.loggedInUser = findUser;
-    // const days = new Array("SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT");
-    // const today = new Date();
-    // const Oneday = today.getDay()
-    // req.session.day = days[Oneday];
+    req.session.startTime = findUser.timeStart;
     return res.redirect(routes.home);
 };
 
@@ -39,6 +37,12 @@ export const postJoin = async (req, res) => {
     //join할때 기재한 이메일가져와서 로그인화면으로 redirect 해주면서 
     // 로그인 인풋값에 넣어주어서 다시 타입하지 않게 해주고 
     const { email, password1, password2} = req.body;
+    const re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    const validateEmail = re.test(email);
+        
+    if(validateEmail === false){
+        return res.status(404).render("join", {pageTitle:"JOIN", ErrorMessage: "⛔️ 올바른 이메일을 적어주세요"});
+    }
     if(password1 !== password2){
         return res.status(404).render("join", {pageTitle:"JOIN", ErrorMessage: "⛔️ 비번이 일치하지 않아요."});
     }
@@ -51,7 +55,7 @@ export const postJoin = async (req, res) => {
                 email,
                 password: password1
             });
-            return res.redirect(routes.login);
+            return res.render("login", {pageTitle:"LOGIN", ErrorMessage: "가입을 축하합니다!"});
         }
     } catch (error){
         console.log("ERROR:", error);
@@ -60,8 +64,16 @@ export const postJoin = async (req, res) => {
 };
 
 //NO TEMPLATE
-export const logout = (req, res) => {
+export const logout = async (req, res) => {
+    try{
+        const leader = await UserDB.findById(req.session.loggedInUser._id);
+        leader.timeStart = req.session.startTime;
+        leader.save();
+    }catch(err){
+        console.log(err);
+        return res.redirect("login");
+    }
     req.session.logIn = false;
     req.session.destroy();
-    res.redirect("login");
+    return res.redirect("login");
 };

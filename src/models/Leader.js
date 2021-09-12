@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
     email: {type: String, required: true, unique: true},
     password: {type:String},
     socialOnly: {type:Boolean, default: false},
+    timeStart: {type:String, default: undefined},
     members: [{ type: mongoose.Schema.Types.ObjectId, ref: "Member" }]
 });
 

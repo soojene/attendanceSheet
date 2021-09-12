@@ -6,6 +6,7 @@ export const localsMiddleware = (req, res, next) => {
     res.locals.routes = routes;
     res.locals.logIn = Boolean(req.session.logIn);
     // res.locals.selectedDay = req.session.day;
+    res.locals.startTime = req.session.startTime;
     res.locals.loggedInUser= req.session.loggedInUser;
     next(); 
 };

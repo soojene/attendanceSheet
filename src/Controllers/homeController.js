@@ -226,8 +226,10 @@ export const reset = async(req, res) => {
 };
 
 export const postRecordTime = (req, res) => {
-    console.log("recordTime");
-    res.send("recordTime");
+    const {timeBegin}=req.body;
+    //로그아웃할때 모델에 세션에 마지막으로 저장된 시간을 한번 저장하고, 로그인할때 세션에 저장해서 사용하고 변경 될때마다 세션에 저장시킴.
+    req.session.startTime = timeBegin;
+    res.redirect(routes.home);
 };
 
 export const goFetch = async (req, res) => {

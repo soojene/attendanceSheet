@@ -1,27 +1,30 @@
-# attendence sheet
+# 모임 출석부
+- 모임의 리더가 좀 더 편리하게 사용할 수 있도록 만든 웹.
+  - 10회 모임 회비에서 모임때마다 지각시간에 따라 참가비의 차감이 이루어진다.
+  - 10회 모임 동안 결석수와 참가비를 계산해서 다음 10회의 회비를 계산한다. 
+    - 결석수가 3회 이상이면 1만원 추가, 이하이면 1만원 할인. 단, 10회 회비가 5만원이면 동결. 
+    - 기존 10회 회비에서 총 합산 참가비를 제외한 금액, 그리고 결석수에 따른 1만원(추가, 할인, 동결). 
 
-public
-- [x] login and join
-- [ ] forgot account? 
-  - [ ] using phone number or email
 
-private
-- [ ] home
-  - [x] show list
-  - [ ] check and operate
-  - [ ] what if user close browser accidently when checking?
+- login and join
+
+- Home
+  -출석 페이지 및 멤버 등록.
   
-- [ ] chart
-  - [x] show list
-  - [X] BandShare
+- Chart
+  - 각 멤버의 출석에 대한 기록을 확인 할 수 있다.
+  - 10회 모임이 끝나고 다음 회비에 대한 확인
+  - 각 멤버를 클릭하여 해당 멤버의 수정 페이지로 이동
+
+- Search & Edit
+  - 이름으로 멤버를 검색하여 찾을 수 있다. 
+  - 각 멤버의 출석기록을 수정 및 삭제.
   
-- [x] add and edit/delete members
-  - [x] ...
-  
-- [x] logout
-  
-- [ ] edit User
-  - [ ] change password
-  - [ ] delete user account
+- Logout
+
+
+-------------------------------------------
+추가해야 하는 부분
+- 유저의 비밀번호 변경 및 회원 탈퇴.
 
 

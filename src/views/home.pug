@@ -21,7 +21,7 @@ block content
             .headBox
                     h1 Attendance
                     .startAndDoneBtnContainner
-                        button.homeTimeStartBtn.startBtnSet(data-nth=nth) #{nth}회 시작
+                        button.homeTimeStartBtn.startBtnSet(data-nth=nth data-savedStartTime=startTime) #{nth}회 시작
                         form(action="/saved", method="").homeTimeFinishBtn.finisheBtnSet.forFilter  
                             button DONE
             //- button.goFetch fetch
@@ -51,5 +51,5 @@ block content
                 ul.listBoard-checkedBox
                     each member in members
                         li.forFilter(data-nthMeeting=member.nthMeeting data-nthOfAbsence=member.numberOfAbsence data-name=member.name)
-                            button.checkBox-checkIn(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting) #{member.name} (#{member.nthMeeting}회차 취소)
+                            button.checkBox-checkIn(value=member._id data-entryFee=member.entryFee data-nthMeeting=member.nthMeeting data-lastEarnd=member.earnedMoney[member.earnedMoney.length-1]) #{member.name} (#{member.nthMeeting}회차 취소)
                             div.fromCheckBoxInnerText :[결석: 0회차 || 출석: 5000원 (9:02 AM)]

@@ -9,7 +9,7 @@ let nth;
 let numberOfChecklist= 0;
 
 let timeBegin;
-let startCounting = false;
+// let startCounting = false;
 
 let id;
 let clickedMember;
@@ -37,8 +37,9 @@ function listSetting(ulBox, whichOne){
         li.forEach(list => {
             if(list.dataset.nthmeeting > nth){
                 let div =list.querySelector(".fromCheckBoxInnerText");
+                console.log(list.childNodes[0]);
                 list.childNodes[0].innerText = `${list.dataset.name}(${list.dataset.nthmeeting - 1}회차 취소)`
-                div.innerText = `${list.dataset.nthofabsence}회 결석.`
+                div.innerText = `결석: ${list.dataset.nthofabsence}회, ${list.childNodes[0].dataset.lastearnd}원 적립`
                 list.classList.add("show");
             }
         });
@@ -81,32 +82,57 @@ function postFetch (id, numberOfAbsence, earnedMoney, nthMeeting,entryFee){
 //boxs
 if(startBtn){
     nth = parseInt(startBtn.dataset.nth);
-    startBtnSetting(startBtn.dataset.nth);
+    const timeSet=startBtn.dataset.savedstarttime;
+    if(timeSet !== undefined){
+        timeBegin = parseInt(timeSet);
+        const timeOut = Math.floor((new Date().getTime() - timeBegin)/1000);
+        //less 60s
+        if(timeOut < 60){
+            console.log(`${timeOut}초 지남`);
+        }
+        //7200s = 2hours
+        if (timeOut > 60 || nth >= 11){
+            console.log("60초 패스");
+            timeBegin = undefined;
+            startBtnSetting (nth);
+        }else{
+            startBtn.innerText = `${nth}회 취소`;
+            startBtn.classList.add("timeBegin");
+            startBtn.classList.remove("timeEnd");
+        }
+    }else {
+        timeBegin = undefined;
+        startBtnSetting(nth);
+    }
+    
     startBtn.addEventListener("click", (e) => {
         if(nth >= 11){
             alert("모두 10회차 출첵이 끝났습니다. 입금확인을 해주세요.")
             return;
         }
-        // if (timeBegin !== undefined && apple.length !== numbOfApple){
-        //     alert("체크된 멤버가 이미 있는데 시간취소한다고? 체크된 멤버를 취소하던, 출첵을 마저 끝내고 시간취소를 하세여");
-        //     return;
-        // };
         startBtn.classList.remove("startBtnSet");
         const btn = e.target;
         if(timeBegin === undefined){
-            const currentTime = new Date();
+            const currentTime = new Date().getTime();
             timeBegin = currentTime;
             btn.innerText = `${nth}회 취소`;
-            startCounting = true;
             btn.classList.add("timeBegin");
-            btn.classList.remove("timeEnd");
+            // btn.classList.remove("timeEnd");
         }else{
             timeBegin = undefined;
             btn.innerText = `${nth}회 재시작`;
-            startCounting = false;
             btn.classList.add("timeEnd");
             btn.classList.remove("timeBegin");
         }
+        fetch('/recordtime', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                timeBegin
+            })
+        })
     });
     
 }
@@ -117,14 +143,14 @@ if (startUlBox){
 
     startUlBox.addEventListener("click", (e) => {
         let selectNode=e.target;
-        if(timeBegin === undefined){
-            alert("didn't click startBtn");
-            return;
-        };
         if(selectNode.tagName === "I"){
             selectNode = e.target.parentNode;
         }
         if (selectNode.tagName !== "BUTTON"){
+            return;
+        };
+        if(timeBegin === undefined){
+            alert("didn't click startBtn");
             return;
         };
         
@@ -136,7 +162,8 @@ if (startUlBox){
             finishBtn.classList.remove("forFilter");
         }
         const checkinTime = new Date();
-        const timeDiff = checkinTime.getTime() - timeBegin.getTime();
+        const timeDiff = checkinTime.getTime() - timeBegin;
+        // checkinTime.getTime() - timeBegin.getTime();
         const timeDifferentBySecond = timeDiff/1000;
         let minutes = Math.floor(timeDifferentBySecond);
         if(timeDifferentBySecond < 60){
@@ -205,6 +232,16 @@ if(finishBtn){
             alert("all members are not checked");
             return;
         }
+        timeBegin = undefined;
+        fetch('/recordtime', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                timeBegin
+            })
+        })
         // timeBegin = undefined;
         // console.log(timeBegin);
     });
