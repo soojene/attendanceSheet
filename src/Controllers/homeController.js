@@ -90,7 +90,7 @@ export const postAddMember = async (req, res) => {
             newMember.save();
         }
         // req.session.day = dayOfWeek;
-        console.log(newMember);
+        // console.log(newMember);
         return res.redirect(routes.home);
     } catch (error) {
         console.log("add Error:", error);
