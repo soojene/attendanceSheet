@@ -7,7 +7,7 @@ export const startNaverLogin = (req, res) => {
     const config = {
         response_type: "code",
         client_id: process.env.CLIENT_ID,
-        redirect_uri: "http://localhost:5000/comefromnaver",
+        redirect_uri: "https://soo-attendance.herokuapp.com/comefromnaver",
         state: process.env.STATE
     };
     const params = new URLSearchParams(config).toString();
