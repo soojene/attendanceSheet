@@ -6,7 +6,7 @@ const STARTNAVER = "/gonaver";
 const FINISHNAVER = "/comefromnaver";
 
 //private
-const HOME = "/";
+const HOME = "/soo-attendance.herokuapp.com";
 const SAVED = "/saved";
 const ADD = "/addmember";
 const SEARCH = "/search";
