@@ -5,7 +5,7 @@ import "./db";
 import "./models/Member";
 import "./models/Leader";
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 const handleListening = () => {
     console.log(`💟server listening on http://localhost:${PORT}`);
