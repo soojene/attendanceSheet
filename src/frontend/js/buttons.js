@@ -50,8 +50,6 @@ if (bandBtn) {
     let chart =[];
     chartList.forEach(li => {
         let text = li.children[0].innerHTML;
-        // let savedText = li.children[0].children[1].innerHTML;
-        // let pushList = text;
         chart.push(text);
     });
     const textChart = chart.toString().replace(",", "");
