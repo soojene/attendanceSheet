@@ -130,7 +130,7 @@ export const getSearch = async (req, res) => {
     try {
         let findMember = await MemberDB.find({ name: {$regex: searchingPeople, $options: "i" }, createdBy });
         if(findMember.length === 0){
-            noMember = `There is no "${searchingPeople}" in ur group. search again with exact name of the member.`;
+            noMember = `"${searchingPeople}"이라는 멤버가 존재하지 않습니다. 멤버추가 또는 정확한 이름으로 다시 검색해주세요.`;
             return res.render("search", {pageTitle: "SEARCH", noMember });
         } else {
             // console.log(findMember);

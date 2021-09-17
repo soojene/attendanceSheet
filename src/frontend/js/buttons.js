@@ -1,16 +1,3 @@
-
-//code정리 && async await 체크
-function sendData (url){
-    // fetch(url).then((response) => {
-    // // return response.status;
-    // if(response.status === 200){
-    //     console.log(response.status);
-    // }else{
-    //     console.log("cannot reset");
-    // }
-    // });
-};
-
 //reset attendance
 const chartBoxUl = document.querySelector(".resetBtnUl");
 if(chartBoxUl){
@@ -88,4 +75,17 @@ if(foldBtn){
             switchValue = true;
         }
     });
+}
+
+const searchBtn = document.querySelector(".searchIcon");
+if(searchBtn){
+    searchBtn.addEventListener("click", () => {
+        const inputValue = document.querySelector(".searchName").value;
+        console.log(inputValue);
+        if(inputValue === ""){
+            console.log("noting")
+            return;
+        }
+        window.location.href=`/search?name=${inputValue}`;
+    })
 }

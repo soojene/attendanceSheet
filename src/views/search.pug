@@ -14,7 +14,9 @@ block content
     main
         .headBox
                 form.searchMemberBox(method="" action="") 
-                    input(type="text" placeholder="search by nickname" name="name")
+                        input.searchName(type="text" placeholder="search by nickname" name="name")
+                        div
+                            i.fas.fa-search.searchIcon
 
         .searchedMainBox
             if(findMember)
@@ -49,6 +51,7 @@ block content
                                 input(type="hidden" name="id" value=member._id)    
                                 input.search-editSubmit.lastInputBtn(type="submit" value="Edit")  
             else 
-                h1=noMember
+                .notingfoundBox
+                    h4=noMember
 
     

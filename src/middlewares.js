@@ -2,7 +2,7 @@ import routes from './routes';
 
 export const localsMiddleware = (req, res, next) => {
     // console.log(req.session);
-    res.locals.siteName = "NOODASIM";
+    res.locals.siteName = "CallingRoll";
     res.locals.routes = routes;
     res.locals.logIn = Boolean(req.session.logIn);
     // res.locals.selectedDay = req.session.day;

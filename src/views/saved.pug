@@ -48,7 +48,7 @@ block content
                     each member in members
                         if(member.nextFeeText)
                             li.chartSaved
-                                div(style={display: "none"}) #{member.name}(#{member.entryFee}): #{member.numberOfAbsence}회 결석으로 #{member.extraFeeText}. #{member.TotalEarnedMoney}원 이월로 #{member.nextFeeOption} #{member.nextFeeText}.
+                                div(style={display: "none"}) #{member.name}(#{(member.entryFee/10000).toFixed(1)}): #{member.numberOfAbsence}회 결석으로 #{member.extraFeeText}. #{(member.TotalEarnedMoney/10000).toFixed(1)}원 이월로 #{(member.nextFeeOption/10000).toFixed(1)} #{member.nextFeeText}.
                                 a.chartText(href=`${routes.search}?name=${member.name}`)
                                     .chartText-firstBox
                                         .chartText-nameEntryFee
