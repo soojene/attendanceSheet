@@ -51,11 +51,11 @@ if (bandBtn) {
     chartList.forEach(li => {
         let text = li.children[0].innerHTML;
         // let savedText = li.children[0].children[1].innerHTML;
-        let pushList = text;
-        chart.push(pushList);
+        // let pushList = text;
+        chart.push(text);
     });
-    const textChart = chart.toString(); 
-    bandBtn.addEventListener("click", () => window.open(`https://band.us/plugin/share?body=${textChart}&route=http://localhost:5000/saved`, "band-share", "width=125, height=240, resizable=no"));
+    const textChart = chart.toString().replace(",", "");
+    bandBtn.addEventListener("click", () => window.open(`https://band.us/plugin/share?body=${textChart}&route=http://localhost:5000/saved`, "band-share", "width=100, height=240, resizable=no"));
 }
 
 //chart folded box
