@@ -71,9 +71,9 @@ block content
                                         i.fas.fa-chevron-right
                                         .resetBtnContainner
                                         if member.nthMeeting > 10 && member.nextFeeText === "입금"
-                                            button.resetCallBtn#resetConfirm(data-id=member._id) #{member.nextFeeOption}원 #{member.nextFeeText}
+                                            button.resetCallBtn#resetConfirm(data-id=member._id) #{(member.nextFeeOption/10000).toFixed(1)}  #{member.nextFeeText}
                                         if member.nthMeeting > 10 && member.nextFeeText === "환급"
-                                            button.resetCallBtn#resetConfirmRe(data-id=member._id) #{member.nextFeeOption}원 #{member.nextFeeText}
+                                            button.resetCallBtn#resetConfirmRe(data-id=member._id) #{(member.nextFeeOption/10000).toFixed(1)} #{member.nextFeeText}
                         else        
                             li.chartSaved
                                 a.chartText(href=`${routes.search}?name=${member.name}`)
