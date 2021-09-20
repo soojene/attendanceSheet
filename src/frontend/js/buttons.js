@@ -8,10 +8,11 @@ if(chartBoxUl){
         e.preventDefault();
         const element = e.target;
         const id = element.dataset.id;
+        element.classList.add("forFilter");
         const url = `/reset${id}`;
         fetch(url).then(response => {
             if(response.status === 200){
-                element.classList.add("forFilter");
+                // element.classList.add("forFilter");
                 // element.innerText="입금 확인";
             }else{
                 console.log("cannot delete:", response.error);
@@ -52,8 +53,8 @@ if (bandBtn) {
         let text = li.children[0].innerHTML;
         chart.push(text);
     });
-    const textChart = chart.toString().replace(",", "");
-    bandBtn.addEventListener("click", () => window.open(`https://band.us/plugin/share?body=${textChart}&route=http://localhost:5000/saved`, "band-share", "width=100, height=240, resizable=no"));
+    const textChart = chart.toString();
+    bandBtn.addEventListener("click", () => window.open(`https://band.us/plugin/share?body=${textChart.replace(",", "")}&route=http://localhost:5000/saved`, "band-share", "width=100, height=240, resizable=no"));
 }
 
 //chart folded box
