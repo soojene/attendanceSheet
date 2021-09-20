@@ -53,8 +53,11 @@ if (bandBtn) {
         let text = li.children[0].innerHTML;
         chart.push(text);
     });
-    const textChart = chart.toString();
-    bandBtn.addEventListener("click", () => window.open(`https://band.us/plugin/share?body=${textChart.replace(",", "")}&route=http://localhost:5000/saved`, "band-share", "width=100, height=240, resizable=no"));
+    // console.log(chart.join(''));
+    // const textChart = chart.toString();
+    const textChart = chart.join('');
+
+    bandBtn.addEventListener("click", () => window.open(`https://band.us/plugin/share?body=${textChart}&route=http://localhost:5000/saved`, "band-share", "width=100, height=240, resizable=no"));
 }
 
 //chart folded box
