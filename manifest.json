@@ -1,0 +1,11 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "sooAttendance",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "sooAttendance",
+  "start_url": "/",
+  "theme_color": "#ffffff"
+}
