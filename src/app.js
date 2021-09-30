@@ -5,9 +5,6 @@ import morgan from 'morgan';
 import { localsMiddleware } from './middlewares';
 import routes from './routes';
 import { globalRouter } from './routers/globalRouter';
-import "./manifest.json";
-import "./pwabuilder-sw-register";
-import "./pwabuilder-sw";
 
 const app = express();
 
@@ -25,8 +22,8 @@ app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 app.use(localsMiddleware);
 app.use(express.static("img"));
+// app.use(express.static("pwafolder"));
 app.use("/soo", express.static("clients"));
-app.use("/", express.static("src"));
 app.use(express.urlencoded({ extended: true}));
 app.use(morgan("dev"));
 app.use(express.json());
