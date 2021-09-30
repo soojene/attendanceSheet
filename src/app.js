@@ -23,6 +23,7 @@ app.set("views", process.cwd() + "/src/views");
 app.use(localsMiddleware);
 app.use(express.static("img"));
 app.use("/soo", express.static("clients"));
+app.use("/", express.static("src"));
 app.use(express.urlencoded({ extended: true}));
 app.use(morgan("dev"));
 app.use(express.json());

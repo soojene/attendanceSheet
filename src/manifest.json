@@ -2,10 +2,10 @@
   "background_color": "#ffffff",
   "dir": "ltr",
   "display": "standalone",
-  "name": "sooAttendance",
+  "name": "soo-attendance.herokuapp",
   "orientation": "any",
   "scope": "/",
-  "short_name": "sooAttendance",
+  "short_name": "soo-attendance.herokuapp",
   "start_url": "/",
   "theme_color": "#ffffff"
 }
