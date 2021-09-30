@@ -5,6 +5,9 @@ import morgan from 'morgan';
 import { localsMiddleware } from './middlewares';
 import routes from './routes';
 import { globalRouter } from './routers/globalRouter';
+import "./manifest.json";
+import "./pwabuilder-sw-register";
+import "./pwabuilder-sw";
 
 const app = express();
 
