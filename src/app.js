@@ -21,9 +21,10 @@ app.use(
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 app.use(localsMiddleware);
-app.use(express.static("img"));
+app.use(express.static("imges"));
 // app.use(express.static("pwafolder"));
 app.use("/soo", express.static("clients"));
+app.use(express.static("pwas"));
 app.use(express.urlencoded({ extended: true}));
 app.use(morgan("dev"));
 app.use(express.json());

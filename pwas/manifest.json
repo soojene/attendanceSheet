@@ -1,0 +1,15 @@
+{
+  "short_name": "soottendance",
+  "name": "attendance check web application",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src":"iconimages.png",
+      "size":"500x500",
+      "type":"image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#ffffff"
+}
