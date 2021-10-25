@@ -9,7 +9,7 @@
       "type":"image/png"
     }
   ],
-  "start_url": "/",
+  "start_url": "/login",
   "orientation": "any",
   "display": "standalone",
   "theme_color": "#ffffff"
