@@ -7,6 +7,16 @@
       "src":"iconimages.png",
       "size":"500x500",
       "type":"image/png"
+    },
+    {
+      "src":"iconsmall.png",
+      "size":"144x144",
+      "type":"image/png"
+    },
+    {
+      "src":"iconbig.png",
+      "size":"512x512",
+      "type":"image/png"
     }
   ],
   "start_url": "/login",
