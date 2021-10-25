@@ -10,6 +10,8 @@
 //    const el = document.createElement('pwa-update');
 //    document.body.appendChild(el);
 
+import "./sw";
+
 if ('serviceWorker' in navigator) {
    try{
     navigator.serviceWorker.register("sw.js");
