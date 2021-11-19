@@ -54,7 +54,7 @@ if (bandBtn) {
         chart.push(text);
     });
     const textChart = chart.join('    ');
-    console.log(textChart);
+    // console.log(textChart);
     bandBtn.addEventListener("click", () => window.open(`https://band.us/plugin/share?body=${textChart}&route=http://localhost:5000/saved`, "band-share", "width=100, height=240, resizable=no"));
 }
 
@@ -83,7 +83,7 @@ if(searchBtn){
         const inputValue = document.querySelector(".searchName").value;
         console.log(inputValue);
         if(inputValue === ""){
-            console.log("noting")
+            // console.log("noting")
             return;
         }
         window.location.href=`/search?name=${inputValue}`;

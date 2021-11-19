@@ -86,13 +86,9 @@ if(startBtn){
     if(timeSet !== undefined){
         timeBegin = parseInt(timeSet);
         const timeOut = Math.floor((new Date().getTime() - timeBegin)/1000);
-        //less 60s
-        if(timeOut < 60){
-            console.log(`${timeOut}초 지남`);
-        }
-        //7200s = 2hours
-        if (timeOut > 60 || nth >= 11){
-            console.log("60초 패스");
+        //7200s = 2hours 시작 버튼 누르고 두시간 지났거나, 10회 모두 체크 되었으면 
+        if (timeOut > 7200 || nth >= 11){
+            // console.log("2시간지남");
             timeBegin = undefined;
             startBtnSetting (nth);
         }else{
@@ -168,8 +164,10 @@ if (startUlBox){
         let minutes = Math.floor(timeDifferentBySecond);
         if(timeDifferentBySecond < 60){
             minutes = `${Math.floor(timeDifferentBySecond)}초`;
-        } else{
+        } else if (timeDifferentBySecond >= 60 && timeDifferentBySecond < 3600) {
             minutes = `${Math.floor(timeDifferentBySecond/60)}분`;
+        } else if (timeDifferentBySecond >= 3600){
+            minutes = `1시간 `;
         }
         
         let numberOfAbsence = 0;
@@ -182,18 +180,18 @@ if (startUlBox){
             const AbsenInnerTexts = `결석: ${absenceNumb}회.`
             showingListHandler(id, finishUlBox, AbsenInnerTexts);
         } else if (selectNode.className === "checkBox-checkIn"){
-            if(timeDifferentBySecond <= 3){
+            if(timeDifferentBySecond <= 180){
                 earnedMoney= entryFee * 0.1;
-                // console.log("3초 이하:", earnedMoney);
-            }else if (timeDifferentBySecond > 3 && timeDifferentBySecond <= 8){
+                // console.log("3분 이하:", earnedMoney);
+            }else if (timeDifferentBySecond > 180 && timeDifferentBySecond <= 1800){
                 earnedMoney= entryFee * 0.1 - 1000;
-                // console.log("3초 초과 8초이하:", earnedMoney);
-            }else if (timeDifferentBySecond > 8 && timeDifferentBySecond <= 13){
+                // console.log("3분 초과 30분 이하:", earnedMoney);
+            }else if (timeDifferentBySecond > 1800 && timeDifferentBySecond <= 3600){
                 earnedMoney= entryFee * 0.1 - 2000;
-                // console.log("8초 초과 13초이하:", earnedMoney);
-            } else if (timeDifferentBySecond > 13){
+                // console.log("30분 초과 1시간 이하:", earnedMoney);
+            } else if (timeDifferentBySecond > 3600){
                 earnedMoney= entryFee * 0.1 - 3000;
-                // console.log("13초 초과:", earnedMoney);
+                // console.log("1시간 초과:", earnedMoney);
             }
             const checkInnerTexts = `${minutes}후 출석: ${earnedMoney/1000}천원 적립`;
             showingListHandler(id, finishUlBox, checkInnerTexts);
