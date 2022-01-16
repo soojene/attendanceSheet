@@ -11,22 +11,26 @@
 ## 페이지
 - login and join
 - 네이버 간편 로그인
+<img width="710" alt="스크린샷 2022-01-16 오후 2 57 37" src="https://user-images.githubusercontent.com/73275204/149649170-4ef437ac-820e-4db0-a776-3c1f4036f3d2.png">
 
 - Home
   - 멤버 등록
   - 등록된 멤버 리스트
   - 출석 체크
-  
+<img width="528" alt="스크린샷 2022-01-16 오후 3 00 00" src="https://user-images.githubusercontent.com/73275204/149649173-c665c0d7-6d18-4d0d-961b-f8db79a01015.png">
+
 - Chart
   - 각 멤버의 출석에 대한 기록을 확인 할 수 있다.
   - 10회 모임이 끝나고 다음 회비 금액 확인
   - 각 멤버를 클릭하여 해당 멤버의 수정 페이지로 이동
   - 출석 기록을 밴드로 등록할 수 있는 기능
+<img width="279" alt="스크린샷 2022-01-16 오후 2 48 03" src="https://user-images.githubusercontent.com/73275204/149649177-ce892ddb-d398-41b5-b30d-0cb4ee702f2a.png">
 
 - Search & Edit
   - 이름으로 멤버를 검색하여 찾을 수 있다. 
   - 각 멤버의 출석기록을 수정 및 삭제.
-  
+<img width="282" alt="스크린샷 2022-01-16 오후 2 48 20" src="https://user-images.githubusercontent.com/73275204/149649179-decdb103-ab31-4442-84f4-7549e8d255c6.png">
+
 - Logout
 
 
